@@ -1,0 +1,32 @@
+{
+  "checks": {
+    "decodeExact": true,
+    "paddingDecoded": true,
+    "recordingFrames": true,
+    "allMovingParticles": true,
+    "webgl": true,
+    "exactRecordedPositions": true,
+    "allThermalParticles": true,
+    "fallback": true,
+    "mass": true,
+    "energy": true,
+    "hiddenViewNoDraw": true,
+    "editDoesNotRebuildGranules": true
+  },
+  "timings": {
+    "loadAll49Ms": 66.80000007152557,
+    "movingFrameMs": {
+      "median": 2.700000047683716,
+      "p95": 4.200000047683716,
+      "max": 13.899999976158142
+    },
+    "fallbackFrameMs": {
+      "median": 8,
+      "p95": 8.799999952316284,
+      "max": 14.700000047683716
+    }
+  },
+  "passed": true,
+  "defaultComputedSeconds": 5345.433788545308,
+  "pageErrors": []
+}

@@ -1,0 +1,22 @@
+/* node tests_motion.js — analytical/structural checks; not experimental validation. */
+const fs=require('node:fs'),vm=require('node:vm'),path=require('node:path');
+const ctx=vm.createContext({console});for(const f of ['model.js','mechanics.js','circuit.js','regional.js','motion.js'])vm.runInContext(fs.readFileSync(path.join(__dirname,f),'utf8'),ctx);
+const M=ctx.RotaryModel,P=ctx.RotaryMotion,checks=[];
+function check(name,ok,detail){checks.push({name,passed:!!ok,detail});if(!ok)throw Error(name+': '+JSON.stringify(detail));}
+function single(s,p){s.particles=[{...s.particles[0],x:0,y:0,z:s.L/2,vx:0,vy:0,vz:0,wx:0,wy:0,wz:0,...p}];s.count=1;return s;}
+const base=P.create(M.defaults);check('Representative count',base.count===320,base.count);
+const again=P.create(M.defaults);check('Deterministic reset',JSON.stringify(base.particles)===JSON.stringify(again.particles));
+const free=single(P.create({...M.defaults,rpm:0}));const dt=.0005,N=100;for(let i=0;i<N;i++)P.step(free,dt);const gz=-9.81*Math.sin(Math.PI/4),gy=-9.81*Math.cos(Math.PI/4),time=N*dt;
+check('Free-fall acceleration resolved',Math.abs(free.particles[0].vz-gz*time)<1e-10,free.particles[0].vz);
+check('Free-fall position converges to analytic trajectory',Math.abs(free.particles[0].y-.5*gy*time*time)<Math.abs(gy*time*dt),free.particles[0].y);
+const rot=single(P.create({...M.defaults,rpm:10}));for(let i=0;i<100;i++)P.step(rot,.001);check('Rigid vessel phase = omega*time',Math.abs(rot.angle-10*2*Math.PI/60*rot.seconds)<1e-12,rot.angle);
+const stopped=single(P.create({...M.defaults,rpm:0}));P.advance(stopped,.1);check('Zero RPM stops vessel phase',stopped.angle===0);
+const pair=single(P.create({...M.defaults,rpm:0}));pair.particles[0].x=-pair.radius*.95;pair.particles.push({...pair.particles[0],x:pair.radius*.95,id:1,path:[]});pair.count=2;P.step(pair,1e-5);
+check('Pair normal force equal and opposite',Math.abs(pair.particles[0].vx+pair.particles[1].vx)<1e-12&&pair.particles[0].vx<0&&pair.particles[1].vx>0);
+function wall(rpm,mu){const s=single(P.create({...M.defaults,rpm},{muWall:mu}));s.particles[0].x=s.R-s.radius+.001;P.step(s,1e-5);return s.particles[0].vy;}
+check('Rotating wall transfers tangential momentum',wall(10,.45)>wall(0,.45));
+check('Zero wall friction removes rotational forcing',Math.abs(wall(10,0)-wall(0,0))<1e-12);
+for(const angle of [0,45,90])for(const heads of [0,1,2]){const s=P.create({...M.defaults,angle,heads},{count:80});for(let i=0;i<10;i++)P.advance(s,.1);const finite=s.particles.every(p=>['x','y','z','vx','vy','vz','wx','wy','wz'].every(k=>Number.isFinite(p[k]))),gap=Math.min(...s.particles.map(p=>P.clearance(s,p).gap/s.radius));check('Finite and contained: '+angle+' deg, '+heads+' head(s)',finite&&gap>.53,{gap,count:s.count});}
+const melt=P.create(M.defaults,{count:80});P.phase(melt,.5);check('Proxy solid volume follows melt fraction',Math.abs((melt.radius/melt.baseRadius)**3-.5)<1e-12);P.phase(melt,1);P.advance(melt,.1);check('Fully liquid has no active solid contacts',melt.contacts===0&&melt.wallContacts===0&&melt.particles.every(p=>Number.isFinite(p.x)));
+check('Pause is controlled externally; zero advance does not move',(()=>{const x=melt.seconds;P.advance(melt,0);return melt.seconds===x;})());
+console.log(JSON.stringify({version:'1.5.0',experimentalValidation:false,thermalFeedback:false,checks},null,2));

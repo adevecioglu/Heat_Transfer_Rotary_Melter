@@ -1,0 +1,264 @@
+{
+  "version": "1.9",
+  "passed": true,
+  "checks": [
+    {
+      "name": "Interpolated thermal states conserve mass",
+      "passed": true,
+      "details": {
+        "maxKg": 1.4210854715202004e-14
+      }
+    },
+    {
+      "name": "Interpolated radial enthalpy conserves energy",
+      "passed": true,
+      "details": {
+        "maxRelative": 9.062178694867375e-11
+      }
+    },
+    {
+      "name": "Liquid level closes vessel-minus-solid volume",
+      "passed": true,
+      "details": {
+        "maxM3": 1.8221535391660382e-14
+      }
+    },
+    {
+      "name": "Physical 15 mm spheres retained at initial time",
+      "passed": true,
+      "details": {
+        "count": 45120,
+        "normalization": 1.0000000000000004
+      }
+    },
+    {
+      "name": "Prefix sum displaced volume matches independent sphere-cap summation",
+      "passed": true,
+      "details": {
+        "maxM3": 5.589553125906477e-12
+      }
+    },
+    {
+      "name": "Horizontal, inclined and vertical geometry contain shrinking granules",
+      "passed": true,
+      "details": [
+        {
+          "angle": 0,
+          "maxEscapeM": 0,
+          "liquidVolumeResidualM3": -2.0765724209614866e-15
+        },
+        {
+          "angle": 45,
+          "maxEscapeM": 0,
+          "liquidVolumeResidualM3": 1.8350121769317163e-15
+        },
+        {
+          "angle": 90,
+          "maxEscapeM": 0,
+          "liquidVolumeResidualM3": -1.3086320221900039e-16
+        }
+      ]
+    },
+    {
+      "name": "Liquid volume closes at horizontal, inclined and vertical orientations",
+      "passed": true,
+      "details": [
+        {
+          "angle": 0,
+          "maxEscapeM": 0,
+          "liquidVolumeResidualM3": -2.0765724209614866e-15
+        },
+        {
+          "angle": 45,
+          "maxEscapeM": 0,
+          "liquidVolumeResidualM3": 1.8350121769317163e-15
+        },
+        {
+          "angle": 90,
+          "maxEscapeM": 0,
+          "liquidVolumeResidualM3": -1.3086320221900039e-16
+        }
+      ]
+    },
+    {
+      "name": "Small melt fractions produce liquid without a 30 percent visibility gate",
+      "passed": true
+    },
+    {
+      "name": "End state has no finite solid mass",
+      "passed": true
+    },
+    {
+      "name": "Dense thermal output history covers start and final state",
+      "passed": true
+    }
+  ],
+  "samples": [
+    {
+      "seconds": 0,
+      "fraction": 0,
+      "solidMass": 71.2021240424613,
+      "liquidMass": 0,
+      "solidVolume": 0.07973362154810897,
+      "liquidVolume": 0,
+      "equivalentDiameterMm": 15,
+      "nearEquivalentDiameterMm": 15,
+      "coreEquivalentDiameterMm": 15,
+      "massResidualKg": 0,
+      "level": -0.22340097423302682,
+      "scale": 1,
+      "liquidVolumeResidual": 0
+    },
+    {
+      "seconds": 534.5433788545307,
+      "fraction": 0,
+      "solidMass": 71.2021240424613,
+      "liquidMass": 0,
+      "solidVolume": 0.07973362154810897,
+      "liquidVolume": 0,
+      "equivalentDiameterMm": 15,
+      "nearEquivalentDiameterMm": 15,
+      "coreEquivalentDiameterMm": 15,
+      "massResidualKg": 0,
+      "level": -0.22340097423302682,
+      "scale": 1,
+      "liquidVolumeResidual": 0
+    },
+    {
+      "seconds": 1069.0867577090614,
+      "fraction": 0.05581690433868129,
+      "solidMass": 67.22784189607233,
+      "liquidMass": 3.974282146388982,
+      "solidVolume": 0.07528313762158156,
+      "liquidVolume": 0.005082202233233992,
+      "equivalentDiameterMm": 14.715555667896963,
+      "nearEquivalentDiameterMm": 14.490249054527347,
+      "coreEquivalentDiameterMm": 14.834069574299626,
+      "massResidualKg": 1.4210854715202004e-14,
+      "level": -0.09625379247636656,
+      "scale": 0.9810370445264642,
+      "liquidVolumeResidual": 1.1796119636642288e-15
+    },
+    {
+      "seconds": 1603.6301365635923,
+      "fraction": 0.22943194524691052,
+      "solidMass": 54.8660822176876,
+      "liquidMass": 16.336041824773712,
+      "solidVolume": 0.06144018165474535,
+      "liquidVolume": 0.02089007905981293,
+      "equivalentDiameterMm": 13.751864756092012,
+      "nearEquivalentDiameterMm": 13.507722062760065,
+      "coreEquivalentDiameterMm": 13.879812014595878,
+      "massResidualKg": 0,
+      "level": 0.03992638687250579,
+      "scale": 0.9167909837394674,
+      "liquidVolumeResidual": -7.053385653321698e-15
+    },
+    {
+      "seconds": 2138.173515418123,
+      "fraction": 0.39393744840671535,
+      "solidMass": 43.152940976035666,
+      "liquidMass": 28.04918306642565,
+      "solidVolume": 0.04832356212322023,
+      "liquidVolume": 0.03586852054530134,
+      "equivalentDiameterMm": 12.693958545124103,
+      "nearEquivalentDiameterMm": 12.42103879271547,
+      "coreEquivalentDiameterMm": 12.836179051452193,
+      "massResidualKg": 1.4210854715202004e-14,
+      "level": 0.11254732140085086,
+      "scale": 0.8462639030082735,
+      "liquidVolumeResidual": -8.118505867571457e-16
+    },
+    {
+      "seconds": 2672.716894272654,
+      "fraction": 0.5503095839602801,
+      "solidMass": 32.01891278356617,
+      "liquidMass": 39.183211258895135,
+      "solidVolume": 0.0358554454463227,
+      "liquidVolume": 0.0501064082594567,
+      "equivalentDiameterMm": 11.492004913311726,
+      "nearEquivalentDiameterMm": 11.173197873764856,
+      "coreEquivalentDiameterMm": 11.65658379026888,
+      "massResidualKg": 0,
+      "level": 0.15562620407530114,
+      "scale": 0.7661336608874484,
+      "liquidVolumeResidual": -1.517536096784511e-14
+    },
+    {
+      "seconds": 3207.2602731271845,
+      "fraction": 0.6989012362981823,
+      "solidMass": 21.438871522128565,
+      "liquidMass": 49.76325252033274,
+      "solidVolume": 0.024007694873604216,
+      "liquidVolume": 0.06363587278814929,
+      "equivalentDiameterMm": 10.053738458826077,
+      "nearEquivalentDiameterMm": 9.658039796234808,
+      "coreEquivalentDiameterMm": 10.25449548357444,
+      "massResidualKg": 0,
+      "level": 0.16108829763159352,
+      "scale": 0.6702492305884051,
+      "liquidVolumeResidual": 1.8221535391660382e-14
+    },
+    {
+      "seconds": 3741.803651981715,
+      "fraction": 0.8372140474328605,
+      "solidMass": 11.590705587055686,
+      "liquidMass": 59.61141845540562,
+      "solidVolume": 0.012979513535336714,
+      "liquidVolume": 0.07622943536496882,
+      "equivalentDiameterMm": 8.190245141650358,
+      "nearEquivalentDiameterMm": 7.688772862485517,
+      "coreEquivalentDiameterMm": 8.436589337233341,
+      "massResidualKg": 0,
+      "level": 0.1651245366946199,
+      "scale": 0.5460163427766905,
+      "liquidVolumeResidual": 7.799316747991725e-15
+    },
+    {
+      "seconds": 4276.347030836246,
+      "fraction": 0.9552425814668544,
+      "solidMass": 3.186823266217392,
+      "liquidMass": 68.01530077624392,
+      "solidVolume": 0.0035686710707921523,
+      "liquidVolume": 0.08697608794916102,
+      "equivalentDiameterMm": 5.325735606893005,
+      "nearEquivalentDiameterMm": 4.887731734561478,
+      "coreEquivalentDiameterMm": 5.534433735067732,
+      "massResidualKg": 0,
+      "level": 0.16855654198239733,
+      "scale": 0.35504904045953367,
+      "liquidVolumeResidual": 5.4817261840867104e-15
+    },
+    {
+      "seconds": 4810.890409690777,
+      "fraction": 1,
+      "solidMass": 0,
+      "liquidMass": 71.2021240424613,
+      "solidVolume": 0,
+      "liquidVolume": 0.09105130951721395,
+      "equivalentDiameterMm": 0,
+      "nearEquivalentDiameterMm": 0,
+      "coreEquivalentDiameterMm": 0,
+      "massResidualKg": 0,
+      "level": 0.16985523447177975,
+      "scale": 0,
+      "liquidVolumeResidual": -2.7755575615628914e-15
+    },
+    {
+      "seconds": 5345.433788545308,
+      "fraction": 1,
+      "solidMass": 0,
+      "liquidMass": 71.2021240424613,
+      "solidVolume": 0,
+      "liquidVolume": 0.09105130951721395,
+      "equivalentDiameterMm": 0,
+      "nearEquivalentDiameterMm": 0,
+      "coreEquivalentDiameterMm": 0,
+      "massResidualKg": 0,
+      "level": 0.16985523447177975,
+      "scale": 0,
+      "liquidVolumeResidual": -2.7755575615628914e-15
+    }
+  ],
+  "scope": "Numerical/result-replay verification. Not full-duration thermo-DEM/CFD or experimental validation."
+}

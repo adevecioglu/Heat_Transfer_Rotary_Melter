@@ -1,0 +1,29 @@
+{
+  "accepted": false,
+  "experimentalValidation": false,
+  "stiffnessPerMass": 600000,
+  "reason": "Excessive contact compliance; preliminary run rejected.",
+  "diagnostic": {
+    "seconds": 0.05809475019311124,
+    "settledSeconds": 0.7503905233276884,
+    "wallSeconds": 134.52880850003567,
+    "count": 45120,
+    "diameterMm": 15,
+    "dt": 0.00019364916731037083,
+    "steps": 4175,
+    "contacts": 202336,
+    "wallContacts": 2835,
+    "overlapRatio": 0.40640134127758376,
+    "maxOverlapRatio": 0.6006317735059485,
+    "meanSpeed": 0.16903800228565424,
+    "phase": -0.06083668013960416,
+    "liquid": 0,
+    "rotationDirection": -1,
+    "massKg": 71.2021240424613,
+    "representedMassKg": 71.20212404246128,
+    "historyEntries": 205171,
+    "escaped": 0,
+    "elapsedWallSeconds": 134.8507995000109,
+    "workingSetBytes": 0
+  }
+}

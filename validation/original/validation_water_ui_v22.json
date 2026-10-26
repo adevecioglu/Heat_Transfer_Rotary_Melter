@@ -1,0 +1,42 @@
+{
+  "visible": true,
+  "denseFirstSeconds": true,
+  "denseFirst120": true,
+  "waterStorageIncluded": true,
+  "confirmedColdStart": true,
+  "initialBalance": true,
+  "jumpInitial": true,
+  "sourceExplained": true,
+  "english": true,
+  "passed": true,
+  "boilerInactive": true,
+  "backend": {
+    "backend": "webgl",
+    "count": 45120,
+    "capacity": 45120
+  },
+  "startup": [
+    {
+      "t": 0,
+      "Tin": 110,
+      "Tout": 25,
+      "flow": 946.5694444444445,
+      "storage": 946.5694444444445
+    },
+    {
+      "t": 0.10435952054858046,
+      "Tin": 110,
+      "Tout": 25,
+      "flow": 946.5694444444445,
+      "storage": 944.0823402471221
+    },
+    {
+      "t": 0.20871904109716094,
+      "Tin": 110,
+      "Tout": 25,
+      "flow": 946.5694444444445,
+      "storage": 941.6243097031384
+    }
+  ],
+  "pageErrors": []
+}

@@ -1,0 +1,51 @@
+{
+  "version": "1.6.0",
+  "experimentalValidation": false,
+  "checks": [
+    {
+      "name": "Physical granule diameter",
+      "passed": true
+    },
+    {
+      "name": "Radial temperature fields",
+      "passed": true
+    },
+    {
+      "name": "Cold center reaches target",
+      "passed": true
+    },
+    {
+      "name": "All-temperature bounds",
+      "passed": true
+    },
+    {
+      "name": "Energy conservation",
+      "passed": true,
+      "value": 6.7561084734737856e-15
+    },
+    {
+      "name": "Time refinement",
+      "passed": true
+    },
+    {
+      "name": "Boiler cap",
+      "passed": true
+    },
+    {
+      "name": "Adiabatic exterior",
+      "passed": true
+    },
+    {
+      "name": "Direction symmetry for unbaffled symmetric idealization",
+      "passed": true
+    },
+    {
+      "name": "Former estimated-step rejection removed",
+      "passed": true
+    },
+    {
+      "name": "No arbitrary maximum time/step input rejection",
+      "passed": true
+    }
+  ]
+}

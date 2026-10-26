@@ -1,0 +1,34 @@
+# Local environments and downloaded runtimes
+.venv/
+venv/
+.tools/
+node_modules/
+
+# Generated artifacts and original binary releases
+outputs/
+releases/
+dist/
+.build/
+build/
+*.spec
+
+# Python / Numba caches
+__pycache__/
+*.py[cod]
+*.nbc
+*.nbi
+.pytest_cache/
+.mplconfig/
+
+# Local data and credentials
+.env
+.env.*
+!.env.example
+workspace.json
+workspace.lock
+
+# Temporary files
+*.log
+*.tmp
+Thumbs.db
+.DS_Store

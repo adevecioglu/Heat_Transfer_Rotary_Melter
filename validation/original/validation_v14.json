@@ -1,0 +1,135 @@
+{
+  "version": "1.4.0",
+  "validatedExperimentally": false,
+  "tests": [
+    {
+      "name": "Conservative energy ledger",
+      "passed": true,
+      "detail": 5.5466362231099804e-15
+    },
+    {
+      "name": "Actual half time step",
+      "passed": true,
+      "detail": 0.055385289458810716
+    },
+    {
+      "name": "Time sensitivity below selected 2% screen",
+      "passed": true,
+      "detail": 0.00001041308676821503
+    },
+    {
+      "name": "Regional-grid sensitivity below selected 2% screen",
+      "passed": true,
+      "detail": 0.00037221217135065607
+    },
+    {
+      "name": "48 surface cells independently stored",
+      "passed": true
+    },
+    {
+      "name": "Positive water cooling across jacket",
+      "passed": true
+    },
+    {
+      "name": "Temperatures respect initial/source bounds",
+      "passed": true
+    },
+    {
+      "name": "Adiabatic exterior has zero ambient loss",
+      "passed": true,
+      "detail": 0
+    },
+    {
+      "name": "Limited boiler respects rated delivered power",
+      "passed": true,
+      "detail": 1.9
+    },
+    {
+      "name": "Angle 0 bounded and conservative",
+      "passed": true,
+      "detail": 1.5328409520740736e-15
+    },
+    {
+      "name": "Angle 15 bounded and conservative",
+      "passed": true,
+      "detail": 3.756056786059844e-15
+    },
+    {
+      "name": "Angle 45 bounded and conservative",
+      "passed": true,
+      "detail": 4.638137399214545e-15
+    },
+    {
+      "name": "Angle 75 bounded and conservative",
+      "passed": true,
+      "detail": 4.131376234470012e-15
+    },
+    {
+      "name": "Angle 90 bounded and conservative",
+      "passed": true,
+      "detail": 1.5263939472219835e-15
+    },
+    {
+      "name": "Serial water nodes match analytic steady cascade",
+      "passed": true,
+      "detail": [
+        0,
+        -1.0335167065601458e-14,
+        -1.2631870857957336e-14
+      ]
+    }
+  ],
+  "convergence": {
+    "base": {
+      "axial": 6,
+      "angular": 8,
+      "dt": 0.11077057891762143,
+      "targetReached": true,
+      "targetHours": 1.477464135523784,
+      "coreFinal": 75.00132107172983,
+      "energyKWh": 10.39616956488253,
+      "balanceRelative": 5.5466362231099804e-15
+    },
+    "halfTimeStep": {
+      "axial": 6,
+      "angular": 8,
+      "dt": 0.055385289458810716,
+      "targetReached": true,
+      "targetHours": 1.477448750721747,
+      "coreFinal": 75.00053877245495,
+      "energyKWh": 10.396102040013664,
+      "balanceRelative": 1.2673035307350646e-14
+    },
+    "coarse": {
+      "axial": 3,
+      "angular": 4,
+      "dt": 0.20581094188289517,
+      "targetReached": true,
+      "targetHours": 1.4773795444835733,
+      "coreFinal": 75.00191449899884,
+      "energyKWh": 10.392743139032152,
+      "balanceRelative": 5.073375731136177e-15
+    },
+    "fine": {
+      "axial": 12,
+      "angular": 16,
+      "dt": 0.05757140402607764,
+      "targetReached": true,
+      "targetHours": 1.4769144100043372,
+      "coreFinal": 75.00010788153436,
+      "energyKWh": 10.396956954631303,
+      "balanceRelative": 1.110265298652874e-14
+    },
+    "timeDifference": 0.00001041308676821503,
+    "gridDifference": 0.00037221217135065607,
+    "note": "Numerical sensitivity only; not experimental validation. Two percent is a selected screening tolerance, not a standard."
+  },
+  "defaultCase": {
+    "massKg": 71.2021240424613,
+    "hours": 1.477464135523784,
+    "waterIn": 110,
+    "waterOut": 109.62805903112508,
+    "surfaceMin": 109.0014596995521,
+    "surfaceMax": 109.24873619309761
+  }
+}

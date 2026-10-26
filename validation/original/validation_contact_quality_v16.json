@@ -1,0 +1,10 @@
+{
+  "pairOverlapOverRadiusPercentiles": {
+    "p50": 0.0003215546450962883,
+    "p95": 0.0023130653001479273,
+    "p99": 0.004548634369336901,
+    "max": 0.034401252506499155
+  },
+  "wallContactsIncludedInOverallMaximum": true,
+  "quantitativeDenseFlowVerified": false
+}

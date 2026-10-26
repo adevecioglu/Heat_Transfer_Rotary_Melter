@@ -1,0 +1,34 @@
+{
+  "version": "2.0",
+  "passed": true,
+  "checks": [
+    {
+      "name": "Missing workspace opens empty",
+      "passed": true
+    },
+    {
+      "name": "UTF-8 and draft roundtrip",
+      "passed": true
+    },
+    {
+      "name": "Stale revision cannot overwrite existing data",
+      "passed": true
+    },
+    {
+      "name": "Duplicate identifiers rejected without data loss",
+      "passed": true
+    },
+    {
+      "name": "NaN rejected without replacing the file",
+      "passed": true
+    },
+    {
+      "name": "Concurrent windows cannot both commit the same revision",
+      "passed": true
+    },
+    {
+      "name": "Corrupt record preserved for recovery",
+      "passed": true
+    }
+  ]
+}

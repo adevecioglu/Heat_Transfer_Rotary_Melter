@@ -1,0 +1,204 @@
+{
+  "version": "1.6.0",
+  "passed": true,
+  "cases": [
+    {
+      "version": "1.6.0",
+      "kind": "independent integration and assembly; shared documented coefficients",
+      "experimentalValidation": false,
+      "sharedInputs": "Exported geometry, wet-area table, material/contact/film coefficients. Python separately assembles all ODE fluxes; BDF/Radau differ from JS midpoint RK2.",
+      "javascript": {
+        "seconds": 8287.103998348119,
+        "energyInKWh": 11.375930236504878,
+        "balanceRelative": 2.958170607806926e-16
+      },
+      "references": [
+        {
+          "method": "BDF",
+          "success": true,
+          "targetReached": true,
+          "seconds": 8287.02490209304,
+          "targetHours": 2.3019513616925114,
+          "nearCenter": 81.55563160092909,
+          "coreCenter": 75.0,
+          "waterIn": 110.0,
+          "waterOut": 109.72771206369718,
+          "energyInKWh": 11.375863373020813,
+          "lossKWh": 3.8702260848684995,
+          "balanceJ": -1.5072524547576904e-05,
+          "balanceRelative": 3.6804348268250406e-13,
+          "nfev": 5847,
+          "njev": 110,
+          "nlu": 581,
+          "wallSeconds": 1.9987126999767497,
+          "relativeTimeDifferenceFromJS": 9.544590008195458e-06,
+          "waterOutDifferenceC": -2.245138844614303e-06,
+          "energyInRelativeDifference": 5.8776623692240316e-06
+        },
+        {
+          "method": "Radau",
+          "success": true,
+          "targetReached": true,
+          "seconds": 8287.02461565992,
+          "targetHours": 2.3019512821277557,
+          "nearCenter": 81.55563302284133,
+          "coreCenter": 75.0,
+          "waterIn": 110.0,
+          "waterOut": 109.72771207016832,
+          "energyInKWh": 11.375863261684845,
+          "lossKWh": 3.8702259504930505,
+          "balanceJ": -1.50240957736969e-05,
+          "balanceRelative": 3.668609441882412e-13,
+          "nfev": 13264,
+          "njev": 188,
+          "nlu": 2332,
+          "wallSeconds": 4.60765929997433,
+          "relativeTimeDifferenceFromJS": 9.57915438650406e-06,
+          "waterOutDifferenceC": -2.23866770454606e-06,
+          "energyInRelativeDifference": 5.887449461406365e-06
+        }
+      ],
+      "geometry": {
+        "method": "SciPy QUADPACK independent meridian quadrature",
+        "volumeM3": 0.2491675673378405,
+        "areaM2": 1.8613936472519526,
+        "volumeRelativeDifference": 0.0,
+        "areaRelativeDifference": 0.0
+      },
+      "passed": true,
+      "case": "low_rpm"
+    },
+    {
+      "version": "1.6.0",
+      "kind": "independent integration and assembly; shared documented coefficients",
+      "experimentalValidation": false,
+      "sharedInputs": "Exported geometry, wet-area table, material/contact/film coefficients. Python separately assembles all ODE fluxes; BDF/Radau differ from JS midpoint RK2.",
+      "javascript": {
+        "seconds": 5598.346410130711,
+        "energyInKWh": 9.872368092727664,
+        "balanceRelative": 2.5588290681108127e-13
+      },
+      "references": [
+        {
+          "method": "BDF",
+          "success": true,
+          "targetReached": true,
+          "seconds": 5598.339817596654,
+          "targetHours": 1.5550943937768484,
+          "nearCenter": 76.72543118965388,
+          "coreCenter": 75.0,
+          "waterIn": 110.0,
+          "waterOut": 109.6336932435643,
+          "energyInKWh": 9.872360315605412,
+          "lossKWh": 2.466010612992567,
+          "balanceJ": -6.105750799179077e-06,
+          "balanceRelative": 1.717970003566312e-13,
+          "nfev": 5119,
+          "njev": 105,
+          "nlu": 548,
+          "wallSeconds": 2.3198834999930114,
+          "relativeTimeDifferenceFromJS": 1.1775873333222785e-06,
+          "waterOutDifferenceC": -5.700017879917141e-07,
+          "energyInRelativeDifference": 7.877672615728278e-07
+        },
+        {
+          "method": "Radau",
+          "success": true,
+          "targetReached": true,
+          "seconds": 5598.339829034079,
+          "targetHours": 1.5550943969539108,
+          "nearCenter": 76.72543015036317,
+          "coreCenter": 75.0,
+          "waterIn": 110.0,
+          "waterOut": 109.63369323207324,
+          "energyInKWh": 9.872360304428833,
+          "lossKWh": 2.4660106216893167,
+          "balanceJ": -6.083399057388306e-06,
+          "balanceRelative": 1.7116809145819734e-13,
+          "nfev": 11974,
+          "njev": 182,
+          "nlu": 2174,
+          "wallSeconds": 4.380643299955409,
+          "relativeTimeDifferenceFromJS": 1.1755443278923543e-06,
+          "waterOutDifferenceC": -5.814928414338283e-07,
+          "energyInRelativeDifference": 7.88899370624935e-07
+        }
+      ],
+      "geometry": {
+        "method": "SciPy QUADPACK independent meridian quadrature",
+        "volumeM3": 0.2491675673378405,
+        "areaM2": 1.8613936472519526,
+        "volumeRelativeDifference": 0.0,
+        "areaRelativeDifference": 0.0
+      },
+      "passed": true,
+      "case": "small_granules"
+    },
+    {
+      "version": "1.6.0",
+      "kind": "independent integration and assembly; shared documented coefficients",
+      "experimentalValidation": false,
+      "sharedInputs": "Exported geometry, wet-area table, material/contact/film coefficients. Python separately assembles all ODE fluxes; BDF/Radau differ from JS midpoint RK2.",
+      "javascript": {
+        "seconds": 7215.252063404296,
+        "energyInKWh": 8.504487596763548,
+        "balanceRelative": 4.763851540561202e-15
+      },
+      "references": [
+        {
+          "method": "BDF",
+          "success": true,
+          "targetReached": true,
+          "seconds": 7215.211323116085,
+          "targetHours": 2.004225367532246,
+          "nearCenter": 75.12665253866741,
+          "coreCenter": 75.0,
+          "waterIn": 90.0,
+          "waterOut": 89.77501597151019,
+          "energyInKWh": 8.5044593692062,
+          "lossKWh": 2.5394901483698207,
+          "balanceJ": -1.3276934623718262e-05,
+          "balanceRelative": 4.3365924103668604e-13,
+          "nfev": 4764,
+          "njev": 100,
+          "nlu": 503,
+          "wallSeconds": 2.0975870999973267,
+          "relativeTimeDifferenceFromJS": 5.646444211624252e-06,
+          "waterOutDifferenceC": -2.126549517811327e-06,
+          "energyInRelativeDifference": 3.319147769669869e-06
+        },
+        {
+          "method": "Radau",
+          "success": true,
+          "targetReached": true,
+          "seconds": 7215.211691386843,
+          "targetHours": 2.0042254698296786,
+          "nearCenter": 75.1266525363803,
+          "coreCenter": 75.0,
+          "waterIn": 90.0,
+          "waterOut": 89.77501597294456,
+          "energyInKWh": 8.50445950477405,
+          "lossKWh": 2.539490278583952,
+          "balanceJ": -1.2185424566268921e-05,
+          "balanceRelative": 3.9800767531397074e-13,
+          "nfev": 10497,
+          "njev": 157,
+          "nlu": 1894,
+          "wallSeconds": 4.29401939996751,
+          "relativeTimeDifferenceFromJS": 5.595403042834706e-06,
+          "waterOutDifferenceC": -2.125115145190648e-06,
+          "energyInRelativeDifference": 3.303206921204115e-06
+        }
+      ],
+      "geometry": {
+        "method": "SciPy QUADPACK independent meridian quadrature",
+        "volumeM3": 0.2491675673378405,
+        "areaM2": 1.8613936472519526,
+        "volumeRelativeDifference": 0.0,
+        "areaRelativeDifference": 0.0
+      },
+      "passed": true,
+      "case": "cooler_supply"
+    }
+  ]
+}

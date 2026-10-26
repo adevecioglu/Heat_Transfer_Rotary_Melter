@@ -1,0 +1,24 @@
+/* Run: node tests_v14.js. Numerical verification does not validate equipment. */
+const fs=require('node:fs'),vm=require('node:vm'),path=require('node:path');
+const context=vm.createContext({console});
+for(const file of ['model.js','mechanics.js','circuit.js','regional.js'])vm.runInContext(fs.readFileSync(path.join(__dirname,file),'utf8'),context,{filename:file});
+const M=context.RotaryModel,checks=[];
+function check(name,passed,value){checks.push({name,passed:!!passed,value});if(!passed)throw Error(name);}
+const r=M.simulate({...M.defaults}),v=M.verifyCase({...M.defaults});
+check('Energy ledger',r.balanceRelative<1e-10,r.balanceRelative);
+check('Effective step halved',Math.abs(v.halfTimeStep.dt*2/r.dt-1)<1e-10,v.halfTimeStep.dt);
+check('Time sensitivity < selected 2% screen',v.timeDifference<.02,v.timeDifference);
+check('Grid sensitivity < selected 2% screen',v.gridDifference<.02,v.gridDifference);
+check('Surface fields',r.last.outerSurface.length===48&&r.last.innerSurface.length===48);
+check('Supply warmer than return',r.last.waterIn>r.last.waterOut);
+check('Temperature bounds',r.hist.every(p=>[...p.innerSurface,...p.outerSurface,...p.waterZones,p.coreProduct,p.nearProduct].every(t=>Number.isFinite(t)&&t>=24.99&&t<=110.01)));
+const adiabatic=M.simulate({...M.defaults,externalH:0,emissivity:0,extraUA:0},{noHistory:true});
+check('Adiabatic exterior',Math.abs(adiabatic.lossKWh)<1e-12,adiabatic.lossKWh);
+const limited=M.simulate({...M.defaults,boiler:2,maxHours:.1},{noHistory:true});
+check('Heater power cap',limited.peakKW<=2*limited.c.efficiency+1e-10,limited.peakKW);
+for(const angle of [0,15,45,75,90]){const a=M.simulate({...M.defaults,angle,maxHours:.02},{noHistory:true});check('Inclination '+angle,Number.isFinite(a.last.coreProduct)&&a.balanceRelative<1e-10,a.balanceRelative);}
+const F=120,G=[30,50,40],wall=[20,30,25],C=[100,110,90],Tin=100,steady=[];
+for(let i=0;i<3;i++)steady.push((F*(i?steady[i-1]:Tin)+G[i]*wall[i])/(F+G[i]));
+const d=M.waterCascadeDerivative(steady,Tin,F,G,wall,C);
+check('Independent steady water cascade',Math.max(...d.map(Math.abs))<1e-12,d);
+console.log(JSON.stringify({version:'1.4.0',validatedExperimentally:false,checks,convergence:v},null,2));

@@ -1,0 +1,15 @@
+{
+  "python.defaultInterpreterPath": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
+  "python.terminal.activateEnvironment": true,
+  "terminal.integrated.cwd": "${workspaceFolder}",
+  "terminal.integrated.env.windows": {
+    "PATH": "${workspaceFolder}\\.tools\\node;C:\\Program Files\\Git\\cmd;${env:PATH}"
+  },
+  "git.path": "C:\\Program Files\\Git\\cmd\\git.exe",
+  "git.useEditorAsCommitInput": false,
+  "git.showCommitInput": true,
+  "markdown.math.enabled": true,
+  "markdown-preview-enhanced.mathRenderingOption": "KaTeX",
+  "python.testing.unittestEnabled": true,
+  "python.testing.unittestArgs": ["-v", "-s", "tests", "-p", "test_*.py"]
+}

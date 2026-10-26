@@ -1,0 +1,75 @@
+{
+  "before": {
+    "meltMs": {
+      "median": 63.200000047683716,
+      "p95": 68.29999995231628,
+      "max": 1472.5,
+      "mean": 121.10833333432674
+    },
+    "bodyMs": {
+      "median": 2110.3000000715256,
+      "p95": 2265.399999976158,
+      "max": 2561.7000000476837,
+      "mean": 1689.308333342274
+    },
+    "inputMs": {
+      "median": 1521.1999999284744,
+      "p95": 1552.0999999046326,
+      "max": 1670.3999999761581,
+      "mean": 1523.2599999666213
+    },
+    "particles": 45120,
+    "axial": 16,
+    "angular": 16,
+    "radial": 24,
+    "computedSeconds": 5345.433788545308,
+    "version": "20",
+    "pageErrors": []
+  },
+  "after": {
+    "meltMs": {
+      "median": 4.200000047683716,
+      "p95": 6.700000047683716,
+      "max": 11.799999952316284,
+      "mean": 4.8125
+    },
+    "bodyMs": {
+      "median": 1.399999976158142,
+      "p95": 1.5,
+      "max": 1.7000000476837158,
+      "mean": 1.3499999890724819
+    },
+    "inputMs": {
+      "median": 8,
+      "p95": 8.199999928474426,
+      "max": 9.600000023841858,
+      "mean": 8.140000009536744
+    },
+    "particles": 45120,
+    "renderer": {
+      "backend": "webgl",
+      "count": 45120,
+      "capacity": 45120
+    },
+    "axial": 16,
+    "angular": 16,
+    "radial": 24,
+    "computedSeconds": 5345.433788545308,
+    "version": "21",
+    "pageErrors": []
+  },
+  "actualRecordedMotion": {
+    "loadAll49Ms": 66.80000007152557,
+    "movingFrameMs": {
+      "median": 2.700000047683716,
+      "p95": 4.200000047683716,
+      "max": 13.899999976158142
+    },
+    "fallbackFrameMs": {
+      "median": 8,
+      "p95": 8.799999952316284,
+      "max": 14.700000047683716
+    }
+  },
+  "scope": "Warm processing times in the same local headless Edge setup; not total physical-solver runtime or guaranteed FPS. All physical particles retained."
+}

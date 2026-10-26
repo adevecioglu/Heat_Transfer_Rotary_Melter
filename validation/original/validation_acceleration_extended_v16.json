@@ -1,0 +1,49 @@
+{
+  "version": "1.6.0",
+  "sameForceLaw": true,
+  "experimentalValidation": false,
+  "checks": [
+    {
+      "name": "Full 45120-sphere A/B 10 steps",
+      "passed": true,
+      "maxStateDifference": 1.7497114868092467e-12,
+      "runs": [
+        {
+          "method": "integrate",
+          "wallSeconds": 2.6047577999997884,
+          "contacts": 129992
+        },
+        {
+          "method": "integrate_fast",
+          "wallSeconds": 0.15056949999416247,
+          "contacts": 129992
+        }
+      ],
+      "speedup": 17.299372051449822
+    },
+    {
+      "name": "Full 45120-sphere A/B 100 steps",
+      "passed": true,
+      "maxStateDifference": 6.208999980827912e-11,
+      "runs": [
+        {
+          "method": "integrate",
+          "wallSeconds": 2.7710917000076734,
+          "contacts": 129357
+        },
+        {
+          "method": "integrate_fast",
+          "wallSeconds": 1.0117745000170544,
+          "contacts": 129357
+        }
+      ],
+      "speedup": 2.738843190810763
+    },
+    {
+      "name": "Moving-pair Verlet-list rebuild",
+      "passed": true,
+      "maxStateDifference": 0.0
+    }
+  ],
+  "passed": true
+}

@@ -1,0 +1,13 @@
+{
+  "version": "1.6",
+  "axial": 32,
+  "angular": 48,
+  "radial": 12,
+  "estimatedStepsAtMaxDuration": 4387430.945444413,
+  "formerRejectionThreshold": 3500000,
+  "actualSteps": 9321,
+  "targetReached": true,
+  "physicalSeconds": 183.55488895757142,
+  "wallSeconds": 2.211859300002456,
+  "balanceRelative": 6.458578649104716e-15
+}

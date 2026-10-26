@@ -1,0 +1,20 @@
+name: Calculation and workflow checks
+on: [push, pull_request]
+jobs:
+  verify:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.10'
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '24'
+          package-manager-cache: false
+      - name: Create local environment
+        run: python -m venv .venv
+      - name: Install application requirements
+        run: .\.venv\Scripts\python.exe -m pip install -r requirements.txt
+      - name: Verify numerical and workflow checks
+        run: .\.venv\Scripts\python.exe -m tools.RunChecks

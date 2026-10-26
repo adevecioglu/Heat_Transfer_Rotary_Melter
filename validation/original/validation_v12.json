@@ -1,0 +1,226 @@
+{
+  "date": "2026-10-20",
+  "scope": "Numerical verification only; particle/RPM/contact coefficients uncalibrated",
+  "checks": [
+    {
+      "name": "Half bulk fill computes mass instead of silently retaining 180 kg",
+      "passed": true,
+      "data": 71.2021240424613
+    },
+    {
+      "name": "Half bulk fill is not half empty in every section",
+      "passed": true,
+      "data": {
+        "low": 1,
+        "high": 0
+      }
+    },
+    {
+      "name": "Horizontal half cylinder has half wet circumference",
+      "passed": true,
+      "data": 0.4999999999999994
+    },
+    {
+      "name": "Tilted volume integral matches requested fill",
+      "passed": true,
+      "data": 0.499999999999999
+    },
+    {
+      "name": "Wetted area quadrature convergence",
+      "passed": true,
+      "data": {
+        "base": 0.5537332877103366,
+        "fine": 0.5538126567015588
+      }
+    },
+    {
+      "name": "Empty/full contact limits",
+      "passed": true,
+      "data": {
+        "empty": 0,
+        "full": 1
+      }
+    },
+    {
+      "name": "Analytic charge energy",
+      "passed": true,
+      "data": 5.930543581703339
+    },
+    {
+      "name": "Five-node energy conservation",
+      "passed": true,
+      "data": 1.6020203474909067e-7
+    },
+    {
+      "name": "Half-step target-time convergence",
+      "passed": true,
+      "data": {
+        "base": 5252,
+        "half": 5251.5
+      }
+    },
+    {
+      "name": "Half-step energy convergence",
+      "passed": true,
+      "data": {
+        "base": 10.351548885598152,
+        "half": 10.350921861247617
+      }
+    },
+    {
+      "name": "Both product regions reach target",
+      "passed": true,
+      "data": {
+        "near": 77.78998498861552,
+        "core": 75.0138842667474
+      }
+    },
+    {
+      "name": "Particle bed temperatures are distinguished",
+      "passed": true,
+      "data": {
+        "near": 77.78998498861552,
+        "core": 75.0138842667474
+      }
+    },
+    {
+      "name": "Wetted area changes with melting porosity",
+      "passed": true,
+      "data": [
+        0.5537332877103366,
+        0.5388248743817237,
+        0.5237288115917741,
+        0.5088198863260147,
+        0.4937429332860823,
+        0.4790608453259488,
+        0.46444068244247483,
+        0.4500384679926708,
+        0.43554896723084474
+      ]
+    },
+    {
+      "name": "Stationary bed has no rotation mixing term",
+      "passed": true,
+      "data": 0
+    },
+    {
+      "name": "Rotation mixing conservatively adds conductance",
+      "passed": true,
+      "data": 590.977629552429
+    },
+    {
+      "name": "Higher particle contact resistance reduces conduction",
+      "passed": true,
+      "data": {
+        "base": 0.13654415417957397,
+        "highR": 0.06993082547162456
+      }
+    },
+    {
+      "name": "Particle size enters contact conduction",
+      "passed": true,
+      "data": {
+        "base": 0.13654415417957397,
+        "small": 0.11611700403680868
+      }
+    },
+    {
+      "name": "Effective conductivity between series and parallel bounds",
+      "passed": true,
+      "data": {
+        "kBed": 0.08210886073442908,
+        "kSeries": 0.0625387144422738,
+        "kParallel": 0.14081929961089495,
+        "conductance": 0.13654415417957397,
+        "mixing": 590.977629552429,
+        "total": 591.1141737066085,
+        "solidContactK": 0.20428015564202334,
+        "particleBi": 1.1904761904761905
+      }
+    },
+    {
+      "name": "Fully molten bed recovers liquid conductivity",
+      "passed": true,
+      "data": 0.17
+    },
+    {
+      "name": "Adiabatic five-node energy",
+      "passed": true,
+      "data": 1.6894773580133915e-8
+    },
+    {
+      "name": "Declared RPM scenario changes target time",
+      "passed": true,
+      "data": {
+        "base": 5252,
+        "more": 4142
+      }
+    },
+    {
+      "name": "180 kg still flagged for volume",
+      "passed": true,
+      "data": 1.264007235884264
+    },
+    {
+      "name": "Old inputs preserve original model modes",
+      "passed": true,
+      "data": {
+        "charge": 0,
+        "tilt": 0,
+        "bed": 0
+      }
+    },
+    {
+      "name": "Hydraulic component sum",
+      "passed": true,
+      "data": 174655.93709927562
+    },
+    {
+      "name": "Hydraulic flow dependence",
+      "passed": true,
+      "data": {
+        "base": 174655.93709927562,
+        "double": 681476.1878130706
+      }
+    },
+    {
+      "name": "Circular laminar Darcy factor",
+      "passed": true,
+      "data": 0.064
+    },
+    {
+      "name": "Laminar annulus matches exact Poiseuille loss",
+      "passed": true,
+      "data": {
+        "model": 0.024056518530430247,
+        "exact": 0.024056518530430324
+      }
+    },
+    {
+      "name": "Manufacturer losses added once",
+      "passed": true,
+      "data": 2.246559370992756
+    },
+    {
+      "name": "Pump input includes efficiency",
+      "passed": true,
+      "data": 0.8085923013855353
+    },
+    {
+      "name": "Invalid annular geometry rejected",
+      "passed": true,
+      "data": true
+    }
+  ],
+  "example": {
+    "mass": 71.2021240424613,
+    "fill": 0.5000000000000001,
+    "wetInitial": 0.5537332877103366,
+    "targetHours": 1.458888888888889,
+    "meltHours": 1.251111111111111,
+    "productKWh": 5.930543581703339,
+    "lossKWh": 2.4388111510024864,
+    "hydraulicBar": 1.7465593709927563,
+    "energyBalanceJ": 1.6020203474909067e-7
+  }
+}

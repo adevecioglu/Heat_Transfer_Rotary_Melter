@@ -1,0 +1,17 @@
+{
+  "version": "1.6.0",
+  "definition": "Viewed from opening toward shaft",
+  "checks": [
+    {
+      "direction": -1,
+      "positionDerivativeWallVelocityError": 1.6498276065509282e-8,
+      "passed": true
+    },
+    {
+      "direction": 1,
+      "positionDerivativeWallVelocityError": 1.6907254401370842e-8,
+      "passed": true
+    }
+  ],
+  "passed": true
+}

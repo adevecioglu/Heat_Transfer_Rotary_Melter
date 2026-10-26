@@ -1,0 +1,69 @@
+{
+  "date": "2026-10-20",
+  "routeChecks": [
+    {
+      "heads": 0,
+      "angle": 0,
+      "waterIntrusions": 0
+    },
+    {
+      "heads": 0,
+      "angle": 45,
+      "waterIntrusions": 0
+    },
+    {
+      "heads": 0,
+      "angle": 90,
+      "waterIntrusions": 0
+    },
+    {
+      "heads": 1,
+      "angle": 0,
+      "waterIntrusions": 0
+    },
+    {
+      "heads": 1,
+      "angle": 45,
+      "waterIntrusions": 0
+    },
+    {
+      "heads": 1,
+      "angle": 90,
+      "waterIntrusions": 0
+    },
+    {
+      "heads": 2,
+      "angle": 0,
+      "waterIntrusions": 0
+    },
+    {
+      "heads": 2,
+      "angle": 45,
+      "waterIntrusions": 0
+    },
+    {
+      "heads": 2,
+      "angle": 90,
+      "waterIntrusions": 0
+    }
+  ],
+  "circuit": {
+    "waterRoute": [
+      "Rotary joint alt giriş",
+      "Mil besleme kanalı",
+      "Bombeli bölüm ceketi",
+      "Silindirik gövde ceketi",
+      "Mil ayrı dönüş kanalı",
+      "Rotary joint yan çıkış"
+    ],
+    "massFlowIn": 2.638888888888889,
+    "massFlowOut": 2.638888888888889,
+    "waterToProductMassFlow": 0,
+    "thermalRoute": [
+      "Ceket suyu",
+      "316 iç metal cidar",
+      "Ürün"
+    ],
+    "assumption": "Sızdırmaz metal sınırı; kaçak ve su-ürün karışımı yok. Ceket içi dağıtım yaklaşık."
+  }
+}

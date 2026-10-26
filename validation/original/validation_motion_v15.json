@@ -1,0 +1,131 @@
+{
+  "version": "1.5.0",
+  "experimentalValidation": false,
+  "thermalFeedback": false,
+  "checks": [
+    {
+      "name": "Representative count",
+      "passed": true,
+      "detail": 320
+    },
+    {
+      "name": "Deterministic reset",
+      "passed": true
+    },
+    {
+      "name": "Free-fall acceleration resolved",
+      "passed": true,
+      "detail": -0.34683587617200207
+    },
+    {
+      "name": "Free-fall position converges to analytic trajectory",
+      "passed": true,
+      "detail": -0.008757605873343049
+    },
+    {
+      "name": "Rigid vessel phase = omega*time",
+      "passed": true,
+      "detail": 0.10471975511965988
+    },
+    {
+      "name": "Zero RPM stops vessel phase",
+      "passed": true
+    },
+    {
+      "name": "Pair normal force equal and opposite",
+      "passed": true
+    },
+    {
+      "name": "Rotating wall transfers tangential momentum",
+      "passed": true
+    },
+    {
+      "name": "Zero wall friction removes rotational forcing",
+      "passed": true
+    },
+    {
+      "name": "Finite and contained: 0 deg, 0 head(s)",
+      "passed": true,
+      "detail": {
+        "gap": 0.8963000384502604,
+        "count": 80
+      }
+    },
+    {
+      "name": "Finite and contained: 0 deg, 1 head(s)",
+      "passed": true,
+      "detail": {
+        "gap": 0.9355952240106359,
+        "count": 80
+      }
+    },
+    {
+      "name": "Finite and contained: 0 deg, 2 head(s)",
+      "passed": true,
+      "detail": {
+        "gap": 0.9390980957618648,
+        "count": 80
+      }
+    },
+    {
+      "name": "Finite and contained: 45 deg, 0 head(s)",
+      "passed": true,
+      "detail": {
+        "gap": 0.9139466450580147,
+        "count": 80
+      }
+    },
+    {
+      "name": "Finite and contained: 45 deg, 1 head(s)",
+      "passed": true,
+      "detail": {
+        "gap": 0.7496890324165071,
+        "count": 80
+      }
+    },
+    {
+      "name": "Finite and contained: 45 deg, 2 head(s)",
+      "passed": true,
+      "detail": {
+        "gap": 0.9097353185331558,
+        "count": 80
+      }
+    },
+    {
+      "name": "Finite and contained: 90 deg, 0 head(s)",
+      "passed": true,
+      "detail": {
+        "gap": 0.886271872551384,
+        "count": 80
+      }
+    },
+    {
+      "name": "Finite and contained: 90 deg, 1 head(s)",
+      "passed": true,
+      "detail": {
+        "gap": 0.854083656905065,
+        "count": 80
+      }
+    },
+    {
+      "name": "Finite and contained: 90 deg, 2 head(s)",
+      "passed": true,
+      "detail": {
+        "gap": 0.8229312015738302,
+        "count": 80
+      }
+    },
+    {
+      "name": "Proxy solid volume follows melt fraction",
+      "passed": true
+    },
+    {
+      "name": "Fully liquid has no active solid contacts",
+      "passed": true
+    },
+    {
+      "name": "Pause is controlled externally; zero advance does not move",
+      "passed": true
+    }
+  ]
+}

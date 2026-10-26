@@ -1,0 +1,17 @@
+{
+  "passed": true,
+  "comparedTo": "1.9",
+  "identicalFiles": {
+    "model.js": true,
+    "mechanics.js": true,
+    "circuit.js": true,
+    "regional.js": true,
+    "particle_thermal.js": true,
+    "accuracy.js": true,
+    "dem_native.py": true,
+    "dem_fast.py": true,
+    "dem_rigid.py": true,
+    "reference_solver.py": true,
+    "melt_model.js": true
+  }
+}

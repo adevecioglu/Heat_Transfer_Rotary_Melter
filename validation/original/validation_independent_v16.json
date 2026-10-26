@@ -1,0 +1,97 @@
+{
+  "version": "1.6.0",
+  "kind": "independent integration and assembly; shared documented coefficients",
+  "experimentalValidation": false,
+  "sharedInputs": "Exported geometry, wet-area table, material/contact/film coefficients. Python separately assembles all ODE fluxes; BDF/Radau differ from JS midpoint RK2.",
+  "javascript": {
+    "seconds": 5353.874390823475,
+    "energyInKWh": 9.912000516873048,
+    "balanceRelative": 6.7561084734737856e-15
+  },
+  "references": [
+    {
+      "method": "BDF",
+      "success": true,
+      "targetReached": true,
+      "seconds": 5353.78985750739,
+      "targetHours": 1.4871638493076083,
+      "nearCenter": 76.03075635614155,
+      "coreCenter": 75.0,
+      "waterIn": 110.0,
+      "waterOut": 109.64080802078091,
+      "energyInKWh": 9.911906175209884,
+      "lossKWh": 2.491088223891311,
+      "balanceJ": -6.224960088729858e-06,
+      "balanceRelative": 1.7445237572238456e-13,
+      "nfev": 5203,
+      "njev": 105,
+      "nlu": 533,
+      "wallSeconds": 1.8354853999917395,
+      "relativeTimeDifferenceFromJS": 1.578943483680705e-05,
+      "waterOutDifferenceC": -6.7327391519711455e-06,
+      "energyInRelativeDifference": 9.518014143454687e-06
+    },
+    {
+      "method": "Radau",
+      "success": true,
+      "targetReached": true,
+      "seconds": 5353.78987858502,
+      "targetHours": 1.4871638551625057,
+      "nearCenter": 76.03075647086177,
+      "coreCenter": 75.0,
+      "waterIn": 110.0,
+      "waterOut": 109.64080802213756,
+      "energyInKWh": 9.911906188796726,
+      "lossKWh": 2.491088234793748,
+      "balanceJ": -2.0563602447509766e-06,
+      "balanceRelative": 5.762879190111027e-14,
+      "nfev": 12117,
+      "njev": 161,
+      "nlu": 2112,
+      "wallSeconds": 4.51657440001145,
+      "relativeTimeDifferenceFromJS": 1.578549781948942e-05,
+      "waterOutDifferenceC": -6.731382498514904e-06,
+      "energyInRelativeDifference": 9.51664337067549e-06
+    }
+  ],
+  "geometry": {
+    "method": "SciPy QUADPACK independent meridian quadrature",
+    "volumeM3": 0.2491675673378405,
+    "areaM2": 1.8613936472519526,
+    "volumeRelativeDifference": 0.0,
+    "areaRelativeDifference": 0.0
+  },
+  "hydraulics": {
+    "method": "Independent SciPy brentq Colebrook root and pressure assembly",
+    "totalBar": 1.7465593709927896,
+    "relativeDifference": 1.9163050269638918e-14,
+    "segments": [
+      {
+        "Re": 403838.6643624482,
+        "friction": 0.014247997047356194,
+        "pressurePa": 24568.188586881864
+      },
+      {
+        "Re": 646141.8629799171,
+        "friction": 0.013698829421115659,
+        "pressurePa": 104793.67313802904
+      },
+      {
+        "Re": 10338.269807678671,
+        "friction": 0.030691069661241865,
+        "pressurePa": 11.908397844223286
+      },
+      {
+        "Re": 198812.88091689756,
+        "friction": 0.01642608747283069,
+        "pressurePa": 20713.97838964199
+      },
+      {
+        "Re": 403838.6643624482,
+        "friction": 0.014247997047356194,
+        "pressurePa": 24568.188586881864
+      }
+    ]
+  },
+  "passed": true
+}

@@ -1,0 +1,19 @@
+{
+  "version": "2.2",
+  "sameSeconds": true,
+  "sameInputEnergy": true,
+  "sameLoss": true,
+  "sameFinalWaterOut": true,
+  "histLength": 282,
+  "first2Seconds": 21,
+  "first120Seconds": 107,
+  "maxWaterBalanceResidualW": 1.3387762010097504e-9,
+  "initial": {
+    "Tin": 110,
+    "Tout": 110,
+    "waterMetalKW": 421.6976597080879,
+    "waterStorageKW": -421.6976597080865
+  },
+  "balanceJ": -9.177383617497981e-7,
+  "passed": true
+}

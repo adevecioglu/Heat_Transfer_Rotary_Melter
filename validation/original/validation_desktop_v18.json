@@ -1,0 +1,63 @@
+{
+  "ok": true,
+  "desktop_version": "1.8.0",
+  "renderer": "edgechromium",
+  "frozen": true,
+  "html_bytes": 481929,
+  "app": {
+    "version": "1.8.0",
+    "calculated": true,
+    "waterToProductMassFlow": 0,
+    "waterRouteNodes": 6,
+    "productMassKg": 71.2021240424613,
+    "energyBalanceJ": -9.177383617497981e-07,
+    "surfaceCells": 256,
+    "regionalNodes": 576,
+    "supportedLanguages": [
+      "tr",
+      "en"
+    ],
+    "livePreview": true,
+    "uiSmoke": {
+      "liveTilt": true,
+      "english": true,
+      "turkish": true,
+      "methods": true,
+      "surface": true,
+      "motion": true,
+      "clockwise": true,
+      "preset32": true,
+      "preset8": true,
+      "convergenceTable": true,
+      "convergenceCsv": true,
+      "nativeDEM": true,
+      "nativeThreadedJob": true,
+      "scipyIndependent": true,
+      "nativeDiameter": true,
+      "nativeNegativePhase": true,
+      "fineDefaults": true,
+      "gridPresets": true,
+      "noArtificialThermalLimit": true,
+      "pdf": true,
+      "englishPdf": true,
+      "motionIntegration": true,
+      "passed": true,
+      "motionUi": {
+        "nativeStartCompleted": true,
+        "frames": true,
+        "vesselRotates": true,
+        "granulesMove": true,
+        "settlingIncluded": true,
+        "timeline": true,
+        "replayStarts": true,
+        "replayPauses": true,
+        "bodyRotation": true,
+        "demoCheckResponds": true,
+        "packagedDemo": true,
+        "demoRejectsOtherGeometry": true,
+        "passed": true
+      },
+      "nativeCount": 217
+    }
+  }
+}

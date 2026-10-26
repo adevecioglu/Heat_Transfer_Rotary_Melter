@@ -1,0 +1,187 @@
+{
+  "date": "2026-10-19",
+  "scope": "Numerical checks; not experimental validation",
+  "checks": [
+    {
+      "name": "Analytic product energy (25 to 75 C)",
+      "passed": true,
+      "data": 14.9925
+    },
+    {
+      "name": "Energy conservation, default",
+      "passed": true,
+      "data": 2.810993464663625e-7
+    },
+    {
+      "name": "Time step convergence target",
+      "passed": true,
+      "data": {
+        "base": 9361,
+        "half": 9360.5
+      }
+    },
+    {
+      "name": "Time step convergence loss",
+      "passed": true,
+      "data": {
+        "base": 4.350646324839399,
+        "half": 4.35040632617084
+      }
+    },
+    {
+      "name": "Adiabatic outside loss",
+      "passed": true,
+      "data": 0
+    },
+    {
+      "name": "Adiabatic energy conservation",
+      "passed": true,
+      "data": -2.6503403205424547e-7
+    },
+    {
+      "name": "Insulation reduces integrated loss",
+      "passed": true,
+      "data": {
+        "bare": 4.350646324839399,
+        "insulated": 0.3658687981900297
+      }
+    },
+    {
+      "name": "Fixed mode is RPM invariant",
+      "passed": true,
+      "data": {
+        "rpm10": 9361,
+        "rpm50": 9361
+      }
+    },
+    {
+      "name": "316 thermal conductivity reference",
+      "passed": true,
+      "data": 16.2
+    },
+    {
+      "name": "Scenario at zero rpm equals static h",
+      "passed": true,
+      "data": 40
+    },
+    {
+      "name": "Scenario at reference rpm equals reference h",
+      "passed": true,
+      "data": 100
+    },
+    {
+      "name": "Scenario h is bounded by explicit cap",
+      "passed": true,
+      "data": 300
+    },
+    {
+      "name": "Declared scenario changes melt duration",
+      "passed": true,
+      "data": {
+        "rpm0": 22304,
+        "rpm10": 9361,
+        "rpm20": 7645
+      }
+    },
+    {
+      "name": "RPM scenario conserves energy",
+      "passed": true,
+      "data": -1.1883093975484371e-7
+    },
+    {
+      "name": "Inclined normal Froude ratio",
+      "passed": true,
+      "data": {
+        "omega": 1.0471975511965976,
+        "wallSpeed": 0.31415926535897926,
+        "fr": 0.03354731874489711,
+        "frNormal": 0.04744307315028664,
+        "balanceRpm": 45.91066607006867
+      }
+    },
+    {
+      "name": "Vertical axis normal Froude undefined",
+      "passed": true,
+      "data": true
+    },
+    {
+      "name": "Old JSON retains old RPM behavior",
+      "passed": true,
+      "data": 0
+    },
+    {
+      "name": "New JSON retains new RPM behavior",
+      "passed": true,
+      "data": 1
+    },
+    {
+      "name": "Boiler thermal power cap",
+      "passed": true,
+      "data": 4.75
+    },
+    {
+      "name": "Supply cannot exceed setpoint",
+      "passed": true,
+      "data": 96.97339278507911
+    },
+    {
+      "name": "Cold start energy conservation",
+      "passed": true,
+      "data": 6.910413503646851e-7
+    },
+    {
+      "name": "Ideal source holds inlet setpoint",
+      "passed": true,
+      "data": 110
+    },
+    {
+      "name": "Wax 180 kg fails default volume allowance",
+      "passed": true,
+      "data": 113.9233984679381
+    },
+    {
+      "name": "100 kg fits default volume allowance",
+      "passed": true,
+      "data": true
+    },
+    {
+      "name": "Saturation pressure 110 C",
+      "passed": true,
+      "data": 1.433773381536964
+    },
+    {
+      "name": "Reject invalid packing",
+      "passed": true,
+      "data": true
+    },
+    {
+      "name": "Sizing finds conditional feasible power",
+      "passed": true,
+      "data": 6.3575927734375
+    },
+    {
+      "name": "Sized power reaches target",
+      "passed": true,
+      "data": 7151
+    },
+    {
+      "name": "Impossible target not assigned finite boiler",
+      "passed": true,
+      "data": {
+        "possible": false
+      }
+    },
+    {
+      "name": "Initially liquid has zero melting time",
+      "passed": true,
+      "data": 0
+    }
+  ],
+  "defaultResults": {
+    "hours": 2.600277777777778,
+    "productKWh": 14.9925,
+    "lossKWh": 4.350646324839399,
+    "capacityKg": 113.9233984679381,
+    "energyBalanceJ": 2.810993464663625e-7
+  }
+}

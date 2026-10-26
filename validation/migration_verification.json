@@ -1,0 +1,105 @@
+{
+  "version": "V11 / Desktop 2.2.0",
+  "allPassed": true,
+  "checkGroups": [
+    {
+      "name": "python_workflow",
+      "passed": true,
+      "log": "python_workflow.log"
+    },
+    {
+      "name": "test_circuit",
+      "passed": true,
+      "log": "test_circuit.log"
+    },
+    {
+      "name": "test_convergence",
+      "passed": true,
+      "log": "test_convergence.log"
+    },
+    {
+      "name": "test_geometry_hydraulics",
+      "passed": true,
+      "log": "test_geometry_hydraulics.log"
+    },
+    {
+      "name": "test_lumped",
+      "passed": true,
+      "log": "test_lumped.log"
+    },
+    {
+      "name": "test_particle_heat",
+      "passed": true,
+      "log": "test_particle_heat.log"
+    },
+    {
+      "name": "native_contacts",
+      "passed": true,
+      "log": "native_contacts.log"
+    },
+    {
+      "name": "desktop",
+      "passed": true,
+      "log": "desktop.log"
+    }
+  ],
+  "packagedExeSelfTest": {
+    "ok": true,
+    "version": "2.2.0",
+    "frozen": true,
+    "uiSmokePassed": true
+  },
+  "physicsEquivalence": {
+    "passed": true,
+    "cases": [
+      {
+        "name": "default",
+        "equal": true,
+        "historySamples": 281,
+        "seconds": 5329.919006490323,
+        "balanceRelative": 9.896458358479891e-15,
+        "lastWaterOut": 109.64063281668258
+      },
+      {
+        "name": "limited_cold",
+        "equal": true,
+        "historySamples": 101,
+        "seconds": 108,
+        "balanceRelative": 3.9032037727550444e-14,
+        "lastWaterOut": 26.82273069023599
+      },
+      {
+        "name": "warm",
+        "equal": true,
+        "historySamples": 65,
+        "seconds": 36,
+        "balanceRelative": 2.9283007875126677e-15,
+        "lastWaterOut": 105.7142106354146
+      }
+    ]
+  },
+  "equationRendering": {
+    "renderer": "KaTeX 0.16.22",
+    "displayEquationGroups": 37,
+    "inlineExpressions": 48,
+    "errors": 0,
+    "sourceSha256": "c4a35ddfb46f938da5b2d070a7a01bbde07dfea391bba72476cf1d168ee3a149",
+    "sourceUnchanged": true
+  },
+  "calculationSourceSha256": "c4a35ddfb46f938da5b2d070a7a01bbde07dfea391bba72476cf1d168ee3a149",
+  "newExeSha256": "0c20cbe3b971225667509663e5a3eaa0931e6cc7ac13b5abf78a094a127ed8d9",
+  "originalArchiveLocation": "releases/original/",
+  "originalArchiveVersions": [
+    "V1",
+    "V2",
+    "V3",
+    "V4",
+    "V5",
+    "V6",
+    "V7",
+    "V8",
+    "V9",
+    "V10",
+    "V11"
+  ]
+}

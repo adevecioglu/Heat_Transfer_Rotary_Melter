@@ -1,0 +1,14 @@
+{
+  "passed": true,
+  "checks": [
+    {
+      "method": "BDF",
+      "targetTimeDifferenceSeconds": 8.74629740792443e-05
+    },
+    {
+      "method": "Radau",
+      "targetTimeDifferenceSeconds": 4.782487121701706e-05
+    }
+  ],
+  "note": "Fixed finite-difference Jacobian leaves five non-feedback energy columns zero; compared with previous adaptive sparse numerical Jacobian. Initial adaptive baseline emitted finite-difference factor warnings; the current reference implementation avoids those zero-column factor updates."
+}

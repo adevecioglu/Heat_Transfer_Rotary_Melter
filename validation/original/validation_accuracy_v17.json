@@ -1,0 +1,69 @@
+{
+  "version": "1.7.0",
+  "experimentalValidation": false,
+  "checks": [
+    {
+      "name": "Fine defaults",
+      "passed": true
+    },
+    {
+      "name": "Known second-order sequence",
+      "passed": true
+    },
+    {
+      "name": "Oscillating sequence not claimed converged",
+      "passed": true
+    },
+    {
+      "name": "Diverging sequence not claimed converged",
+      "passed": true
+    },
+    {
+      "name": "Time-quantized sequence not claimed converged",
+      "passed": true
+    },
+    {
+      "name": "8x8 solves without region reduction",
+      "passed": true,
+      "value": {
+        "seconds": 183.77711568603354,
+        "steps": 5283,
+        "balance": 1.4592160620001852e-14
+      }
+    },
+    {
+      "name": "16x16 solves without region reduction",
+      "passed": true,
+      "value": {
+        "seconds": 183.74232917918403,
+        "steps": 5282,
+        "balance": 3.317308873981873e-15
+      }
+    },
+    {
+      "name": "32x32 solves without region reduction",
+      "passed": true,
+      "value": {
+        "seconds": 183.7136645612485,
+        "steps": 6264,
+        "balance": 4.200099531971141e-14
+      }
+    },
+    {
+      "name": "No former 24/32 grid cap",
+      "passed": true
+    },
+    {
+      "name": "JSON grid selection preserved",
+      "passed": true
+    },
+    {
+      "name": "Spatial grids use identical dt",
+      "passed": true
+    },
+    {
+      "name": "Time and radial controls independent",
+      "passed": true
+    }
+  ]
+}

@@ -1,0 +1,51 @@
+{
+  "base": {
+    "axial": 6,
+    "angular": 8,
+    "dt": 0.11077057891762143,
+    "targetReached": true,
+    "targetHours": 1.4871873307842984,
+    "coreFinal": 75.0011349259849,
+    "energyKWh": 10.43368475460321,
+    "balanceRelative": 6.7561084734737856e-15
+  },
+  "halfTimeStep": {
+    "axial": 6,
+    "angular": 8,
+    "dt": 0.055385289458810716,
+    "targetReached": true,
+    "targetHours": 1.4871719459823416,
+    "coreFinal": 75.00038968020345,
+    "energyKWh": 10.433619552025165,
+    "balanceRelative": 3.2944035676904908e-15
+  },
+  "coarse": {
+    "axial": 3,
+    "angular": 4,
+    "dt": 0.1380030171832264,
+    "targetReached": true,
+    "targetHours": 1.4870975126630273,
+    "coreFinal": 75.0015870239624,
+    "energyKWh": 10.430303404073856,
+    "balanceRelative": 1.7515495285326962e-15
+  },
+  "fine": {
+    "axial": 12,
+    "angular": 16,
+    "dt": 0.05757140402607764,
+    "targetReached": true,
+    "targetHours": 1.486637580462065,
+    "coreFinal": 75.00001022665114,
+    "energyKWh": 10.434451281533246,
+    "balanceRelative": 1.895808628553201e-14
+  },
+  "timeDifference": 0.000010345005497572575,
+  "gridDifference": 0.0003697944471862986,
+  "note": "Numerical sensitivity only; not experimental validation. Two percent is a selected screening tolerance, not a standard.",
+  "radialFine": {
+    "radial": 24,
+    "targetHours": 1.4855481120959275,
+    "dt": 0.03478650684952682
+  },
+  "radialDifference": 0.0011034436885777976
+}

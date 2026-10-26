@@ -1,0 +1,41 @@
+{
+  "ENGINE": [
+    "calculations/Calculation.js",
+    "calculations/GeometryAndHydraulics.js",
+    "calculations/WaterCircuit.js",
+    "calculations/RegionalHeatTransfer.js",
+    "calculations/ParticleHeatTransfer.js",
+    "calculations/Convergence.js"
+  ],
+  "VIEW": [
+    "visualization/VesselView.js",
+    "calculations/ParticleMotion.js",
+    "visualization/ParticleRenderer.js",
+    "visualization/ParticleMotionView.js",
+    "interface/NativeMotionPanel.js",
+    "calculations/Melting.js",
+    "visualization/MeltingView.js"
+  ],
+  "APP": [
+    "interface/FieldPlots.js",
+    "interface/MethodExplanation.js",
+    "interface/ContactMethodExplanation.js",
+    "interface/Application.js",
+    "interface/ConvergencePanel.js",
+    "interface/MotionSmokeChecks.js",
+    "interface/MeltingMethodExplanation.js",
+    "interface/MeltingPanel.js",
+    "interface/WorkspacePanel.js",
+    "interface/WaterAudit.js"
+  ],
+  "REPORT": [
+    "reporting/Reporting.js",
+    "reporting/RegionalReporting.js"
+  ],
+  "nativeSources": [
+    "rotary_melter/dynamics/ContactDynamics.py",
+    "rotary_melter/dynamics/FastContactDynamics.py",
+    "rotary_melter/dynamics/RigidBodyDynamics.py",
+    "rotary_melter/Calculation.py"
+  ]
+}

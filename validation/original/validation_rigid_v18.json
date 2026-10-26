@@ -1,0 +1,111 @@
+{
+  "status": "rejected_or_superseded",
+  "reason": "Initial rigid contact attempt rejected: residual overlaps exceeded one radius. Finite/contained checks did not establish contact quality.",
+  "data": {
+    "experimentalValidation": false,
+    "checks": [
+      {
+        "name": "Analytic equal-mass normal restitution",
+        "passed": true,
+        "details": [
+          -0.05000000000000002,
+          0.05000000000000002
+        ]
+      },
+      {
+        "name": "Equal/opposite impulse momentum",
+        "passed": true,
+        "details": null
+      },
+      {
+        "name": "Free-fall velocity under inclined gravity",
+        "passed": true,
+        "details": [
+          0.0,
+          -0.035406162359225175,
+          0.36459383764077474,
+          0.0,
+          -0.6936717523440039,
+          -0.6936717523440039,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "name": "Small dense inclined vessel finite/contained",
+        "passed": true,
+        "details": {
+          "solver": "rigid",
+          "contactIterations": 24,
+          "positionIterations": 6,
+          "seconds": 2.0833333333333375,
+          "settledSeconds": 0.2499999999999999,
+          "wallSeconds": 0.716320600011386,
+          "count": 217,
+          "diameterMm": 15.0,
+          "dt": 0.0020833333333333333,
+          "steps": 1120,
+          "contacts": 563,
+          "wallContacts": 92,
+          "overlapRatio": 0.028314289446844852,
+          "maxOverlapRatio": 0.08504772067451603,
+          "meanSpeed": 0.04235297278791566,
+          "meanOrbitalRPM": -8.591394872884848,
+          "counterMovingFraction": 0.03225806451612903,
+          "phase": -2.181661564992916,
+          "liquid": 0.0,
+          "rotationDirection": -1,
+          "massKg": 0.3417701954038142,
+          "representedMassKg": 0.3424392933779721,
+          "historyEntries": 0,
+          "escaped": 0
+        }
+      },
+      {
+        "name": "Small dense vessel particle motion",
+        "passed": true,
+        "details": null
+      },
+      {
+        "name": "All 45120 physical granules advanced",
+        "passed": true,
+        "details": {
+          "solver": "rigid",
+          "contactIterations": 16,
+          "positionIterations": 4,
+          "seconds": 0.9999999999999989,
+          "settledSeconds": 0.3000000000000001,
+          "wallSeconds": 133.11300659994595,
+          "count": 45120,
+          "diameterMm": 15.0,
+          "dt": 0.0020833333333333333,
+          "steps": 624,
+          "contacts": 244436,
+          "wallContacts": 4358,
+          "overlapRatio": 1.427021849874982,
+          "maxOverlapRatio": 1.8380549403955195,
+          "meanSpeed": 0.3300030626559073,
+          "meanOrbitalRPM": -6.698406740539708,
+          "counterMovingFraction": 0.2510859929078014,
+          "phase": -1.0471975511965965,
+          "liquid": 0.0,
+          "rotationDirection": -1,
+          "massKg": 71.2021240424613,
+          "representedMassKg": 71.20212404246128,
+          "historyEntries": 0,
+          "escaped": 0,
+          "benchmarkWallSeconds": 128.70996589993592
+        }
+      },
+      {
+        "name": "Dense full-size finite/contained",
+        "passed": true,
+        "details": null
+      }
+    ]
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "version": "2.0",
+  "passed": true,
+  "checks": {
+    "six_visible_tabs": true,
+    "initial_mass_inactive": true,
+    "initial_field_counter": true,
+    "focus_mode": true,
+    "focus_restore": true,
+    "workspace_no_horizontal_overflow": true,
+    "simulation_click_visible": true,
+    "compact_no_horizontal_overflow": true,
+    "search_visible": true,
+    "search_hides_others": true,
+    "twenty_step_navigation": true,
+    "no_page_errors": true
+  },
+  "pageErrors": []
+}

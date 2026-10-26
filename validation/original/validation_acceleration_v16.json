@@ -1,0 +1,21 @@
+{
+  "version": "1.6.0",
+  "sameForceLaw": true,
+  "particles": 45120,
+  "steps": 10,
+  "results": [
+    {
+      "method": "integrate",
+      "wallSeconds": 0.21818169998005033,
+      "contacts": 129992
+    },
+    {
+      "method": "integrate_fast",
+      "wallSeconds": 0.10474440001416951,
+      "contacts": 129992
+    }
+  ],
+  "maxStateDifference": 1.7497114868092467e-12,
+  "speedup": 2.0829915484793013,
+  "passed": true
+}

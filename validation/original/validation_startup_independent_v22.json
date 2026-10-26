@@ -1,0 +1,97 @@
+{
+  "passed": true,
+  "comparisons": [
+    {
+      "case": "existing_hot_water_power_limited",
+      "references": [
+        {
+          "method": "BDF",
+          "maxToutDifferenceC": 5.322158931164722e-05,
+          "maxTinDifferenceC": 5.322158931164722e-05,
+          "balanceJ": 6.873160600662231e-07,
+          "wallSeconds": 0.3257578000193462,
+          "passed": true
+        },
+        {
+          "method": "Radau",
+          "maxToutDifferenceC": 5.2260678415905204e-05,
+          "maxTinDifferenceC": 5.2260678415905204e-05,
+          "balanceJ": 6.845220923423767e-07,
+          "wallSeconds": 0.48166769999079406,
+          "passed": true
+        }
+      ]
+    },
+    {
+      "case": "hot_water_fixed_110",
+      "references": [
+        {
+          "method": "BDF",
+          "maxToutDifferenceC": 8.481556704964532e-05,
+          "maxTinDifferenceC": 0.0,
+          "balanceJ": 7.534399628639221e-07,
+          "wallSeconds": 0.2468966000014916,
+          "passed": true
+        },
+        {
+          "method": "Radau",
+          "maxToutDifferenceC": 8.347310669876151e-05,
+          "maxTinDifferenceC": 0.0,
+          "balanceJ": 7.655471563339233e-07,
+          "wallSeconds": 0.5076221000635996,
+          "passed": true
+        }
+      ]
+    },
+    {
+      "case": "cold_water_fixed_110",
+      "references": [
+        {
+          "method": "BDF",
+          "maxToutDifferenceC": 0.0009839502998474359,
+          "maxTinDifferenceC": 0.0,
+          "balanceJ": 7.115304470062256e-07,
+          "wallSeconds": 0.28805560001637787,
+          "passed": true
+        },
+        {
+          "method": "Radau",
+          "maxToutDifferenceC": 0.0009824443661443638,
+          "maxTinDifferenceC": 0.0,
+          "balanceJ": 7.078051567077637e-07,
+          "wallSeconds": 0.6417759000323713,
+          "passed": true
+        }
+      ]
+    },
+    {
+      "case": "cold_loop_power_limited",
+      "references": [
+        {
+          "method": "BDF",
+          "maxToutDifferenceC": 2.9713700822497913e-05,
+          "maxTinDifferenceC": 2.9713700822497913e-05,
+          "balanceJ": 2.277083694934845e-07,
+          "wallSeconds": 0.2947705000406131,
+          "passed": true
+        },
+        {
+          "method": "Radau",
+          "maxToutDifferenceC": 2.93183135759989e-05,
+          "maxTinDifferenceC": 2.93183135759989e-05,
+          "balanceJ": 2.253800630569458e-07,
+          "wallSeconds": 0.4204821999883279,
+          "passed": true
+        }
+      ]
+    }
+  ],
+  "capacityRateKWperK": 11.136111111111111,
+  "heaterLimitedDeltaK": 2.559241706161137,
+  "waterHeatCapacityKJperK": 195.8933004619687,
+  "metalHeatCapacityKJperK": 61.77218130336945,
+  "waterPreheat25to110KWh": 4.625258483129817,
+  "initialWaterToMetalKW": 421.69765970808675,
+  "clamped25CWallSteadyOutletC": 79.77772496627242,
+  "scope": "Independent transient integration of the same stated coefficients; not equipment or material validation."
+}

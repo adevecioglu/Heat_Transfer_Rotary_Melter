@@ -1,0 +1,81 @@
+{
+  "version": "1.6.0",
+  "kind": "independent SciPy DOP853 contact integration and analytic geometry/gravity checks",
+  "experimentalValidation": false,
+  "checks": [
+    {
+      "name": "Numba vs independent SciPy collision \u0394t=2e-06",
+      "passed": true,
+      "details": {
+        "maxStateDifference": 0.00010878231247125197,
+        "relativeSpeedDifference": 0.0010878231247125197
+      }
+    },
+    {
+      "name": "Pair total momentum conserved \u0394t=2e-06",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "Numba vs independent SciPy collision \u0394t=1e-06",
+      "passed": true,
+      "details": {
+        "maxStateDifference": 5.429394285827449e-05,
+        "relativeSpeedDifference": 0.0005429394285827449
+      }
+    },
+    {
+      "name": "Pair total momentum conserved \u0394t=1e-06",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "Collision error decreases on halving \u0394t",
+      "passed": true,
+      "details": [
+        0.00010878231247125197,
+        5.429394285827449e-05
+      ]
+    },
+    {
+      "name": "Cylinder signed clearance",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "Flat top signed clearance",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "Spherical bottom tip clearance",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "Actual 15 mm spheres and exact reference charge count",
+      "passed": true,
+      "details": {
+        "count": 45120,
+        "representedMassKg": 71.20212404246128
+      }
+    },
+    {
+      "name": "Initial lattice sorted by world vertical height",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "Inclined gravity transforms to world-down",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "Clockwise from opening uses negative axial angular velocity",
+      "passed": true,
+      "details": null
+    }
+  ],
+  "passed": true,
+  "limitations": "Collision benchmark does not validate dense-bed constitutive coefficients, adhesion, liquid hydrodynamics or long-term packing."
+}

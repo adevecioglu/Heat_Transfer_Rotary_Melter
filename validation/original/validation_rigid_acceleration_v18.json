@@ -1,0 +1,12 @@
+{
+  "passed": true,
+  "smallMaxDifference": 5.8690525375659774e-05,
+  "smallMaxPositionDifference": 4.5869036520429507e-10,
+  "smallMaxVelocityDifference": 1.487529253108022e-07,
+  "fullMaxDifference": 1.7694394310874273e-08,
+  "fullMaxPositionDifference": 7.610231889110253e-14,
+  "fullMaxVelocityDifference": 3.3853204961520333e-11,
+  "baselineSeconds": 13.979834199999459,
+  "optimizedSeconds": 10.655484799994156,
+  "speedup": 1.3119848099269145
+}

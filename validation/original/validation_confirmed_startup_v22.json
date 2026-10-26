@@ -1,0 +1,22 @@
+{
+  "version": "2.2",
+  "confirmedInputs": {
+    "waterInitial": 25,
+    "metalInitial": 25,
+    "tin": 110,
+    "sourceMode": 1
+  },
+  "histLength": 281,
+  "first120Seconds": 107,
+  "maxWaterBalanceResidualW": 9.313225746154785e-10,
+  "initial": {
+    "Tin": 110,
+    "Tout": 25,
+    "waterMetalKW": 0,
+    "waterStorageKW": 946.5694444444445,
+    "flowKW": 946.5694444444445
+  },
+  "seconds": 5329.919006490323,
+  "balanceJ": -5.178153514862061e-7,
+  "passed": true
+}
