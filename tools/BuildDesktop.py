@@ -24,6 +24,7 @@ def main(with_gpu=False):
                '--add-data', str(interface)+';.',
                '--add-data', str(recording)+';assets',
                '--add-data', str(PROJECT_ROOT/'native/cuda/FieldAnalysis.cu')+';cuda',
+               '--add-data', str(PROJECT_ROOT/'native')+';native_sources',
                '--add-data', str(PROJECT_ROOT / 'config')+';config',
                '--add-data', str(PROJECT_ROOT / 'docs' / 'CPP_CALCULATION_EQUATIONS.md')+';docs',
                '--add-data', str(PROJECT_ROOT / 'native' / 'third_party_licenses')+';licenses']

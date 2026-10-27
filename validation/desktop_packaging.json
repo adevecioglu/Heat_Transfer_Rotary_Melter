@@ -1,0 +1,54 @@
+{
+  "version": "3.0.0",
+  "packagedGpuDesktopPassed": true,
+  "frozen": true,
+  "gpuAudit": {
+    "analysis": "NVIDIA exterior-field audit",
+    "device": {
+      "id": 0,
+      "name": "NVIDIA GeForce RTX 4070",
+      "memoryBytes": 12878086144,
+      "computeCapability": "8.9"
+    },
+    "precision": "float64",
+    "snapshots": 281,
+    "surfaceCells": 256,
+    "evaluations": 71936,
+    "maxCpuGpuDifferenceW": 6.821210263296962e-13,
+    "maxRecordedFluxDifferenceW": 7.73070496506989e-12,
+    "passed": true,
+    "gpuWallSecondsIncludingJitAndTransfers": 0.189195099985227,
+    "cpuVectorizedWallSeconds": 0.0004668000037781894,
+    "kernelSha256": "485750d31b062d8100d6f00703a7111770ccf0f907d67ddaded5421216f35ad2",
+    "inputSha256": "7feb1323e104344375521edda8413fd08ad9d13f8a5e543a634bc180b7540f6f",
+    "sourceRunId": "20261027T035119_c966724b8a",
+    "note": "Independent post-processing of the computed exterior temperatures. It does not change thermal integration or establish experimental validation.",
+    "first": {
+      "seconds": 0.0,
+      "convectionW": 0.0,
+      "radiationW": 0.0
+    },
+    "last": {
+      "seconds": 5329.919006490323,
+      "convectionW": 1376.6817423773093,
+      "radiationW": 312.10744883548085
+    }
+  },
+  "archivedNativeSources": true,
+  "portableEquationLinks": true,
+  "cpuPackagedRun": {
+    "engine": "Rotary Melter C++",
+    "targetReached": true,
+    "balanceRelative": 8.614902599827818e-15
+  },
+  "executables": {
+    "Rotary_Melter_Cpp.exe": {
+      "sha256": "4e08e22d02d872375d00c91966652c3c443a397b16340eb7a6c21d9d63b1b97d",
+      "bytes": 140069938
+    },
+    "Rotary_Melter_Cpp_GPU.exe": {
+      "sha256": "f76269b422793e4974042bcfce5e4abd67a50e490b81e2fa8124c7d9a7443ae8",
+      "bytes": 309152456
+    }
+  }
+}

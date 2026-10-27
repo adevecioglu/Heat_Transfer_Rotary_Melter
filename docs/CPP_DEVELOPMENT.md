@@ -102,3 +102,24 @@ Conservation, reference agreement, convergence and containment are separate
 numerical checks. They do not calibrate material/contact/RPM parameters or
 validate real equipment melt time. See [the formula catalogue](CPP_CALCULATION_EQUATIONS.md)
 for assumptions and literature.
+
+## Optional NVIDIA analysis
+
+`KURULUM_GPU.cmd` installs pinned CuPy 13.6 / CUDA 12.9 runtime and NVRTC wheels
+inside this project environment. It does not install or replace the GPU driver.
+`native/cuda/FieldAnalysis.cu` compiles at runtime; system nvcc is not required.
+
+```powershell
+.venv\Scripts\python.exe app.py --gpu-info outputs/gpu_info.json
+.venv\Scripts\python.exe -m tools.BuildDesktop --with-gpu
+releases\current\Rotary_Melter_Cpp_GPU.exe --self-test outputs/gpu_desktop.json --require-gpu
+```
+
+The GPU action checks independent saved exterior-field fluxes in float64; the
+dependent thermal integration and contact constraints remain C++ CPU operations.
+CPU/GPU differences, recorded-flux closure, device and total JIT/transfer time
+are written to each run's GPU_REPORT.md and gpu_audit.json. Small audits are
+slower than vectorized CPU evaluation. The full packaged desktop test passed
+on the RTX 4070; [packaging evidence](../validation/desktop_packaging.json)
+records executable hashes. Run reports contain a native source snapshot and
+portable equation links. Existing V11 releases and recordings remain on disk.

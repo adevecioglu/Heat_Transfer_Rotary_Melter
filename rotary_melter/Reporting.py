@@ -26,7 +26,7 @@ def export_result(result, folder):
     document = ('<!doctype html><html lang="en"><meta charset="utf-8"><title>Rotary Melter calculation</title>'
                 '<style>body{font:16px/1.6 system-ui;max-width:1000px;margin:40px auto;padding:0 24px}'
                 'table{border-collapse:collapse;width:100%}th,td{border:1px solid #ccd5df;padding:8px;text-align:left}</style>'
-                '<h1>Rotary Melter — V11 calculation</h1><p>Numerical model results; not experimental validation.</p>'
+                '<h1>Rotary Melter — calculation run</h1><p>Numerical model results; not experimental validation.</p>'
                 '<p><a href="result.json">Full result JSON</a> · <a href="history.csv">History CSV</a></p><table>'+rows+'</table></html>')
     (folder / 'report.html').write_text(document, encoding='utf-8')
     trace = result.get('traceability', {})
@@ -76,8 +76,12 @@ def export_result(result, folder):
         'Run artifacts are calculations, not experimental equipment validation.', '',
     ]
     (folder/'RUN_REPORT.md').write_text('\n'.join(markdown), encoding='utf-8')
-    from .Paths import resource_path
+    from .Paths import resource_path, PROJECT_ROOT
     catalogue=resource_path('docs/CPP_CALCULATION_EQUATIONS.md')
     if catalogue.is_file():
-        shutil.copy2(catalogue,folder/'EQUATIONS.md')
+        import sys
+        sources=resource_path('native_sources') if getattr(sys,'frozen',False) else PROJECT_ROOT/'native'
+        if sources.is_dir():
+            shutil.copytree(sources,folder/'source/native',dirs_exist_ok=True)
+        (folder/'EQUATIONS.md').write_text(catalogue.read_text(encoding='utf-8').replace('(../native/','(source/native/'),encoding='utf-8')
     return folder
