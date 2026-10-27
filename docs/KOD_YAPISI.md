@@ -1,5 +1,10 @@
 # Rotary Melter kod ve klasör yapısı
 
+**3.0 güncellemesi:** üretim hesabı ve temas dinamiği `native/src/` altındaki
+C++20 motoruna taşındı. Güncel sorumluluklar ve komutlar:
+[C++ geliştirme yapısı](CPP_DEVELOPMENT.md). Aşağıdaki V11 JavaScript/Python
+dosya eşleştirmeleri, korunan referans uygulamaları ve arayüzü açıklamaya devam eder.
+
 Kök dizin: `C:\Projects\Heat_Transfer_Rotary_Melter`.
 
 ```text

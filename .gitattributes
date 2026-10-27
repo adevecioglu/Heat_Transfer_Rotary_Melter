@@ -2,6 +2,10 @@
 *.py text eol=lf
 *.js text eol=lf
 *.cjs text eol=lf
+*.cpp text eol=lf
+*.hpp text eol=lf
+*.h text eol=lf
+*.cu text eol=lf
 *.json text eol=lf
 *.md text eol=lf
 *.yml text eol=lf
@@ -14,3 +18,4 @@
 *.exe binary
 *.zip binary
 *.pdf binary
+native/third_party_licenses/* -text -whitespace

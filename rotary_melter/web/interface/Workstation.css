@@ -1,0 +1,381 @@
+/* Offline workstation: readable numbers, visible hierarchy and keyboard focus. */
+:root {
+  --ink: #183447;
+  --muted: #526b7c;
+  --bg: #eef2f6;
+  --line: #d9e3eb;
+  --teal: #007c80;
+  --dark: #102c40;
+}
+body {
+  font:
+    13px/1.6 "Segoe UI",
+    system-ui,
+    sans-serif;
+  background: var(--bg);
+}
+header {
+  background: linear-gradient(115deg, #0e2335 0%, #143b50 65%, #086b72 100%);
+  padding: 20px 28px;
+  border-bottom: 3px solid #33cbb4;
+}
+header small {
+  color: #83e3d3;
+  letter-spacing: 0.17em;
+  font-size: 10px;
+}
+header h1 {
+  font-size: 24px;
+  font-weight: 650;
+}
+header .headRight button,
+header .upload {
+  background: #ffffff12;
+  border-color: #ffffff40;
+  color: #fff;
+}
+header select {
+  background: #fff;
+  color: var(--ink);
+}
+nav {
+  padding: 8px 24px;
+  gap: 5px;
+  box-shadow: 0 3px 12px #102c4008;
+}
+nav button.active {
+  background: #ddf3ef;
+  color: #006767;
+}
+.layout {
+  max-width: 1920px;
+  gap: 20px;
+  padding: 20px 24px;
+  grid-template-columns: 320px minmax(0, 1fr);
+}
+.panel {
+  border-radius: 14px;
+  box-shadow: 0 4px 18px #102c4005;
+  padding: 20px;
+}
+aside.panel {
+  padding: 17px;
+  top: 65px;
+}
+aside h2 {
+  font-size: 17px;
+}
+aside summary {
+  color: #22485d;
+}
+.field span {
+  min-height: 30px;
+}
+.field input,
+.field select {
+  font-variant-numeric: tabular-nums;
+  padding: 7px 8px;
+}
+button,
+input,
+select,
+textarea {
+  border-radius: 7px;
+}
+button {
+  font-weight: 550;
+  transition: background 0.12s;
+}
+button:hover:enabled {
+  background: #eaf4f6;
+}
+button.primary:hover:enabled {
+  background: #00686d;
+}
+button:focus-visible,
+a:focus-visible,
+summary:focus-visible {
+  outline: 3px solid #1e9dc4;
+  outline-offset: 3px;
+}
+.stat,
+.quickCard {
+  border-radius: 11px;
+}
+.stat {
+  background: #f3f7fa;
+}
+.stat b,
+.quickCard b {
+  letter-spacing: -0.025em;
+}
+.workspaceBar {
+  padding: 10px 24px;
+}
+.tablewrap th {
+  background: #f3f7fa;
+  position: sticky;
+  top: 0;
+}
+.tablewrap td {
+  padding: 9px 10px;
+}
+.nativeWorkbench {
+  border-top: 3px solid #009b91;
+  padding: 0;
+  overflow: hidden;
+}
+.nativeHeading {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: center;
+  padding: 17px 20px;
+  background: linear-gradient(100deg, #f9fcfd, #eef8f6);
+}
+.nativeHeading h2 {
+  font-size: 18px;
+  margin: 0;
+}
+.nativeEyebrow {
+  text-transform: uppercase;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: #39707d;
+}
+.nativeBody {
+  padding: 0 20px 17px;
+}
+.nativeControls {
+  display: flex;
+  align-items: end;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 14px 0;
+}
+.nativeControls label {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--muted);
+}
+.nativeControls select {
+  display: block;
+  min-width: 125px;
+  margin-top: 4px;
+  font-size: 12px;
+}
+.nativeStatus {
+  font-size: 12px;
+  padding: 6px 10px;
+  border: 1px solid #b8ded5;
+  border-radius: 20px;
+  background: #e6f6ef;
+  color: #21654c;
+}
+.nativeStatus.error {
+  background: #ffefec;
+  color: #923a32;
+  border-color: #ecc3bb;
+}
+.nativeKpis {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+  padding: 0 0 14px;
+}
+.nativeKpi {
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: white;
+}
+.nativeKpi small {
+  display: block;
+  color: var(--muted);
+  font-size: 11px;
+}
+.nativeKpi b {
+  display: block;
+  font-size: 24px;
+  font-weight: 650;
+  letter-spacing: -0.035em;
+  font-variant-numeric: tabular-nums;
+}
+.nativeKpi em {
+  font-style: normal;
+  font-size: 11px;
+  color: var(--muted);
+}
+.nativeDetails {
+  border-top: 1px solid var(--line);
+  padding-top: 10px;
+}
+.nativeDetails summary {
+  font-size: 12px;
+}
+.nativeTrace {
+  display: grid;
+  grid-template-columns: 150px minmax(0, 1fr);
+  gap: 5px 12px;
+  font-size: 11px;
+}
+.nativeTrace dt {
+  color: var(--muted);
+}
+.nativeTrace dd {
+  margin: 0;
+  overflow-wrap: anywhere;
+  font-family: Consolas, monospace;
+}
+.nativeAnalysis {
+  margin-top: 12px;
+}
+.nativeAnalysis td {
+  white-space: nowrap;
+}
+.nativeHistory {
+  display: grid;
+  gap: 7px;
+  margin-top: 10px;
+}
+.nativeHistory button {
+  text-align: left;
+  font-size: 11px;
+  overflow-wrap: anywhere;
+}
+.nativeMessage {
+  min-height: 22px;
+  font-size: 12px;
+  color: #376374;
+}
+.nativeStale {
+  opacity: 0.5;
+}
+.nativeNote {
+  font-size: 11px;
+  color: var(--muted);
+}
+body.cppReady #quickOverview {
+  display: none;
+}
+@media (min-width: 1500px) {
+  .layout {
+    grid-template-columns: 345px minmax(0, 1fr);
+  }
+}
+@media (max-width: 1100px) {
+  .layout {
+    grid-template-columns: 285px minmax(0, 1fr);
+    padding: 16px;
+  }
+  .nativeKpis {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 760px) {
+  .layout {
+    display: block;
+    padding: 10px;
+  }
+  header {
+    padding: 16px;
+  }
+  .nativeHeading {
+    align-items: start;
+  }
+  .nativeControls select {
+    min-width: 100px;
+  }
+  .nativeTrace {
+    grid-template-columns: 1fr;
+  }
+  .nativeKpi b {
+    font-size: 21px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  * {
+    scroll-behavior: auto !important;
+    transition: none !important;
+  }
+}
+@media print {
+  .nativeControls,
+  .nativeHistory,
+  .nativeDetails {
+    display: none !important;
+  }
+  .nativeWorkbench {
+    border: 0;
+  }
+  .nativeKpis {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+.nativeMotionQuick {
+  margin: 12px 0;
+  gap: 8px;
+}
+.nativeMotionQuick button {
+  font-size: 12px;
+  padding: 8px 12px;
+}
+.nativeMotionDetails {
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  padding: 10px 14px;
+  margin: 12px 0;
+}
+.nativeMotionDetails > summary {
+  color: #356576;
+  font-size: 12px;
+}
+.nativeMotionDetails #motionControls {
+  border: 0;
+  box-shadow: none;
+  margin: 0 !important;
+  padding: 8px 0 !important;
+  background: transparent !important;
+}
+.nativeSensitivityBars {
+  max-width: 720px;
+  display: grid;
+  gap: 12px;
+  margin: 15px 0;
+}
+.nativeSensitivityRow {
+  display: grid;
+  grid-template-columns: 160px minmax(80px, 1fr) 65px;
+  gap: 12px;
+  align-items: center;
+  font-size: 12px;
+}
+.nativeSensitivityRow b {
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+}
+.nativeSensitivityTrack {
+  height: 19px;
+  position: relative;
+  background: linear-gradient(
+    90deg,
+    #f1f5f7 49.7%,
+    #7896a5 49.7%,
+    #7896a5 50.3%,
+    #f1f5f7 50.3%
+  );
+  border-radius: 3px;
+}
+.nativeSensitivityTrack i {
+  position: absolute;
+  top: 3px;
+  bottom: 3px;
+  border-radius: 2px;
+}
+@media (max-width: 760px) {
+  .nativeSensitivityRow {
+    grid-template-columns: 110px minmax(60px, 1fr) 50px;
+    gap: 7px;
+  }
+}

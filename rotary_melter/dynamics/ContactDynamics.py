@@ -180,8 +180,14 @@ class DEM:
         self.liquid=min(1.,max(0.,float(s['liquid'])));self.r=self.radius0*(max(1-self.liquid,1e-12))**(1/3)
         # Keep a valid finite-radius initialization for the all-liquid display, but skip solid integration.
         initr=self.r if self.liquid<.999999 else self.radius0
-        self.p=lattice(R,L,h,heads,initr,self.count,math.sin(theta),math.cos(theta))
+        if not 1 <= self.count <= 2_000_000:raise ValueError('Physical particle count must lie between 1 and 2,000,000.')
         self.g=np.array([R,L,h,heads,math.sin(theta),math.cos(theta),s['stiffness'],s['muWall'],s['muParticle'],s['restitution'],s['tangentRatio'],s['rolling'],self.liquid,4.,.35,c['rhol']/c['rhos']],dtype=np.float64)
+        self.native=None
+        if s.get('backend','cpp')=='cpp':
+            from .NativeContactEngine import NativeContacts
+            self.native=NativeContacts()
+            self.p=self.native.lattice(self.count,initr,self.g)
+        else:self.p=lattice(R,L,h,heads,initr,self.count,math.sin(theta),math.cos(theta))
         self.solver=s.get('solver','compliant');self.iterations=int(s.get('iterations',16));self.position_iterations=int(s.get('positionIterations',4))
         self.dt=float(s['dt']) if self.solver=='rigid' else min(float(s['dt']),.15/math.sqrt(float(s['stiffness'])))
         if not 1 <= self.iterations or not 1 <= self.position_iterations or self.dt<=0:raise ValueError('Positive step and contact iterations required.')
@@ -189,7 +195,8 @@ class DEM:
         self.history=Dict.empty(types.int64,types.UniTuple(types.float64,4));self.rigid_history=new_warm_history();self.steps=0;self.seconds=0.;self.settled=0.;self.last=(0,0,0.,0);self.started=time.perf_counter();self.max_overlap=0.;self.escaped=0
     def advance(self,n=10,settling=False):
         if self.liquid<.999999:
-            if self.solver=='rigid':self.last=integrate_rigid(self.p,self.r,self.g,int(n),self.dt,0. if settling else self.omega,self.iterations,self.position_iterations,warm=self.rigid_history,iteration=self.steps)
+            if self.native:self.last=self.native.advance(self.p,self.r,self.g,int(n),self.dt,0. if settling else self.omega,self.iterations,self.position_iterations,self.steps,self.solver=='rigid')
+            elif self.solver=='rigid':self.last=integrate_rigid(self.p,self.r,self.g,int(n),self.dt,0. if settling else self.omega,self.iterations,self.position_iterations,warm=self.rigid_history,iteration=self.steps)
             else:self.last=integrate_fast(self.p,self.r,self.g,self.history,self.steps,int(n),self.dt,0. if settling else self.omega)
             self.max_overlap=max(self.max_overlap,float(self.last[2]));self.escaped+=int(self.last[3])
         self.steps+=n
@@ -202,10 +209,10 @@ class DEM:
         speed=np.linalg.norm(self.p[:,3:6],axis=1)
         orbital=self.p[:,0]*self.p[:,4]-self.p[:,1]*self.p[:,3]
         meanomega=float(orbital.sum()/max(1e-30,np.sum(self.p[:,0]**2+self.p[:,1]**2)))
-        return dict(solver=self.solver,contactIterations=self.iterations,positionIterations=self.position_iterations,seconds=self.seconds,settledSeconds=self.settled,wallSeconds=time.perf_counter()-self.started,count=self.count,diameterMm=self.radius0*2000,dt=self.dt,steps=self.steps,contacts=int(self.last[0]),wallContacts=int(self.last[1]),overlapRatio=float(self.last[2]),maxOverlapRatio=self.max_overlap,meanSpeed=float(speed.mean()) if self.liquid<1 else 0.,meanOrbitalRPM=meanomega*60/(2*math.pi),counterMovingFraction=float(np.mean(orbital*self.omega<-1e-8)),phase=float(self.omega*self.seconds),liquid=self.liquid,rotationDirection=self.c.get('rotationDirection',-1),massKg=self.mass,representedMassKg=self.count*self.c['rhos']*4*math.pi*self.radius0**3/3,historyEntries=len(self.rigid_history) if self.solver=='rigid' else len(self.history),escaped=self.escaped)
+        return dict(backend='cpp' if self.native else 'numba_reference',solver=self.solver,contactIterations=self.iterations,positionIterations=self.position_iterations,seconds=self.seconds,settledSeconds=self.settled,wallSeconds=time.perf_counter()-self.started,count=self.count,diameterMm=self.radius0*2000,dt=self.dt,steps=self.steps,contacts=int(self.last[0]),wallContacts=int(self.last[1]),overlapRatio=float(self.last[2]),maxOverlapRatio=self.max_overlap,meanSpeed=float(speed.mean()) if self.liquid<1 else 0.,meanOrbitalRPM=meanomega*60/(2*math.pi),counterMovingFraction=float(np.mean(orbital*self.omega<-1e-8)),phase=float(self.omega*self.seconds),liquid=self.liquid,rotationDirection=self.c.get('rotationDirection',-1),massKg=self.mass,representedMassKg=self.count*self.c['rhos']*4*math.pi*self.radius0**3/3,historyEntries=self.native.history_size if self.native else (len(self.rigid_history) if self.solver=='rigid' else len(self.history)),escaped=self.escaped)
     def snapshot(self):
         info=self.metrics();info['positions']=base64.b64encode(np.asarray(self.p[:,:3],dtype='<f4').tobytes()).decode('ascii')
-        if self.liquid>0:info['liquidPlane']=float(liquid_plane(self.p,self.r,*self.g[:6],self.mass*self.liquid/self.c['rhol']))
+        if self.liquid>0:info['liquidPlane']=float(self.native.liquid_plane(self.p,self.r,self.g,self.mass*self.liquid/self.c['rhol']) if self.native else liquid_plane(self.p,self.r,*self.g[:6],self.mass*self.liquid/self.c['rhol']))
         return info
 
 class MotionJobs:

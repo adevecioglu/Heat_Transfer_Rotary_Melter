@@ -1,85 +1,82 @@
-# Rotary Melter — V11 çalışma projesi
+# Rotary Melter — C++ Engineering Workstation 3.0
 
-GitHub: [adevecioglu/Heat_Transfer_Rotary_Melter](https://github.com/adevecioglu/Heat_Transfer_Rotary_Melter).
+V11 / Desktop 2.2 temel alınarak geliştirilen döner eritici analiz programı. Ana ısıl hesap, parametre analizleri ve granül temas çözümleri **C++20** ile çalışır. Python masaüstü pencereyi, dosyaları ve C++ bağlantısını; JavaScript kullanıcı arayüzünü ve görselleştirmeyi yönetir.
 
-Eğimli, dönen eritme tankının **V11 / Desktop 2.2.0** sürümünü temel alan geliştirme alanı. Doğrulanan başlangıç korunur: ürün, metal ve ceket suyu 25 °C; girişe 110 °C su gelir (`sourceMode=1`). Gücü sınırlı kaynak ayrıca seçilebilir. Kayıtlı kullanıcı senaryoları sessizce değiştirilmez.
+Çalışma klasörü: `C:\Projects\Heat_Transfer_Rotary_Melter`. Önceki `Heat_Transfer` projesi bu çalışma kapsamında değiştirilmez. GitHub: [Heat_Transfer_Rotary_Melter](https://github.com/adevecioglu/Heat_Transfer_Rotary_Melter).
 
 ## Başlatma
 
-**`BASLAT.cmd`** dosyasını çalıştırın. Bağımlılıklar eksikse önce **`KURULUM.cmd`** kullanın. Uygulama yerel `.venv` ortamıyla açılır; Edge WebView2 çalışma zamanı gerekir. Ortam Python 3.10 ile hazırlanmıştır; sabitlenmiş bağımlılıklar için Python 3.10–3.12 kullanın.
-
-PowerShell:
+**`BASLAT.cmd`** dosyasını çalıştırın. İlk kurulumda **`KURULUM.cmd`** kullanın: yerel `.venv`, Python bağımlılıkları, referans testleri için Node ve sabitlenmiş C++ derleyici/kütüphaneleri hazırlanır. Windows'ta Edge WebView2 ve Python 3.10–3.12 gerekir. Derleme araçları `.tools/`, derlenmiş motor `outputs/native/bin/` içinde kalır.
 
 ```powershell
 . .\AKTIF_ET.ps1
-.\.venv\Scripts\python.exe app.py
+.venv\Scripts\python.exe app.py
 ```
 
-PowerShell betik çalıştırmayı engelliyorsa yalnız açık oturum için:
+Bağımsız EXE: `releases/current/Rotary_Melter_Cpp.exe`; NVIDIA sürümü: `releases/current/Rotary_Melter_Cpp_GPU.exe`. EXE yerel Python/Node kurulumu istemez; WebView2 gerektirir. Mevcut V11 EXE ve özgün V1–V11 dosyaları diskte korunur.
 
-```powershell
-Set-ExecutionPolicy -Scope Process -ExecutionPolicy RemoteSigned
-. .\AKTIF_ET.ps1
-```
+NVIDIA kurulumu: `KURULUM_GPU.cmd`. Dashboard'daki NVIDIA eylemi, kaydedilmiş dış yüzey sıcaklıklarında CUDA C++ ile bağımsız taşınım/radyasyon alan kontrolü yapar. Ana zamana bağlı C++ çözümü CPU'dadır. RTX 4070 üzerinde float64 CPU/GPU farkı 1e-7 W eşiğinin altındadır; ilk derleme ve aktarım süresi ayrıca raporlanır. Küçük alanlarda CPU daha hızlıdır. GPU içeren EXE üretmek için `python -m tools.BuildDesktop --with-gpu` komutunu proje ortamında kullanın.
 
-## Kod nerede?
+## Yeni çalışma akışı
 
-| Görev | Kaynak |
+1. Girdileri soldan düzenleyin; `/` ile arayın. `Ctrl+Enter` ile hesaplayın. Değişiklikler önceki sonucu güncel sonuç olarak göstermez.
+2. Hesap merkezinden RK2 midpoint, RK4 veya adaptif Dormand–Prince seçin. Varsayılan RK2, V11 karşılaştırması için korunur.
+3. Bağımsız analiz koşularının iş parçacığı sayısını seçin. Zaman adımları ve ortak granülleri etkileyen temaslar sırayla çözülür; büyük yüzey ağlarında bağımsız hücreler OpenMP kullanabilir.
+4. **Ağ / zaman kontrolü**, yüzey ağını, zaman adımını ve granül radyal ağını ayrı karşılaştırır. **Duyarlılık ±%10**, RPM/debi/film/yenilenme etkilerini ve yerel elastisiteleri gösterir.
+5. **İzlenebilirlik** bölümünden önceki çalıştırmaları açın. Sonuçlar, tam girdiler, seçili yöntem ve SHA-256 kayıtları birlikte saklanır.
+6. **Markdown raporu**, PDF, CSV ve JSON çıktılarıyla sonucu inceleyin. Granül görünümünde temel oynatma kontrolleri modelin üzerinde, ayrıntılı hareket ayarları açılır bölümde bulunur.
+
+Varsayılan başlangıç: ürün, metal ve ceket suyu 25 °C; su girişi 110 °C, sabit giriş modu. Dolum modunda kütle geometri/dolumdan hesaplanır: varsayılan gerçek yük yaklaşık 71,202 kg'dır. Güç sınırlı boiler modu ayrıca seçilebilir. Kullanıcının kayıtlı senaryoları otomatik olarak değiştirilmez.
+
+`constant` su modeli girilen V11 sabitlerini korur. `if97_reference`, IAPWS-IF97 özelliklerini başlangıç/giriş sıcaklıklarının ortalamasında bir kez hesaplar; bu özellikler enerji çözümünde sabit kalır. Tek faz su varsayımı korunur.
+
+## Kod ve kütüphaneler
+
+| Sorumluluk | Kaynak |
 | --- | --- |
-| Masaüstünde kullanılan ana hesap modeli | [web/calculations/Calculation.js](rotary_melter/web/calculations/Calculation.js) ve aynı klasördeki görev modülleri |
-| Bağımsız SciPy ısıl çözümü ve hidrolik karşılaştırma | [Calculation.py](rotary_melter/Calculation.py) |
-| JSON girdileri | [Configuration.py](rotary_melter/Configuration.py), `config/` |
-| Masaüstü pencere ve Python–JavaScript köprüsü | [Interface.py](rotary_melter/Interface.py) |
-| Yerel proje/senaryo kütüphanesi | [Workspace.py](rotary_melter/Workspace.py) |
-| Parçacık temas ve rijit cisim dinamiği | `rotary_melter/dynamics/` |
-| Formlar, görselleştirme, PDF raporu | `rotary_melter/web/interface/`, `visualization/`, `reporting/` |
-| Arayüzsüz JSON/CSV/HTML raporu | [Reporting.py](rotary_melter/Reporting.py) |
-| Testler ve derleme araçları | `tests/`, `tools/` |
+| Isıl enerji denklemleri ve Odeint çözümü | [Calculation.cpp](native/src/Calculation.cpp) |
+| Geometri, ıslanma, hidrolik, kapasiteler | [Geometry.cpp](native/src/Geometry.cpp) |
+| Entalpi, IF97, izolasyon/çevre dengesi | [Thermodynamics.cpp](native/src/Thermodynamics.cpp) |
+| Tipli girdi ve doğrulama | [Configuration.cpp](native/src/Configuration.cpp) |
+| Paralel analiz ve yakınsama | [Analysis.cpp](native/src/Analysis.cpp) |
+| Rijit/elastik granül temas çözümleri | [ContactDynamics.cpp](native/src/ContactDynamics.cpp) |
+| Python–C++ taşıma katmanı | [NativeEngine.py](rotary_melter/NativeEngine.py), [NativeContactEngine.py](rotary_melter/dynamics/NativeContactEngine.py) |
+| Dashboard, yöntem açıklamaları ve görünüm | `rotary_melter/web/interface/`, `visualization/` |
+| Raporlar ve kullanıcı senaryo kütüphanesi | `Reporting.py`, `AnalysisReporting.py`, `Workspace.py` |
 
-Dosya ağacı ve eski/yeni adlar: [Kod yapısı](docs/KOD_YAPISI.md). Denklemler, değişkenler, literatür ve kaynak satırları: [Equation catalogue](docs/CALCULATION_EQUATIONS.md). VS Code'da **Ctrl+Shift+V** ile matematik önizlemesini açabilirsiniz; Markdown Preview Enhanced önerisi ve KaTeX ayarları hazırdır.
+**Boost 1.90.0**: Odeint integratörleri ve TOMS748 kök çözümü. **Eigen 5.0.0**: LDLT ve vektör cebiri. **CoolProp/IF97 2.2.1**: su özellikleri. **BS_thread_pool 5.1.0**: bağımsız koşu paralelliği. **nlohmann/json 3.12.0**: veri sınırı. [Sürümler ve SHA-256](native/dependencies.lock.json), [lisans bildirimleri](native/third_party_licenses/).
 
-## Kurulum ve arayüzsüz hesap
+V11 JavaScript ve bağımsız SciPy modeli regresyon için korunur; önceki Mixing Vessel modeliyle değiştirilmez.
 
-```powershell
-.\.venv\Scripts\python.exe -m pip install -r requirements.txt
-.\.venv\Scripts\python.exe -m tools.SetupNode
-.\.venv\Scripts\python.exe app.py --build
-.\.venv\Scripts\python.exe app.py --run --config config/default_inputs.json --output outputs/ornek_kosu
-```
+## Denklemler ve raporlar
 
-Hesap motorunun komut satırından çalıştırılması ve JavaScript testleri Node.js kullanır. Bu bilgisayarda checksum doğrulaması yapılmış Node.js 24 LTS `.tools/node/` içine kurulmuştur; yeni kurulumda `SetupNode` bunu hazırlar. Masaüstü hesapları WebView2 içinde çalışır ve Node gerektirmez. `.venv`, `.tools` ve `outputs` Git'e eklenmez.
+- [C++ formül kataloğu](docs/CPP_CALCULATION_EQUATIONS.md): 20 hesap aşaması; amaç, denklem, birim, kaynak satırları, kullanılan kütüphane ve literatür.
+- [Calculation.py formül kataloğu](docs/CALCULATION_EQUATIONS.md): bağımsız Python referansının önceki ayrıntılı raporu.
+- [C++ doğrulama ölçümleri](docs/CPP_VALIDATION_REPORT.md): V11 karşılaştırması, sayısal hassasiyet ve ölçülmüş çalışma süreleri.
+- [Kod yapısı](docs/KOD_YAPISI.md), [geliştirme komutları](docs/CPP_DEVELOPMENT.md), [V11 kaynak kökeni](docs/V11_SOURCE_PROVENANCE.json).
 
-`--run`, arayüzle aynı V11 hesap motorunu kullanır; `result.json`, `history.csv`, `summary.json` ve `report.html` üretir. Masaüstündeki mevcut PDF, CSV, JSON, erime oynatımı ve parçacık hareketi özellikleri korunmuştur.
+VS Code'da Markdown önizlemesi **Ctrl+Shift+V**; yanında açma **Ctrl+K, V**. Markdown Preview Enhanced, C/C++ ve CMake Tools önerileri `.vscode/extensions.json` içindedir. Bu bilgisayarda ilgili uzantılar kurulmuştur.
 
-## Doğrulama
+Her masaüstü hesabı `outputs/runs/<run-id>/` içine sonuç JSON'u, zaman serisi CSV'si, Markdown raporu, formül kataloğu kopyası ve manifest yazar. Analizler ayrıca koşu CSV'si ve analiz raporu üretir. Senaryo kütüphanesi `%LOCALAPPDATA%\RotaryMelter\workspace.json` konumunda korunur. Paketli EXE'nin sonuçları EXE yanındaki `outputs/` içinde kalır; geçici açılma klasörüne yazılmaz.
 
-```powershell
-.\.venv\Scripts\python.exe -m tools.RunChecks
-.\.venv\Scripts\python.exe -m tools.RunChecks --desktop
-.\.venv\Scripts\python.exe app.py --self-test outputs/desktop_check.json
-```
-
-Kontroller çıktıları ayrı `outputs/checks/` klasörlerine yazar. Gerçek kullanıcı kütüphanesini değiştirmez. Aktarım kontrolleri ve eski testlerin durumu: [Doğrulama notları](docs/MIGRATION_VERIFICATION.md).
-
-## EXE üretme
+## Komut satırı ve doğrulama
 
 ```powershell
-.\.venv\Scripts\python.exe -m pip install -r requirements-build.txt
-.\.venv\Scripts\python.exe -m tools.BuildDesktop
+.venv\Scripts\python.exe -m tools.BuildCpp
+.venv\Scripts\python.exe app.py --run --output outputs/ornek_kosu
+.venv\Scripts\python.exe app.py --analyse convergence --threads 4 --output outputs/yakinsama
+.venv\Scripts\python.exe app.py --analyse sensitivity --threads 4 --output outputs/duyarlilik
+.venv\Scripts\python.exe app.py --run --engine javascript --output outputs/v11_referans
+.venv\Scripts\python.exe -m tools.RunChecks --desktop
+.venv\Scripts\python.exe -m tools.DocumentCppEquations --check
 ```
 
-Yeni EXE: `releases/current/Rotary_Melter_V11.exe`. Kaynaktan çalıştırma her açılışta HTML arayüzünü günceller; paketli EXE derleme sırasında gömülen arayüzü kullanır. EXE'deki komut satırı hesap modu ayrıca Node kurulumu ister; normal masaüstü modu istemez.
+Python gerektirmeyen C++ komut satırı motoru da üretilir:
 
-## Sürümler ve kayıtlar
+```powershell
+outputs\native\bin\rotary_melter_cpp.exe --input config\default_inputs.json --output outputs\native_cli.json
+```
 
-- `releases/original/`: V1–V11 orijinal dağıtımları ve ZIP'leri; silinmedi, Git dışında tutulur.
-- `docs/history/`: Önceki kullanım, araştırma ve doğrulama belgeleri.
-- `validation/original/`: Kaynak paketinin değişmeden korunan doğrulama kayıtları.
-- `reference/`: Bağımsız çözücü karşılaştırması ve hesaplanmış örnek hareket kaydı.
-- `docs/V11_SOURCE_PROVENANCE.json`: V11 dağıtımı ile kaynak arşivinin eşleşme ve dosya checksum bilgileri.
+EXE derlemek için `.venv\Scripts\python.exe -m pip install -r requirements-build.txt` ardından `.venv\Scripts\python.exe -m tools.BuildDesktop` kullanın. Orijinal sürümler `releases/original/` altında korunur. `.venv`, `.tools`, önbellekler, hesap çıktıları ve EXE arşivleri Git'e eklenmez.
 
-Mevcut kullanıcı kütüphanesi `%LOCALAPPDATA%\RotaryMelter\workspace.json` konumunda kalır. Otomatik testler kendilerine ayrılmış proje içi dosyaları kullanır.
-
-## Modelin kapsamı
-
-Bu bir ısıl ağ, granül radyal iletimi ve yaklaşık temas/dinamik modelidir. CFD veya deneysel olarak doğrulanmış eritme ekipmanı tasarımı değildir. Bağımsız BDF/Radau çözümleri ve korunum kontrolleri sayısal doğrulamadır; malzeme, temas, film katsayıları ve kaynak/rezervuar sınır koşulları gerçek ekipmana göre ayrıca belirlenmelidir. Önceki Heat_Transfer projesinin fiziksel modeli bu projeye kopyalanmamıştır; o projede kurulan geliştirme düzeni bu uygulamaya uyarlanmıştır.
+Enerji korunumu ve eski kodla sayısal uyum, gerçek ekipmanın erime süresini doğrulamaz. Malzeme özellikleri ile temas/devir katsayıları ölçümle kalibre edilmelidir; 3B görünüm bir CFD çözümü değildir.

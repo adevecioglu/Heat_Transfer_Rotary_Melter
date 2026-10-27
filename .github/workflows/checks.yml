@@ -15,6 +15,10 @@ jobs:
       - name: Create local environment
         run: python -m venv .venv
       - name: Install application requirements
-        run: .\.venv\Scripts\python.exe -m pip install -r requirements.txt
+        run: .\.venv\Scripts\python.exe -m pip install -r requirements.txt -r requirements-native.txt
+      - name: Build pinned C++ production engine
+        run: .\.venv\Scripts\python.exe -m tools.BuildCpp
+      - name: Verify equation source references
+        run: .\.venv\Scripts\python.exe -m tools.DocumentCppEquations --check
       - name: Verify numerical and workflow checks
         run: .\.venv\Scripts\python.exe -m tools.RunChecks

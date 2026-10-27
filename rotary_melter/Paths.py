@@ -5,9 +5,9 @@ import shutil
 import sys
 
 PACKAGE_DIR = Path(__file__).resolve().parent
-PROJECT_ROOT = PACKAGE_DIR.parent
+PROJECT_ROOT = Path(sys.executable).resolve().parent if getattr(sys, 'frozen', False) else PACKAGE_DIR.parent
 WEB_DIR = PACKAGE_DIR / 'web'
-DEFAULT_CONFIG = PROJECT_ROOT / 'config' / 'default_inputs.json'
+DEFAULT_CONFIG = (Path(sys._MEIPASS) if getattr(sys, 'frozen', False) else PROJECT_ROOT) / 'config' / 'default_inputs.json'
 OUTPUTS_DIR = PROJECT_ROOT / 'outputs'
 REFERENCE_DIR = PROJECT_ROOT / 'reference'
 HTML_FILE = OUTPUTS_DIR / 'web' / 'Rotary_Melter.html'
@@ -18,6 +18,8 @@ def resource_path(name):
         return Path(sys._MEIPASS) / name
     if name == 'Rotary_Melter.html':
         return HTML_FILE
+    if name == 'assets/motion_cpp_record.npz':
+        return OUTPUTS_DIR/'reference'/'motion_cpp_record.npz'
     if name.startswith('assets/'):
         return REFERENCE_DIR / Path(name).name
     return PROJECT_ROOT / name

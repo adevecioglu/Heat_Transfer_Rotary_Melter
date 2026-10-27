@@ -2,6 +2,8 @@
 import csv
 import html
 import json
+import hashlib
+import shutil
 from pathlib import Path
 
 
@@ -27,4 +29,55 @@ def export_result(result, folder):
                 '<h1>Rotary Melter — V11 calculation</h1><p>Numerical model results; not experimental validation.</p>'
                 '<p><a href="result.json">Full result JSON</a> · <a href="history.csv">History CSV</a></p><table>'+rows+'</table></html>')
     (folder / 'report.html').write_text(document, encoding='utf-8')
+    trace = result.get('traceability', {})
+    engine = result.get('engine', {})
+    manifest = {
+        'runId': trace.get('runId', folder.name), 'createdUtc': trace.get('createdUtc'),
+        'inputSha256': trace.get('inputSha256'), 'nativeLibrarySha256': trace.get('nativeLibrarySha256'),
+        'sourceFingerprint': engine.get('sourceFingerprint'), 'integrator': engine.get('integrator'),
+        'targetReached': result.get('targetReached'), 'seconds': result.get('seconds'),
+        'energyInKWh': result.get('energyInKWh'), 'balanceRelative': result.get('balanceRelative'),
+        'engine': engine.get('name', 'V11 JavaScript reference'),
+        'resultSha256': hashlib.sha256((folder/'result.json').read_bytes()).hexdigest(),
+    }
+    (folder/'run_manifest.json').write_text(json.dumps(manifest, ensure_ascii=False, indent=2), encoding='utf-8')
+    def number(key):
+        value = result.get(key)
+        return f'{value:.10g}' if isinstance(value, (float, int)) else str(value)
+    markdown = [
+        '# Rotary Melter — calculation run', '',
+        '## Result', '',
+        '| Quantity | Value |', '| --- | ---: |',
+        f"| Target reached | {result.get('targetReached')} |",
+        f"| Physical duration (s) | {number('seconds')} |",
+        f"| Input energy (kWh) | {number('energyInKWh')} |",
+        f"| Product energy increase (kWh) | {number('storedProductKWh')} |",
+        f"| Heat loss (kWh) | {number('lossKWh')} |",
+        f"| Relative energy residual | {number('balanceRelative')} |", '',
+        '## Method and stage-by-stage purpose', '',
+        '1. Validate numerical inputs and convert engineering dimensions to SI.',
+        '2. Build cylinder/head geometry and inclined wet-area tables.',
+        '3. Assemble metal/water capacities and radial granule masses.',
+        '4. Convert product energy to temperature/liquid fraction using the documented enthalpy law.',
+        '5. Solve the coupled granule surface balance with Eigen; evaluate conductive, convective and radiative rates.',
+        '6. Advance the conservative ODE state with the selected Boost.Odeint method; dependent time steps remain sequential.',
+        '7. Check energy closure and target status; export fields, time series and provenance.', '',
+        'The exact C++ formulas, library roles, assumptions, source-line links and literature are in '
+        '`docs/CPP_CALCULATION_EQUATIONS.md`. The V11 reference equations remain in `docs/CALCULATION_EQUATIONS.md`.', '',
+        '## Traceability', '',
+        f"- Run ID: `{manifest['runId']}`",
+        f"- Input SHA-256: `{manifest['inputSha256']}`",
+        f"- Native library SHA-256: `{manifest['nativeLibrarySha256']}`",
+        f"- Native source fingerprint: `{manifest['sourceFingerprint']}`",
+        f"- Result JSON SHA-256: `{manifest['resultSha256']}`",
+        f"- Integrator: `{manifest['integrator']}`",
+        f"- Library versions: `{json.dumps(engine.get('libraries', {}), ensure_ascii=False)}`", '',
+        'The complete requested inputs and solver options are embedded in `result.json`. '
+        'Run artifacts are calculations, not experimental equipment validation.', '',
+    ]
+    (folder/'RUN_REPORT.md').write_text('\n'.join(markdown), encoding='utf-8')
+    from .Paths import resource_path
+    catalogue=resource_path('docs/CPP_CALCULATION_EQUATIONS.md')
+    if catalogue.is_file():
+        shutil.copy2(catalogue,folder/'EQUATIONS.md')
     return folder

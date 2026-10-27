@@ -26,6 +26,10 @@ if exist "%LOCAL_PYTHON%" (
 if errorlevel 1 goto failed
 ".venv\Scripts\python.exe" -m tools.SetupNode
 if errorlevel 1 goto failed
+".venv\Scripts\python.exe" -m pip install -r requirements-native.txt
+if errorlevel 1 goto failed
+".venv\Scripts\python.exe" -m tools.BuildCpp
+if errorlevel 1 goto failed
 ".venv\Scripts\python.exe" app.py --build
 if errorlevel 1 goto failed
 echo Kurulum tamamlandi. BASLAT.cmd ile uygulamayi acabilirsiniz.

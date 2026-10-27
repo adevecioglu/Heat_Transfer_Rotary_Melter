@@ -1,0 +1,38 @@
+{
+  "Boost-1.90.0.txt": {
+    "url": "https://raw.githubusercontent.com/boostorg/boost/boost-1.90.0/LICENSE_1_0.txt",
+    "sha256": "c9bff75738922193e67fa726fa225535870d2aa1059f91452c411736284ad566"
+  },
+  "Eigen-5.0.0-MPL2.txt": {
+    "url": "https://gitlab.com/libeigen/eigen/-/raw/5.0.0/COPYING.MPL2",
+    "sha256": "66a3107d5ad6a058aab753eaac2047ccb2ed0e39465dd0fe5844da3e300d5172"
+  },
+  "nlohmann-json-3.12.0.txt": {
+    "url": "https://raw.githubusercontent.com/nlohmann/json/v3.12.0/LICENSE.MIT",
+    "sha256": "46a65cffd1ea955132d95a8dd921640714a8d6b537d2e4e482d31145ae95b603"
+  },
+  "CoolProp-IF97-2.2.1.txt": {
+    "url": "https://raw.githubusercontent.com/CoolProp/IF97/v2.2.1/LICENSE",
+    "sha256": "e22c3d30ef8d88ab468d9ea20392ca1df22fa3fd0a92dc3e996d89cf3cfdbd03"
+  },
+  "BS-thread-pool-5.1.0.txt": {
+    "url": "https://raw.githubusercontent.com/bshoshany/thread-pool/v5.1.0/LICENSE.txt",
+    "sha256": "712a867cc12ebfcdecf6cea097f5aa7ec5acaa435a8f818c9f370960df35acbf"
+  },
+  "GCC-runtime-exception.txt": {
+    "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/releases/gcc-16/COPYING.RUNTIME",
+    "sha256": "9d6b43ce4d8de0c878bf16b54d8e7a10d9bd42b75178153e3af6a815bdc90f74"
+  },
+  "GCC-GPL3.txt": {
+    "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/releases/gcc-16/COPYING3",
+    "sha256": "8ceb4b9ee5adedde47b31e975c1d90c73ad27b6b165a1dcd80c7c545eb65b903"
+  },
+  "mingw-w64-runtime.txt": {
+    "url": "https://raw.githubusercontent.com/mingw-w64/mingw-w64/v14.0.0/COPYING",
+    "sha256": "99a69660981156c21336fdb5661f89341b013c94e4bf9e1c7467b4745718397f"
+  },
+  "winpthreads.txt": {
+    "url": "https://raw.githubusercontent.com/mingw-w64/mingw-w64/v14.0.0/mingw-w64-libraries/winpthreads/COPYING",
+    "sha256": "63263614cdd29f2f93cba85e992f041b31f9fc7b4033692f31269489a8a1b177"
+  }
+}

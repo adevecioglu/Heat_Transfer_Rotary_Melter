@@ -26,11 +26,22 @@
     "interface/MeltingMethodExplanation.js",
     "interface/MeltingPanel.js",
     "interface/WorkspacePanel.js",
-    "interface/WaterAudit.js"
+    "interface/WaterAudit.js",
+    "interface/NativeMethods.js",
+    "interface/NativeDashboard.js"
   ],
   "REPORT": [
     "reporting/Reporting.js",
     "reporting/RegionalReporting.js"
+  ],
+  "cppSources": [
+    "native/include/rotary/Configuration.hpp",
+    "native/src/Configuration.cpp",
+    "native/src/Geometry.cpp",
+    "native/src/Thermodynamics.cpp",
+    "native/src/Calculation.cpp",
+    "native/src/Analysis.cpp",
+    "native/src/ContactDynamics.cpp"
   ],
   "nativeSources": [
     "rotary_melter/dynamics/ContactDynamics.py",

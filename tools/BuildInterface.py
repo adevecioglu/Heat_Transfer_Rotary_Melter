@@ -8,6 +8,10 @@ from rotary_melter.Paths import PROJECT_ROOT, WEB_DIR, HTML_FILE
 def build_interface():
     manifest = json.loads((WEB_DIR / 'manifest.json').read_text(encoding='utf-8'))
     document = (WEB_DIR / 'Interface.template.html').read_text(encoding='utf-8')
+    document = document.replace('@@STYLES@@', (WEB_DIR/'interface'/'Workstation.css').read_text(encoding='utf-8'))
+    from .BuildCpp import source_fingerprint
+    cpp='\n\n'.join('// '+name+'\n'+(PROJECT_ROOT/name).read_text(encoding='utf-8') for name in manifest.get('cppSources',[]))
+    document=document.replace('</body>', '<textarea id="cppSource" hidden data-fingerprint="'+source_fingerprint()+'">'+html.escape(cpp)+'</textarea></body>')
     for group in ('ENGINE', 'VIEW', 'REPORT', 'APP'):
         code = '\n'.join((WEB_DIR / name).read_text(encoding='utf-8-sig') for name in manifest[group])
         document = document.replace('@@'+group+'@@', code)
