@@ -5,6 +5,13 @@ import json
 from pathlib import Path
 
 
+def _table_text(value):
+    """Keep case names and native errors inside a single Markdown table cell."""
+    escaped = (str(value).replace('&', '&amp;').replace('<', '&lt;')
+               .replace('>', '&gt;').replace('|', '&#124;'))
+    return escaped.replace('\r\n', '\n').replace('\r', '\n').replace('\n', '<br>')
+
+
 def export_analysis(result, folder):
     folder = Path(folder)
     folder.mkdir(parents=True, exist_ok=True)
@@ -38,13 +45,19 @@ def export_analysis(result, folder):
              f"- Independent-case threads: {result.get('threadsUsed', 1)}",
              f"- Parallel execution: {result.get('parallelism', 'sequential dependent search')}", '',
              '## Measured outputs', '',
-             '| Case | Target reached | Physical time (s) | Input energy (kWh) | Relative energy residual | Wall time (s) |',
-             '| --- | --- | ---: | ---: | ---: | ---: |']
+             '| Case | Status | Target reached | Physical time (s) | Input energy (kWh) | Relative energy residual | Wall time (s) |',
+             '| --- | --- | --- | ---: | ---: | ---: | ---: |']
     for row in rows:
         def fmt(key):
             value = row.get(key)
             return f'{value:.8g}' if isinstance(value, (int, float)) else str(value)
-        lines.append(f"| {row['case']} | {row['target_reached']} | {fmt('physical_seconds')} | {fmt('input_kwh')} | {fmt('relative_energy_residual')} | {fmt('wall_seconds')} |")
+        status = 'OK' if row['ok'] else 'FAILED'
+        lines.append(f"| {_table_text(row['case'])} | {status} | {row['target_reached']} | {fmt('physical_seconds')} | {fmt('input_kwh')} | {fmt('relative_energy_residual')} | {fmt('wall_seconds')} |")
+    failures = [row for row in rows if not row['ok']]
+    if failures:
+        lines += ['', '## Failed cases', '', '| Case | Error |', '| --- | --- |']
+        for row in failures:
+            lines.append(f"| {_table_text(row['case'])} | {_table_text(row['error'] or 'No error detail provided.')} |")
     if not rows:
         lines += ['', f"Possible: {result.get('possible')}; conditional power: {result.get('kw', 'unavailable')} kW."]
     lines += ['', '## Convergence diagnostics', '', '```json',
