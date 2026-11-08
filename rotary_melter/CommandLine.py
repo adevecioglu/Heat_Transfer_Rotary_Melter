@@ -37,6 +37,7 @@ def main(argv=None):
         from .Reporting import export_result
         configuration = load_inputs(args.config) if args.config else load_inputs()
         output = args.output or OUTPUTS_DIR / datetime.now().strftime('run_%Y%m%d_%H%M%S_%f')
+        exit_code = 0
         if args.analyse:
             if args.engine != 'cpp':
                 parser.error('--analyse requires --engine cpp')
@@ -46,6 +47,11 @@ def main(argv=None):
                               'options': {'integrator': args.integrator, 'threads': args.threads, 'waterModel': args.water_model}})
             folder = export_analysis(result, output)
             print(f'Analysis: {args.analyse} | Cases: {len(result.get("cases", []))}')
+            failed = sum(not case.get('ok', False) or bool(case.get('summary', {}).get('cancelled'))
+                         for case in result.get('cases', []))
+            if failed:
+                print(f'Failed or cancelled analysis cases: {failed}', file=sys.stderr)
+                exit_code = 1
         else:
             if args.engine == 'cpp':
                 from .NativeEngine import simulate
@@ -57,7 +63,7 @@ def main(argv=None):
             folder = export_result(result, output)
             print(f"Target reached: {result.get('targetReached')} | Elapsed physical time: {result.get('seconds')} s")
         print(f'Output: {folder.resolve()}')
-        return 0
+        return exit_code
     if getattr(sys, 'frozen', False):
         from .Paths import resource_path
         built = resource_path('Rotary_Melter.html')
