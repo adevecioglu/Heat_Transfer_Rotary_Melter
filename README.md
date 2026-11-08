@@ -73,6 +73,8 @@ Her masaüstü hesabı `outputs/runs/<run-id>/` içine sonuç JSON'u, zaman seri
 
 Python başlatıcısında `--analyse`, başarısız veya iptal edilmiş analiz koşuları varsa raporları kaydettikten sonra çıkış kodu 1 döndürür. Hatasız tamamlanan bir koşunun hedef sıcaklığa ulaşamaması tek başına komut hatası sayılmaz.
 
+`--run` ve `--analyse` aynı komutta kullanılamaz. Birlikte verilirse hesap başlatılmadan ve rapor yazılmadan kullanım hatası (çıkış kodu 2) döner.
+
 Python gerektirmeyen C++ komut satırı motoru da üretilir:
 
 ```powershell

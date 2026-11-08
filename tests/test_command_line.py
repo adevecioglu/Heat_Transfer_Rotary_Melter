@@ -1,4 +1,4 @@
-"""Headless analysis exit status must reflect failed or cancelled cases."""
+"""Headless commands must reject conflicting actions and report analysis failures."""
 from contextlib import redirect_stderr, redirect_stdout
 import io
 import json
@@ -9,6 +9,27 @@ from unittest.mock import patch
 
 from rotary_melter.CommandLine import main
 from rotary_melter.Paths import PROJECT_ROOT
+
+
+class CalculationActionTests(unittest.TestCase):
+    def test_run_and_analysis_conflict_before_loading_or_exporting(self):
+        for analysis in ('convergence', 'sensitivity', 'rpm', 'sizing'):
+            for arguments in (['--run', '--analyse', analysis],
+                              ['--analyse', analysis, '--run']):
+                with self.subTest(arguments=arguments):
+                    stderr = io.StringIO()
+                    with patch('rotary_melter.CommandLine.load_inputs') as load, \
+                            patch('rotary_melter.NativeEngine.execute') as execute, \
+                            patch('rotary_melter.Reporting.export_result') as export, \
+                            patch('rotary_melter.AnalysisReporting.export_analysis') as export_analysis, \
+                            redirect_stderr(stderr), self.assertRaises(SystemExit) as raised:
+                        main(arguments)
+                    self.assertEqual(raised.exception.code, 2)
+                    self.assertIn('not allowed with argument', stderr.getvalue())
+                    self.assertIn('--run', stderr.getvalue())
+                    self.assertIn('--analyse', stderr.getvalue())
+                    for operation in (load, execute, export, export_analysis):
+                        operation.assert_not_called()
 
 
 class AnalysisExitStatusTests(unittest.TestCase):
