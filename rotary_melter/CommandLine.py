@@ -63,6 +63,9 @@ def main(argv=None):
                 result = simulate(configuration)
             folder = export_result(result, output)
             print(f"Target reached: {result.get('targetReached')} | Elapsed physical time: {result.get('seconds')} s")
+            if result.get('cancelled'):
+                print('Calculation cancelled.', file=sys.stderr)
+                exit_code = 1
         print(f'Output: {folder.resolve()}')
         return exit_code
     if getattr(sys, 'frozen', False):

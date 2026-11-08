@@ -32,6 +32,28 @@ class CalculationActionTests(unittest.TestCase):
                         operation.assert_not_called()
 
 
+class CalculationExitStatusTests(unittest.TestCase):
+    def test_cancelled_run_exports_before_returning_failure(self):
+        for engine in ('cpp', 'javascript'):
+            for cancelled, reached, expected in ((True, False, 1), (False, False, 0),
+                                                  (False, True, 0), (None, False, 0)):
+                with self.subTest(engine=engine, cancelled=cancelled, reached=reached):
+                    result = {'targetReached': reached, 'seconds': 12.5}
+                    if cancelled is not None:
+                        result['cancelled'] = cancelled
+                    stdout, stderr = io.StringIO(), io.StringIO()
+                    destination = PROJECT_ROOT / '.autodev' / 'cancelled_run_report'
+                    module = 'NativeEngine' if engine == 'cpp' else 'JavaScriptEngine'
+                    with patch(f'rotary_melter.{module}.simulate', return_value=result), \
+                            patch('rotary_melter.Reporting.export_result', return_value=destination) as export, \
+                            redirect_stdout(stdout), redirect_stderr(stderr):
+                        status = main(['--run', '--engine', engine, '--output', str(destination)])
+                    export.assert_called_once_with(result, destination)
+                    self.assertEqual(status, expected)
+                    self.assertIn(str(destination.resolve()), stdout.getvalue())
+                    self.assertEqual('Calculation cancelled.' in stderr.getvalue(), bool(expected))
+
+
 class AnalysisExitStatusTests(unittest.TestCase):
     def test_analysis_status_preserves_diagnostic_exports(self):
         scenarios = [
