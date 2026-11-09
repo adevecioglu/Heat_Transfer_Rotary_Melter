@@ -1,9 +1,11 @@
 {
   "name": "rotary-melter-v11",
-  "version": "2.2.0",
+  "version": "3.0.1",
   "private": true,
   "description": "V11 rotary melter desktop and conservative thermal/particle models",
-  "engines": {"node": ">=22"},
+  "engines": {
+    "node": ">=22"
+  },
   "scripts": {
     "test": ".venv\\Scripts\\python.exe -m tools.RunChecks"
   }

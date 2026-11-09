@@ -1,0 +1,56 @@
+{
+  "version": "3.0.1",
+  "previous_version": "3.0.0",
+  "tag": "auto/v3.0.1",
+  "project": "Heat_Transfer_Rotary_Melter",
+  "base_commit": "e109de64a239591f98982e0bbad5a2a99ca19d92",
+  "change_type": "patch",
+  "created_utc": "2026-11-09T16:46:46.980351+00:00",
+  "existing_upgrade": true,
+  "title": "İptal edilen tek hesap için çıkış kodu düzeltildi",
+  "summary": "--run, iptal edilmiş hesabın raporunu kaydettikten sonra artık çıkış kodu 1 döndürüyor. Tamamlanıp hedef sıcaklığa ulaşamayan hesaplar başarı kodunu koruyor. README ve regresyon testleri güncellendi.",
+  "limitations": [
+    "İptal sonucu kontrollü test verisiyle doğrulandı; masaüstünde canlı iptal testi yapılmadı."
+  ],
+  "changed_files": [],
+  "included_commits": [
+    "e109de6 auto: İptal edilen tek hesap için çıkış kodu düzeltildi",
+    "87c457f auto: Çelişkili hesap komutları engellendi",
+    "35ea625 auto: Başarısız analizler komut çıkış koduna yansıtıldı",
+    "475e3f7 auto: Analiz raporlarında başarısız koşular görünür hale getirildi"
+  ],
+  "status": "verified",
+  "checks": [
+    {
+      "passed": true,
+      "command": [
+        "C:\\Projects\\Heat_Transfer_Rotary_Melter\\.autodev\\work\\Heat_Transfer_Rotary_Melter\\.venv\\Scripts\\python.exe",
+        "-m",
+        "tools.BuildCpp"
+      ],
+      "returncode": 0,
+      "seconds": 1.69
+    },
+    {
+      "passed": true,
+      "command": [
+        "C:\\Projects\\Heat_Transfer_Rotary_Melter\\.autodev\\work\\Heat_Transfer_Rotary_Melter\\.venv\\Scripts\\python.exe",
+        "-m",
+        "tools.RunChecks"
+      ],
+      "returncode": 0,
+      "seconds": 25.23
+    },
+    {
+      "passed": true,
+      "command": [
+        "C:\\Projects\\Heat_Transfer_Rotary_Melter\\.autodev\\work\\Heat_Transfer_Rotary_Melter\\.venv\\Scripts\\python.exe",
+        "-m",
+        "tools.DocumentCppEquations",
+        "--check"
+      ],
+      "returncode": 0,
+      "seconds": 0.08
+    }
+  ]
+}

@@ -1,4 +1,4 @@
-# Rotary Melter — C++ Engineering Workstation 3.0
+# Rotary Melter — C++ Engineering Workstation 3.0.1
 
 V11 / Desktop 2.2 temel alınarak geliştirilen döner eritici analiz programı. Ana ısıl hesap, parametre analizleri ve granül temas çözümleri **C++20** ile çalışır. Python masaüstü pencereyi, dosyaları ve C++ bağlantısını; JavaScript kullanıcı arayüzünü ve görselleştirmeyi yönetir.
 
