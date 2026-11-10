@@ -13,7 +13,7 @@ import webview
 from .Workspace import WorkspaceStore
 from .Paths import resource_path
 
-APP_VERSION = '3.0.5'
+APP_VERSION = '3.0.6'
 
 
 class DesktopApi:
@@ -240,12 +240,12 @@ def main(argv=None) -> int:
         if args.require_gpu:
             html=html.replace('<head>','<head><script>window.__MELTER_REQUIRE_GPU__=true;</script>',1)
         if args.self_test:
-            html = html.replace('<head>', '''<head><script>window.__MELTER_SELF_TEST__=true;window.__testErrors=[];window.addEventListener('error',e=>{window.__testErrors.push(e.message+' '+e.filename+':'+e.lineno);if(window.pywebview?.api)window.pywebview.api.ready({version:'3.0.5',calculated:false,errors:window.__testErrors});});window.addEventListener('pywebviewready',()=>{if(window.__testErrors.length)window.pywebview.api.ready({version:'3.0.5',calculated:false,errors:window.__testErrors});});</script>''', 1)
+            html = html.replace('<head>', '''<head><script>window.__MELTER_SELF_TEST__=true;window.__testErrors=[];window.addEventListener('error',e=>{window.__testErrors.push(e.message+' '+e.filename+':'+e.lineno);if(window.pywebview?.api)window.pywebview.api.ready({version:'3.0.6',calculated:false,errors:window.__testErrors});});window.addEventListener('pywebviewready',()=>{if(window.__testErrors.length)window.pywebview.api.ready({version:'3.0.6',calculated:false,errors:window.__testErrors});});</script>''', 1)
         webview.settings['ALLOW_DOWNLOADS'] = False  # Saving goes through the native bridge.
         webview.settings['ALLOW_FILE_URLS'] = False  # All packaged assets are embedded.
         webview.settings['OPEN_EXTERNAL_LINKS_IN_BROWSER'] = True
         api._window = webview.create_window(
-            'Rotary Melter Workstation 3.0.5 - AISI 316 / 2B', html=html, js_api=api,
+            'Rotary Melter Workstation 3.0.6 - AISI 316 / 2B', html=html, js_api=api,
             width=1440, height=900, min_size=(1000, 650), resizable=True,
             hidden=bool(args.self_test), text_select=True, background_color='#eff4f5',
         )

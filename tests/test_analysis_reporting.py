@@ -1,5 +1,6 @@
 """Analysis reports must expose native failures without corrupting tables."""
 import csv
+import hashlib
 import json
 from pathlib import Path
 import tempfile
@@ -10,6 +11,22 @@ from rotary_melter.Paths import PROJECT_ROOT
 
 
 class AnalysisReportingTests(unittest.TestCase):
+    def test_result_hash_matches_exported_file_bytes(self):
+        temporary_root = PROJECT_ROOT / '.autodev'
+        temporary_root.mkdir(exist_ok=True)
+        result = {'analysis': 'Duyarlılık ölçümü', 'cases': [
+            {'name': 'Debi değişimi', 'ok': True, 'summary': {'seconds': 12.5}},
+        ]}
+        with tempfile.TemporaryDirectory(dir=temporary_root) as directory:
+            folder = export_analysis(result, directory)
+            payload = (folder / 'analysis.json').read_bytes()
+            expected_hash = hashlib.sha256(payload).hexdigest()
+            manifest = json.loads((folder / 'run_manifest.json').read_text(encoding='utf-8'))
+            report = (folder / 'ANALYSIS_REPORT.md').read_text(encoding='utf-8')
+            self.assertEqual(json.loads(payload), result)
+            self.assertEqual(manifest['resultSha256'], expected_hash)
+            self.assertIn(f'Analysis JSON SHA-256: `{expected_hash}`.', report)
+
     def test_cancelled_cases_are_explicit_in_report_and_csv(self):
         result = {'cases': [
             {'name': 'interrupted|case', 'ok': True,

@@ -1,5 +1,16 @@
 # Automatic releases
 
+## 3.0.6 — Analiz raporlarının SHA-256 doğrulaması düzeltildi
+
+Windows satır sonlarından kaynaklanan hash uyuşmazlığı yeniden üretildi ve giderildi. Manifest ve Markdown raporu artık analysis.json dosyasının gerçek baytlarını doğruluyor. Regresyon testi ve README güncellendi.
+
+Base commit: `2d86aa050c7f2681b799d21cbe67ae76b0ea1ab1`. Local tag: `auto/v3.0.6`.
+
+Limitations:
+
+- Hesap modelleri ve kayıt biçimleri değiştirilmedi.
+- Önceden üretilmiş raporlar güncellenmedi.
+
 ## 3.0.5 — Boş zaman serisinde hatalı CSV bağlantısı düzeltildi
 
 HTML raporu artık yalnızca zaman serisi örnekleri varsa CSV bağlantısı gösteriyor; örnek yoksa açık bir açıklama sunuyor. Regresyon testi ve README güncellendi.

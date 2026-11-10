@@ -17,6 +17,7 @@ def export_analysis(result, folder):
     folder.mkdir(parents=True, exist_ok=True)
     encoded = json.dumps(result, ensure_ascii=False, indent=2, allow_nan=False)
     (folder / 'analysis.json').write_text(encoded, encoding='utf-8')
+    result_hash = hashlib.sha256((folder / 'analysis.json').read_bytes()).hexdigest()
     rows = []
     for case in result.get('cases', []):
         values = case.get('summary', {})
@@ -35,7 +36,7 @@ def export_analysis(result, folder):
     title = result.get('analysis', 'numerical analysis')
     manifest = {'runId': trace.get('runId', folder.name), 'type': 'analysis', 'analysis': title,
                 'createdUtc': trace.get('createdUtc'), 'inputSha256': trace.get('inputSha256'),
-                'cases': len(rows), 'resultSha256': hashlib.sha256(encoded.encode('utf-8')).hexdigest()}
+                'cases': len(rows), 'resultSha256': result_hash}
     (folder/'run_manifest.json').write_text(json.dumps(manifest, ensure_ascii=False, indent=2), encoding='utf-8')
     lines = [f'# Rotary Melter — {title}', '',
              'Results are model predictions and numerical checks; they are not experimental validation.', '',
@@ -76,6 +77,6 @@ def export_analysis(result, folder):
               'A conditional GCI is omitted when differences oscillate, do not contract, or are below time resolution.', '',
               'Thermodynamics, conductance, integration, library use and stage-by-stage formula purposes are documented in '
               '`docs/CPP_CALCULATION_EQUATIONS.md`. The exact scenario and options are embedded in `analysis.json`.', '',
-              f'Analysis JSON SHA-256: `{hashlib.sha256(encoded.encode("utf-8")).hexdigest()}`.', '']
+              f'Analysis JSON SHA-256: `{result_hash}`.', '']
     (folder / 'ANALYSIS_REPORT.md').write_text('\n'.join(lines), encoding='utf-8')
     return folder

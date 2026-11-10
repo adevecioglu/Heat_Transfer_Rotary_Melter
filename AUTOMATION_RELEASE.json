@@ -1,22 +1,22 @@
 {
-  "version": "3.0.5",
-  "previous_version": "3.0.4",
-  "tag": "auto/v3.0.5",
+  "version": "3.0.6",
+  "previous_version": "3.0.5",
+  "tag": "auto/v3.0.6",
   "project": "Heat_Transfer_Rotary_Melter",
-  "base_commit": "cf703fcbf87e8ee0d2f0efcaee20eb7da86fe709",
+  "base_commit": "2d86aa050c7f2681b799d21cbe67ae76b0ea1ab1",
   "change_type": "patch",
-  "created_utc": "2026-11-10T15:02:01.604383+00:00",
+  "created_utc": "2026-11-10T20:01:37.633892+00:00",
   "existing_upgrade": false,
-  "title": "Boş zaman serisinde hatalı CSV bağlantısı düzeltildi",
-  "summary": "HTML raporu artık yalnızca zaman serisi örnekleri varsa CSV bağlantısı gösteriyor; örnek yoksa açık bir açıklama sunuyor. Regresyon testi ve README güncellendi.",
+  "title": "Analiz raporlarının SHA-256 doğrulaması düzeltildi",
+  "summary": "Windows satır sonlarından kaynaklanan hash uyuşmazlığı yeniden üretildi ve giderildi. Manifest ve Markdown raporu artık analysis.json dosyasının gerçek baytlarını doğruluyor. Regresyon testi ve README güncellendi.",
   "limitations": [
     "Hesap modelleri ve kayıt biçimleri değiştirilmedi.",
-    "HTML içeriği otomatik testle doğrulandı; tarayıcıda görsel inceleme yapılmadı."
+    "Önceden üretilmiş raporlar güncellenmedi."
   ],
   "changed_files": [
     "README.md",
-    "rotary_melter/Reporting.py",
-    "tests/test_reporting.py"
+    "rotary_melter/AnalysisReporting.py",
+    "tests/test_analysis_reporting.py"
   ],
   "status": "verified",
   "checks": [
@@ -28,7 +28,7 @@
         "tools.BuildCpp"
       ],
       "returncode": 0,
-      "seconds": 0.95
+      "seconds": 1.02
     },
     {
       "passed": true,
@@ -38,7 +38,7 @@
         "tools.RunChecks"
       ],
       "returncode": 0,
-      "seconds": 24.03
+      "seconds": 23.47
     },
     {
       "passed": true,
@@ -49,7 +49,7 @@
         "--check"
       ],
       "returncode": 0,
-      "seconds": 0.08
+      "seconds": 0.09
     }
   ]
 }
