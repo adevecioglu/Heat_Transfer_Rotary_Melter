@@ -1,5 +1,6 @@
 """Single-run artifacts must distinguish interrupted and completed calculations."""
 import hashlib
+import csv
 import json
 from pathlib import Path
 import tempfile
@@ -11,6 +12,27 @@ from rotary_melter.Reporting import export_result
 
 
 class ReportingStatusTests(unittest.TestCase):
+    def test_history_link_requires_exported_samples(self):
+        temporary_root = PROJECT_ROOT / '.autodev'
+        temporary_root.mkdir(exist_ok=True)
+        samples = [{'t': 0, 'coreC': 25}, {'t': 1, 'coreC': 26}]
+        for history in (None, [], samples):
+            with self.subTest(history=history), \
+                    tempfile.TemporaryDirectory(dir=temporary_root) as directory:
+                result = {} if history is None else {'hist': history}
+                with patch('rotary_melter.Paths.resource_path',
+                           return_value=Path(directory) / 'absent_catalogue.md'):
+                    folder = export_result(result, directory)
+                report = (folder / 'report.html').read_text(encoding='utf-8')
+                self.assertIn('href="result.json"', report)
+                self.assertEqual('href="history.csv"' in report, bool(history))
+                self.assertEqual('No time-series samples' in report, not bool(history))
+                self.assertEqual((folder / 'history.csv').exists(), bool(history))
+                if history:
+                    with (folder / 'history.csv').open(encoding='utf-8-sig', newline='') as stream:
+                        self.assertEqual(list(csv.DictReader(stream)),
+                                         [{'t': '0', 'coreC': '25'}, {'t': '1', 'coreC': '26'}])
+
     def test_cancellation_is_visible_without_changing_result_payload(self):
         temporary_root = PROJECT_ROOT / '.autodev'
         temporary_root.mkdir(exist_ok=True)

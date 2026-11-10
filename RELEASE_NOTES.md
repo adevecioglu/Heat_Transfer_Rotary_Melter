@@ -1,5 +1,16 @@
 # Automatic releases
 
+## 3.0.5 — Boş zaman serisinde hatalı CSV bağlantısı düzeltildi
+
+HTML raporu artık yalnızca zaman serisi örnekleri varsa CSV bağlantısı gösteriyor; örnek yoksa açık bir açıklama sunuyor. Regresyon testi ve README güncellendi.
+
+Base commit: `cf703fcbf87e8ee0d2f0efcaee20eb7da86fe709`. Local tag: `auto/v3.0.5`.
+
+Limitations:
+
+- Hesap modelleri ve kayıt biçimleri değiştirilmedi.
+- HTML içeriği otomatik testle doğrulandı; tarayıcıda görsel inceleme yapılmadı.
+
 ## 3.0.4 — HTML hesap raporuna açık iptal durumu eklendi
 
 HTML raporu artık CANCELLED/COMPLETED durumunu ve iptal edilen koşuların kısmi sonuç açıklamasını gösteriyor. Regresyon testi ve README güncellendi; sonuç veri biçimi korundu.
