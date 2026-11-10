@@ -21,17 +21,20 @@ def export_result(result, folder):
                 writer.writerow({key: json.dumps(value, ensure_ascii=False) if isinstance(value, (list, dict)) else value
                                  for key, value in row.items()})
     summary = {key: value for key, value in result.items() if not isinstance(value, (dict, list))}
+    cancelled = bool(result.get('cancelled', False))
+    status = 'CANCELLED' if cancelled else 'COMPLETED'
+    partial_notice = ' This run was interrupted; its outputs are partial results.' if cancelled else ''
     (folder / 'summary.json').write_text(json.dumps(summary, ensure_ascii=False, indent=2), encoding='utf-8')
     rows = ''.join(f'<tr><th>{html.escape(key)}</th><td>{html.escape(str(value))}</td></tr>' for key, value in summary.items())
     document = ('<!doctype html><html lang="en"><meta charset="utf-8"><title>Rotary Melter calculation</title>'
                 '<style>body{font:16px/1.6 system-ui;max-width:1000px;margin:40px auto;padding:0 24px}'
                 'table{border-collapse:collapse;width:100%}th,td{border:1px solid #ccd5df;padding:8px;text-align:left}</style>'
                 '<h1>Rotary Melter — calculation run</h1><p>Numerical model results; not experimental validation.</p>'
+                f'<p>Status: <strong>{status}</strong>.{partial_notice}</p>'
                 '<p><a href="result.json">Full result JSON</a> · <a href="history.csv">History CSV</a></p><table>'+rows+'</table></html>')
     (folder / 'report.html').write_text(document, encoding='utf-8')
     trace = result.get('traceability', {})
     engine = result.get('engine', {})
-    cancelled = bool(result.get('cancelled', False))
     manifest = {
         'runId': trace.get('runId', folder.name), 'createdUtc': trace.get('createdUtc'),
         'inputSha256': trace.get('inputSha256'), 'nativeLibrarySha256': trace.get('nativeLibrarySha256'),

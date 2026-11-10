@@ -1,17 +1,17 @@
 {
-  "version": "3.0.3",
-  "previous_version": "3.0.2",
-  "tag": "auto/v3.0.3",
+  "version": "3.0.4",
+  "previous_version": "3.0.3",
+  "tag": "auto/v3.0.4",
   "project": "Heat_Transfer_Rotary_Melter",
-  "base_commit": "1dd2014b9f461afa11cbe7e24c43207c2cb4d73c",
+  "base_commit": "30b3ed58ac1f95296a029afe3f21b566c1a871cb",
   "change_type": "patch",
-  "created_utc": "2026-11-10T05:01:19.391851+00:00",
+  "created_utc": "2026-11-10T10:01:01.774255+00:00",
   "existing_upgrade": false,
-  "title": "Tek hesap raporlarında iptal durumu görünür hale getirildi",
-  "summary": "Markdown raporuna CANCELLED/COMPLETED durumu ve iptal edilen koşular için kısmi sonuç açıklaması eklendi. Koşu manifestine cancelled alanı eklendi. Sonuç JSON'u korundu; regresyon testi ve README güncellendi.",
+  "title": "HTML hesap raporuna açık iptal durumu eklendi",
+  "summary": "HTML raporu artık CANCELLED/COMPLETED durumunu ve iptal edilen koşuların kısmi sonuç açıklamasını gösteriyor. Regresyon testi ve README güncellendi; sonuç veri biçimi korundu.",
   "limitations": [
     "Hesap modelleri değiştirilmedi.",
-    "Masaüstü görsel testi çalıştırılmadı; değişiklik Markdown ve JSON manifestiyle sınırlı."
+    "HTML içeriği otomatik testle doğrulandı; tarayıcıda görsel inceleme yapılmadı."
   ],
   "changed_files": [
     "README.md",
@@ -28,7 +28,7 @@
         "tools.BuildCpp"
       ],
       "returncode": 0,
-      "seconds": 0.91
+      "seconds": 0.92
     },
     {
       "passed": true,
@@ -38,7 +38,7 @@
         "tools.RunChecks"
       ],
       "returncode": 0,
-      "seconds": 22.75
+      "seconds": 22.59
     },
     {
       "passed": true,
@@ -49,7 +49,7 @@
         "--check"
       ],
       "returncode": 0,
-      "seconds": 0.08
+      "seconds": 0.09
     }
   ]
 }

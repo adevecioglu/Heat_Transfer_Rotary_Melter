@@ -1,5 +1,16 @@
 # Automatic releases
 
+## 3.0.4 — HTML hesap raporuna açık iptal durumu eklendi
+
+HTML raporu artık CANCELLED/COMPLETED durumunu ve iptal edilen koşuların kısmi sonuç açıklamasını gösteriyor. Regresyon testi ve README güncellendi; sonuç veri biçimi korundu.
+
+Base commit: `30b3ed58ac1f95296a029afe3f21b566c1a871cb`. Local tag: `auto/v3.0.4`.
+
+Limitations:
+
+- Hesap modelleri değiştirilmedi.
+- HTML içeriği otomatik testle doğrulandı; tarayıcıda görsel inceleme yapılmadı.
+
 ## 3.0.3 — Tek hesap raporlarında iptal durumu görünür hale getirildi
 
 Markdown raporuna CANCELLED/COMPLETED durumu ve iptal edilen koşular için kısmi sonuç açıklaması eklendi. Koşu manifestine cancelled alanı eklendi. Sonuç JSON'u korundu; regresyon testi ve README güncellendi.

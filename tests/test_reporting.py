@@ -29,6 +29,9 @@ class ReportingStatusTests(unittest.TestCase):
                     status = 'CANCELLED' if cancelled else 'COMPLETED'
                     self.assertIn(f'Status: **{status}**.', report)
                     self.assertEqual('outputs are partial results' in report, bool(cancelled))
+                    html_report = (folder / 'report.html').read_text(encoding='utf-8')
+                    self.assertIn(f'Status: <strong>{status}</strong>.', html_report)
+                    self.assertEqual('outputs are partial results' in html_report, bool(cancelled))
                     self.assertIn(f'| Target reached | {reached} |', report)
                     manifest = json.loads((folder / 'run_manifest.json').read_text(encoding='utf-8'))
                     self.assertIs(manifest['cancelled'], bool(cancelled))
