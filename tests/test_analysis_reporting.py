@@ -10,6 +10,32 @@ from rotary_melter.Paths import PROJECT_ROOT
 
 
 class AnalysisReportingTests(unittest.TestCase):
+    def test_cancelled_cases_are_explicit_in_report_and_csv(self):
+        result = {'cases': [
+            {'name': 'interrupted|case', 'ok': True,
+             'summary': {'cancelled': True, 'seconds': 3}},
+            {'name': 'finished', 'ok': True,
+             'summary': {'cancelled': False, 'targetReached': False}},
+            {'name': 'failed and cancelled', 'ok': False, 'error': 'native error',
+             'summary': {'cancelled': True}},
+        ]}
+        temporary_root = PROJECT_ROOT / '.autodev'
+        temporary_root.mkdir(exist_ok=True)
+        with tempfile.TemporaryDirectory(dir=temporary_root) as directory:
+            folder = export_analysis(result, directory)
+            report = (folder / 'ANALYSIS_REPORT.md').read_text(encoding='utf-8')
+            self.assertIn('| interrupted&#124;case | CANCELLED | None | 3 |', report)
+            self.assertIn('| finished | OK | False |', report)
+            self.assertIn('| failed and cancelled | FAILED |', report)
+            self.assertIn('| failed and cancelled | native error |', report)
+            self.assertIn('## Cancelled cases', report)
+            self.assertIn('their outputs are partial results', report)
+            self.assertIn('| interrupted&#124;case | CANCELLED |', report)
+            with (folder / 'analysis.csv').open(encoding='utf-8-sig', newline='') as stream:
+                rows = list(csv.DictReader(stream))
+            self.assertEqual([row['cancelled'] for row in rows], ['True', 'False', 'True'])
+            self.assertEqual(json.loads((folder / 'analysis.json').read_text(encoding='utf-8')), result)
+
     def test_mixed_cases_preserve_errors_and_distinguish_target_miss(self):
         result = {'analysis': 'sensitivity', 'cases': [
             {'name': 'valid', 'ok': True, 'summary': {'targetReached': False, 'seconds': 12}},

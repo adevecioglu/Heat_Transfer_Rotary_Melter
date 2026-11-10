@@ -1,23 +1,22 @@
 {
-  "version": "3.0.1",
-  "previous_version": "3.0.0",
-  "tag": "auto/v3.0.1",
+  "version": "3.0.2",
+  "previous_version": "3.0.1",
+  "tag": "auto/v3.0.2",
   "project": "Heat_Transfer_Rotary_Melter",
-  "base_commit": "e109de64a239591f98982e0bbad5a2a99ca19d92",
+  "base_commit": "e00f47c601420b7ba7a5d0297f73db038cb51e12",
   "change_type": "patch",
-  "created_utc": "2026-11-09T16:46:46.980351+00:00",
-  "existing_upgrade": true,
-  "title": "İptal edilen tek hesap için çıkış kodu düzeltildi",
-  "summary": "--run, iptal edilmiş hesabın raporunu kaydettikten sonra artık çıkış kodu 1 döndürüyor. Tamamlanıp hedef sıcaklığa ulaşamayan hesaplar başarı kodunu koruyor. README ve regresyon testleri güncellendi.",
+  "created_utc": "2026-11-10T00:01:37.497869+00:00",
+  "existing_upgrade": false,
+  "title": "Analiz raporlarında iptal durumunun görünürlüğü düzeltildi",
+  "summary": "İptal edilen analiz koşuları Markdown raporunda CANCELLED olarak gösteriliyor ve kısmi sonuç açıklaması ekleniyor. CSV çıktısına cancelled sütunu eklendi. Hata bilgileri ve JSON biçimi korundu; regresyon testi ve README güncellendi.",
   "limitations": [
-    "İptal sonucu kontrollü test verisiyle doğrulandı; masaüstünde canlı iptal testi yapılmadı."
+    "Masaüstü görsel testi çalıştırılmadı; değişiklik Markdown ve CSV raporlamasıyla sınırlı.",
+    "Hesap modelleri değiştirilmedi."
   ],
-  "changed_files": [],
-  "included_commits": [
-    "e109de6 auto: İptal edilen tek hesap için çıkış kodu düzeltildi",
-    "87c457f auto: Çelişkili hesap komutları engellendi",
-    "35ea625 auto: Başarısız analizler komut çıkış koduna yansıtıldı",
-    "475e3f7 auto: Analiz raporlarında başarısız koşular görünür hale getirildi"
+  "changed_files": [
+    "README.md",
+    "rotary_melter/AnalysisReporting.py",
+    "tests/test_analysis_reporting.py"
   ],
   "status": "verified",
   "checks": [
@@ -29,7 +28,7 @@
         "tools.BuildCpp"
       ],
       "returncode": 0,
-      "seconds": 1.69
+      "seconds": 0.94
     },
     {
       "passed": true,
@@ -39,7 +38,7 @@
         "tools.RunChecks"
       ],
       "returncode": 0,
-      "seconds": 25.23
+      "seconds": 22.56
     },
     {
       "passed": true,

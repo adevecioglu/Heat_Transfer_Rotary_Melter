@@ -1,5 +1,16 @@
 # Automatic releases
 
+## 3.0.2 — Analiz raporlarında iptal durumunun görünürlüğü düzeltildi
+
+İptal edilen analiz koşuları Markdown raporunda CANCELLED olarak gösteriliyor ve kısmi sonuç açıklaması ekleniyor. CSV çıktısına cancelled sütunu eklendi. Hata bilgileri ve JSON biçimi korundu; regresyon testi ve README güncellendi.
+
+Base commit: `e00f47c601420b7ba7a5d0297f73db038cb51e12`. Local tag: `auto/v3.0.2`.
+
+Limitations:
+
+- Masaüstü görsel testi çalıştırılmadı; değişiklik Markdown ve CSV raporlamasıyla sınırlı.
+- Hesap modelleri değiştirilmedi.
+
 ## 3.0.1 — İptal edilen tek hesap için çıkış kodu düzeltildi
 
 --run, iptal edilmiş hesabın raporunu kaydettikten sonra artık çıkış kodu 1 döndürüyor. Tamamlanıp hedef sıcaklığa ulaşamayan hesaplar başarı kodunu koruyor. README ve regresyon testleri güncellendi.
@@ -16,5 +27,3 @@ Included earlier upgrades:
 - 87c457f auto: Çelişkili hesap komutları engellendi
 - 35ea625 auto: Başarısız analizler komut çıkış koduna yansıtıldı
 - 475e3f7 auto: Analiz raporlarında başarısız koşular görünür hale getirildi
-
-

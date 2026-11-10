@@ -21,6 +21,7 @@ def export_analysis(result, folder):
     for case in result.get('cases', []):
         values = case.get('summary', {})
         rows.append({'case': case['name'], 'ok': case.get('ok', False),
+                     'cancelled': bool(values.get('cancelled', False)),
                      'target_reached': values.get('targetReached'), 'physical_seconds': values.get('seconds'),
                      'core_c': values.get('coreC'), 'input_kwh': values.get('energyInKWh'),
                      'loss_kwh': values.get('lossKWh'), 'relative_energy_residual': values.get('balanceRelative'),
@@ -51,13 +52,20 @@ def export_analysis(result, folder):
         def fmt(key):
             value = row.get(key)
             return f'{value:.8g}' if isinstance(value, (int, float)) else str(value)
-        status = 'OK' if row['ok'] else 'FAILED'
+        status = 'FAILED' if not row['ok'] else ('CANCELLED' if row['cancelled'] else 'OK')
         lines.append(f"| {_table_text(row['case'])} | {status} | {row['target_reached']} | {fmt('physical_seconds')} | {fmt('input_kwh')} | {fmt('relative_energy_residual')} | {fmt('wall_seconds')} |")
     failures = [row for row in rows if not row['ok']]
     if failures:
         lines += ['', '## Failed cases', '', '| Case | Error |', '| --- | --- |']
         for row in failures:
             lines.append(f"| {_table_text(row['case'])} | {_table_text(row['error'] or 'No error detail provided.')} |")
+    cancelled = [row for row in rows if row['cancelled']]
+    if cancelled:
+        lines += ['', '## Cancelled cases', '',
+                  'These cases were interrupted; their outputs are partial results.', '',
+                  '| Case | Status |', '| --- | --- |']
+        for row in cancelled:
+            lines.append(f"| {_table_text(row['case'])} | CANCELLED |")
     if not rows:
         lines += ['', f"Possible: {result.get('possible')}; conditional power: {result.get('kw', 'unavailable')} kW."]
     lines += ['', '## Convergence diagnostics', '', '```json',
