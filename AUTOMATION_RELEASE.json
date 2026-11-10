@@ -1,22 +1,22 @@
 {
-  "version": "3.0.2",
-  "previous_version": "3.0.1",
-  "tag": "auto/v3.0.2",
+  "version": "3.0.3",
+  "previous_version": "3.0.2",
+  "tag": "auto/v3.0.3",
   "project": "Heat_Transfer_Rotary_Melter",
-  "base_commit": "e00f47c601420b7ba7a5d0297f73db038cb51e12",
+  "base_commit": "1dd2014b9f461afa11cbe7e24c43207c2cb4d73c",
   "change_type": "patch",
-  "created_utc": "2026-11-10T00:01:37.497869+00:00",
+  "created_utc": "2026-11-10T05:01:19.391851+00:00",
   "existing_upgrade": false,
-  "title": "Analiz raporlarında iptal durumunun görünürlüğü düzeltildi",
-  "summary": "İptal edilen analiz koşuları Markdown raporunda CANCELLED olarak gösteriliyor ve kısmi sonuç açıklaması ekleniyor. CSV çıktısına cancelled sütunu eklendi. Hata bilgileri ve JSON biçimi korundu; regresyon testi ve README güncellendi.",
+  "title": "Tek hesap raporlarında iptal durumu görünür hale getirildi",
+  "summary": "Markdown raporuna CANCELLED/COMPLETED durumu ve iptal edilen koşular için kısmi sonuç açıklaması eklendi. Koşu manifestine cancelled alanı eklendi. Sonuç JSON'u korundu; regresyon testi ve README güncellendi.",
   "limitations": [
-    "Masaüstü görsel testi çalıştırılmadı; değişiklik Markdown ve CSV raporlamasıyla sınırlı.",
-    "Hesap modelleri değiştirilmedi."
+    "Hesap modelleri değiştirilmedi.",
+    "Masaüstü görsel testi çalıştırılmadı; değişiklik Markdown ve JSON manifestiyle sınırlı."
   ],
   "changed_files": [
     "README.md",
-    "rotary_melter/AnalysisReporting.py",
-    "tests/test_analysis_reporting.py"
+    "rotary_melter/Reporting.py",
+    "tests/test_reporting.py"
   ],
   "status": "verified",
   "checks": [
@@ -28,7 +28,7 @@
         "tools.BuildCpp"
       ],
       "returncode": 0,
-      "seconds": 0.94
+      "seconds": 0.91
     },
     {
       "passed": true,
@@ -38,7 +38,7 @@
         "tools.RunChecks"
       ],
       "returncode": 0,
-      "seconds": 22.56
+      "seconds": 22.75
     },
     {
       "passed": true,

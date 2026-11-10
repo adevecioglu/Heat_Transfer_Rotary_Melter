@@ -1,6 +1,6 @@
 {
   "name": "rotary-melter-v11",
-  "version": "3.0.2",
+  "version": "3.0.3",
   "private": true,
   "description": "V11 rotary melter desktop and conservative thermal/particle models",
   "engines": {

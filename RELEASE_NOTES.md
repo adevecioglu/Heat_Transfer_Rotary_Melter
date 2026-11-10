@@ -1,5 +1,16 @@
 # Automatic releases
 
+## 3.0.3 — Tek hesap raporlarında iptal durumu görünür hale getirildi
+
+Markdown raporuna CANCELLED/COMPLETED durumu ve iptal edilen koşular için kısmi sonuç açıklaması eklendi. Koşu manifestine cancelled alanı eklendi. Sonuç JSON'u korundu; regresyon testi ve README güncellendi.
+
+Base commit: `1dd2014b9f461afa11cbe7e24c43207c2cb4d73c`. Local tag: `auto/v3.0.3`.
+
+Limitations:
+
+- Hesap modelleri değiştirilmedi.
+- Masaüstü görsel testi çalıştırılmadı; değişiklik Markdown ve JSON manifestiyle sınırlı.
+
 ## 3.0.2 — Analiz raporlarında iptal durumunun görünürlüğü düzeltildi
 
 İptal edilen analiz koşuları Markdown raporunda CANCELLED olarak gösteriliyor ve kısmi sonuç açıklaması ekleniyor. CSV çıktısına cancelled sütunu eklendi. Hata bilgileri ve JSON biçimi korundu; regresyon testi ve README güncellendi.

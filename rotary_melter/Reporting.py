@@ -31,11 +31,13 @@ def export_result(result, folder):
     (folder / 'report.html').write_text(document, encoding='utf-8')
     trace = result.get('traceability', {})
     engine = result.get('engine', {})
+    cancelled = bool(result.get('cancelled', False))
     manifest = {
         'runId': trace.get('runId', folder.name), 'createdUtc': trace.get('createdUtc'),
         'inputSha256': trace.get('inputSha256'), 'nativeLibrarySha256': trace.get('nativeLibrarySha256'),
         'sourceFingerprint': engine.get('sourceFingerprint'), 'integrator': engine.get('integrator'),
         'targetReached': result.get('targetReached'), 'seconds': result.get('seconds'),
+        'cancelled': cancelled,
         'energyInKWh': result.get('energyInKWh'), 'balanceRelative': result.get('balanceRelative'),
         'engine': engine.get('name', 'V11 JavaScript reference'),
         'resultSha256': hashlib.sha256((folder/'result.json').read_bytes()).hexdigest(),
@@ -47,6 +49,8 @@ def export_result(result, folder):
     markdown = [
         '# Rotary Melter — calculation run', '',
         '## Result', '',
+        ('Status: **CANCELLED**. This run was interrupted; its outputs are partial results.'
+         if cancelled else 'Status: **COMPLETED**.'), '',
         '| Quantity | Value |', '| --- | ---: |',
         f"| Target reached | {result.get('targetReached')} |",
         f"| Physical duration (s) | {number('seconds')} |",
