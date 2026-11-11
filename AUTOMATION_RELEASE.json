@@ -1,22 +1,22 @@
 {
-  "version": "3.0.6",
-  "previous_version": "3.0.5",
-  "tag": "auto/v3.0.6",
+  "version": "3.0.7",
+  "previous_version": "3.0.6",
+  "tag": "auto/v3.0.7",
   "project": "Heat_Transfer_Rotary_Melter",
-  "base_commit": "2d86aa050c7f2681b799d21cbe67ae76b0ea1ab1",
+  "base_commit": "d6497dd9c9ea8efe564960c885ad1faed6b63d71",
   "change_type": "patch",
-  "created_utc": "2026-11-10T20:01:37.633892+00:00",
+  "created_utc": "2026-11-11T16:11:38.754520+00:00",
   "existing_upgrade": false,
-  "title": "Analiz raporlarının SHA-256 doğrulaması düzeltildi",
-  "summary": "Windows satır sonlarından kaynaklanan hash uyuşmazlığı yeniden üretildi ve giderildi. Manifest ve Markdown raporu artık analysis.json dosyasının gerçek baytlarını doğruluyor. Regresyon testi ve README güncellendi.",
+  "title": "Markdown raporunda hesap motoru açıklaması düzeltildi",
+  "summary": "Tek hesap raporu artık kullanılan motoru belirtir. JavaScript referans sonuçlarında yanlış Eigen/Boost.Odeint açıklamaları yerine V11 yöntem açıklaması ve ilgili denklem belgesi gösterilir. README ve regresyon testi güncellendi.",
   "limitations": [
     "Hesap modelleri ve kayıt biçimleri değiştirilmedi.",
     "Önceden üretilmiş raporlar güncellenmedi."
   ],
   "changed_files": [
     "README.md",
-    "rotary_melter/AnalysisReporting.py",
-    "tests/test_analysis_reporting.py"
+    "rotary_melter/Reporting.py",
+    "tests/test_reporting.py"
   ],
   "status": "verified",
   "checks": [
@@ -28,7 +28,7 @@
         "tools.BuildCpp"
       ],
       "returncode": 0,
-      "seconds": 1.02
+      "seconds": 1.05
     },
     {
       "passed": true,
@@ -38,7 +38,7 @@
         "tools.RunChecks"
       ],
       "returncode": 0,
-      "seconds": 23.47
+      "seconds": 24.3
     },
     {
       "passed": true,

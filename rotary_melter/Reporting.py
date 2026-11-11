@@ -68,12 +68,19 @@ def export_result(result, folder):
         '2. Build cylinder/head geometry and inclined wet-area tables.',
         '3. Assemble metal/water capacities and radial granule masses.',
         '4. Convert product energy to temperature/liquid fraction using the documented enthalpy law.',
-        '5. Solve the coupled granule surface balance with Eigen; evaluate conductive, convective and radiative rates.',
-        '6. Advance the conservative ODE state with the selected Boost.Odeint method; dependent time steps remain sequential.',
+        ('5. Solve the coupled granule surface balance with Eigen; evaluate conductive, convective and radiative rates.'
+         if engine.get('name') == 'Rotary Melter C++' else
+         '5. Evaluate heat transfer with the retained V11 JavaScript reference implementation.'),
+        ('6. Advance the conservative ODE state with the selected Boost.Odeint method; dependent time steps remain sequential.'
+         if engine.get('name') == 'Rotary Melter C++' else
+         '6. Advance the state with the V11 JavaScript reference time-stepping implementation.'),
         '7. Check energy closure and target status; export fields, time series and provenance.', '',
-        'The exact C++ formulas, library roles, assumptions, source-line links and literature are in '
-        '`docs/CPP_CALCULATION_EQUATIONS.md`. The V11 reference equations remain in `docs/CALCULATION_EQUATIONS.md`.', '',
+        ('The exact C++ formulas, library roles, assumptions, source-line links and literature are in '
+         '`docs/CPP_CALCULATION_EQUATIONS.md`.'
+         if engine.get('name') == 'Rotary Melter C++' else
+         'The V11 reference equations are documented in `docs/CALCULATION_EQUATIONS.md`.'), '',
         '## Traceability', '',
+        f"- Engine: `{manifest['engine']}`",
         f"- Run ID: `{manifest['runId']}`",
         f"- Input SHA-256: `{manifest['inputSha256']}`",
         f"- Native library SHA-256: `{manifest['nativeLibrarySha256']}`",

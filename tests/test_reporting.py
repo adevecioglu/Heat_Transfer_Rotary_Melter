@@ -12,6 +12,24 @@ from rotary_melter.Reporting import export_result
 
 
 class ReportingStatusTests(unittest.TestCase):
+    def test_method_description_matches_engine(self):
+        temporary_root = PROJECT_ROOT / '.autodev'
+        temporary_root.mkdir(exist_ok=True)
+        for native in (False, True):
+            with self.subTest(native=native), \
+                    tempfile.TemporaryDirectory(dir=temporary_root) as directory:
+                result = {'engine': {'name': 'Rotary Melter C++', 'integrator': 'rk4'}} if native else {}
+                with patch('rotary_melter.Paths.resource_path',
+                           return_value=Path(directory) / 'absent_catalogue.md'):
+                    folder = export_result(result, directory)
+                report = (folder / 'RUN_REPORT.md').read_text(encoding='utf-8')
+                self.assertEqual('with Eigen' in report, native)
+                self.assertEqual('Boost.Odeint' in report, native)
+                self.assertEqual('V11 JavaScript reference time-stepping' in report, not native)
+                engine_name = 'Rotary Melter C++' if native else 'V11 JavaScript reference'
+                self.assertIn(f'- Engine: `{engine_name}`', report)
+                self.assertEqual(json.loads((folder / 'result.json').read_text(encoding='utf-8')), result)
+
     def test_history_link_requires_exported_samples(self):
         temporary_root = PROJECT_ROOT / '.autodev'
         temporary_root.mkdir(exist_ok=True)

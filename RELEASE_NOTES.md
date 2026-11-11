@@ -1,5 +1,16 @@
 # Automatic releases
 
+## 3.0.7 — Markdown raporunda hesap motoru açıklaması düzeltildi
+
+Tek hesap raporu artık kullanılan motoru belirtir. JavaScript referans sonuçlarında yanlış Eigen/Boost.Odeint açıklamaları yerine V11 yöntem açıklaması ve ilgili denklem belgesi gösterilir. README ve regresyon testi güncellendi.
+
+Base commit: `d6497dd9c9ea8efe564960c885ad1faed6b63d71`. Local tag: `auto/v3.0.7`.
+
+Limitations:
+
+- Hesap modelleri ve kayıt biçimleri değiştirilmedi.
+- Önceden üretilmiş raporlar güncellenmedi.
+
 ## 3.0.6 — Analiz raporlarının SHA-256 doğrulaması düzeltildi
 
 Windows satır sonlarından kaynaklanan hash uyuşmazlığı yeniden üretildi ve giderildi. Manifest ve Markdown raporu artık analysis.json dosyasının gerçek baytlarını doğruluyor. Regresyon testi ve README güncellendi.
