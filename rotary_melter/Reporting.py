@@ -93,11 +93,13 @@ def export_result(result, folder):
     ]
     (folder/'RUN_REPORT.md').write_text('\n'.join(markdown), encoding='utf-8')
     from .Paths import resource_path, PROJECT_ROOT
-    catalogue=resource_path('docs/CPP_CALCULATION_EQUATIONS.md')
+    native = engine.get('name') == 'Rotary Melter C++'
+    catalogue=resource_path('docs/CPP_CALCULATION_EQUATIONS.md' if native
+                            else 'docs/CALCULATION_EQUATIONS.md')
     if catalogue.is_file():
         import sys
         sources=resource_path('native_sources') if getattr(sys,'frozen',False) else PROJECT_ROOT/'native'
-        if sources.is_dir():
+        if native and sources.is_dir():
             shutil.copytree(sources,folder/'source/native',dirs_exist_ok=True)
         (folder/'EQUATIONS.md').write_text(catalogue.read_text(encoding='utf-8').replace('(../native/','(source/native/'),encoding='utf-8')
     return folder

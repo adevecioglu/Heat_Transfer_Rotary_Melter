@@ -1,22 +1,23 @@
 {
-  "version": "3.0.7",
-  "previous_version": "3.0.6",
-  "tag": "auto/v3.0.7",
+  "version": "3.0.8",
+  "previous_version": "3.0.7",
+  "tag": "auto/v3.0.8",
   "project": "Heat_Transfer_Rotary_Melter",
-  "base_commit": "d6497dd9c9ea8efe564960c885ad1faed6b63d71",
+  "base_commit": "60574ac24b8ebbac5b6ec05c84d01d39e9955c0c",
   "change_type": "patch",
-  "created_utc": "2026-11-11T16:11:38.754520+00:00",
+  "created_utc": "2026-11-12T16:48:08.737684+00:00",
   "existing_upgrade": false,
-  "title": "Markdown raporunda hesap motoru açıklaması düzeltildi",
-  "summary": "Tek hesap raporu artık kullanılan motoru belirtir. JavaScript referans sonuçlarında yanlış Eigen/Boost.Odeint açıklamaları yerine V11 yöntem açıklaması ve ilgili denklem belgesi gösterilir. README ve regresyon testi güncellendi.",
+  "title": "Denklem eki hesap motoruyla eşleştirildi",
+  "summary": "JavaScript referans koşularına artık V11 denklem kataloğu ekleniyor. C++ koşuları kendi kataloğunu ve kaynak kopyasını koruyor. Masaüstü paketine V11 kataloğu eklendi; README güncellendi.",
   "limitations": [
     "Hesap modelleri ve kayıt biçimleri değiştirilmedi.",
-    "Önceden üretilmiş raporlar güncellenmedi."
+    "Masaüstü EXE paketi yeniden üretilmedi; önceki raporlar güncellenmedi."
   ],
   "changed_files": [
     "README.md",
     "rotary_melter/Reporting.py",
-    "tests/test_reporting.py"
+    "tests/test_reporting.py",
+    "tools/BuildDesktop.py"
   ],
   "status": "verified",
   "checks": [
@@ -28,7 +29,7 @@
         "tools.BuildCpp"
       ],
       "returncode": 0,
-      "seconds": 1.05
+      "seconds": 0.97
     },
     {
       "passed": true,
@@ -38,7 +39,7 @@
         "tools.RunChecks"
       ],
       "returncode": 0,
-      "seconds": 24.3
+      "seconds": 23.69
     },
     {
       "passed": true,
@@ -49,7 +50,7 @@
         "--check"
       ],
       "returncode": 0,
-      "seconds": 0.09
+      "seconds": 0.08
     }
   ]
 }

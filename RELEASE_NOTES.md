@@ -1,5 +1,16 @@
 # Automatic releases
 
+## 3.0.8 — Denklem eki hesap motoruyla eşleştirildi
+
+JavaScript referans koşularına artık V11 denklem kataloğu ekleniyor. C++ koşuları kendi kataloğunu ve kaynak kopyasını koruyor. Masaüstü paketine V11 kataloğu eklendi; README güncellendi.
+
+Base commit: `60574ac24b8ebbac5b6ec05c84d01d39e9955c0c`. Local tag: `auto/v3.0.8`.
+
+Limitations:
+
+- Hesap modelleri ve kayıt biçimleri değiştirilmedi.
+- Masaüstü EXE paketi yeniden üretilmedi; önceki raporlar güncellenmedi.
+
 ## 3.0.7 — Markdown raporunda hesap motoru açıklaması düzeltildi
 
 Tek hesap raporu artık kullanılan motoru belirtir. JavaScript referans sonuçlarında yanlış Eigen/Boost.Odeint açıklamaları yerine V11 yöntem açıklaması ve ilgili denklem belgesi gösterilir. README ve regresyon testi güncellendi.

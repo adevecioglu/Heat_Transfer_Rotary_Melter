@@ -12,6 +12,32 @@ from rotary_melter.Reporting import export_result
 
 
 class ReportingStatusTests(unittest.TestCase):
+    def test_equation_attachment_matches_engine(self):
+        temporary_root = PROJECT_ROOT / '.autodev'
+        temporary_root.mkdir(exist_ok=True)
+        for native in (False, True):
+            with self.subTest(native=native), \
+                    tempfile.TemporaryDirectory(dir=temporary_root) as directory:
+                root = Path(directory)
+                catalogue_name = ('CPP_CALCULATION_EQUATIONS.md' if native
+                                  else 'CALCULATION_EQUATIONS.md')
+                catalogue = root / catalogue_name
+                content = '# Selected equations\n\nTürkçe — °C\n'
+                catalogue.write_text(content, encoding='utf-8')
+                sources = root / 'native_sources'
+                sources.mkdir()
+                (sources / 'example.cpp').write_text('// source', encoding='utf-8')
+                result = {'engine': {'name': 'Rotary Melter C++'}} if native else {}
+                with patch('rotary_melter.Paths.resource_path', return_value=catalogue) as resource, \
+                        patch('rotary_melter.Paths.PROJECT_ROOT', root), \
+                        patch('sys.frozen', True, create=True):
+                    # Frozen mode also checks the packaged-resource lookup.
+                    resource.side_effect = lambda name: sources if name == 'native_sources' else root / Path(name).name
+                    folder = export_result(result, root / 'run')
+                self.assertEqual((folder / 'EQUATIONS.md').read_text(encoding='utf-8'), content)
+                self.assertEqual((folder / 'source/native/example.cpp').exists(), native)
+                self.assertIn(unittest.mock.call('docs/' + catalogue_name), resource.call_args_list)
+
     def test_method_description_matches_engine(self):
         temporary_root = PROJECT_ROOT / '.autodev'
         temporary_root.mkdir(exist_ok=True)
