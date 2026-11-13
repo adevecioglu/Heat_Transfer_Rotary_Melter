@@ -1,5 +1,16 @@
 # Automatic releases
 
+## 3.0.9 — Boş analizlerde eski CSV satırlarının kalması düzeltildi
+
+Analiz CSV’si artık her dışa aktarımda yeniden yazılıyor. Koşusuz analizlerde yalnızca sütun başlıkları kalıyor. Klasörün yeniden kullanımını doğrulayan regresyon testi ve README açıklaması eklendi.
+
+Base commit: `00d3a00a49a5bf50508c009a24af9351a7123269`. Local tag: `auto/v3.0.9`.
+
+Limitations:
+
+- Hesap modelleri ve kayıt biçimleri değiştirilmedi.
+- Masaüstü EXE paketi yeniden üretilmedi.
+
 ## 3.0.8 — Denklem eki hesap motoruyla eşleştirildi
 
 JavaScript referans koşularına artık V11 denklem kataloğu ekleniyor. C++ koşuları kendi kataloğunu ve kaynak kopyasını koruyor. Masaüstü paketine V11 kataloğu eklendi; README güncellendi.

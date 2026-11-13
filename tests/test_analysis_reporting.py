@@ -11,6 +11,25 @@ from rotary_melter.Paths import PROJECT_ROOT
 
 
 class AnalysisReportingTests(unittest.TestCase):
+    def test_empty_analysis_replaces_previous_csv_rows(self):
+        temporary_root = PROJECT_ROOT / '.autodev'
+        temporary_root.mkdir(exist_ok=True)
+        with tempfile.TemporaryDirectory(dir=temporary_root) as directory:
+            folder = export_analysis({'cases': [{'name': 'previous', 'ok': True}]}, directory)
+            with (folder / 'analysis.csv').open(encoding='utf-8-sig', newline='') as stream:
+                previous = csv.DictReader(stream)
+                expected_fields = previous.fieldnames
+                self.assertEqual(len(list(previous)), 1)
+            result = {'analysis': 'required_power', 'cases': [], 'possible': False}
+            export_analysis(result, directory)
+            with (folder / 'analysis.csv').open(encoding='utf-8-sig', newline='') as stream:
+                current = csv.DictReader(stream)
+                self.assertEqual(current.fieldnames, expected_fields)
+                self.assertEqual(list(current), [])
+            manifest = json.loads((folder / 'run_manifest.json').read_text(encoding='utf-8'))
+            self.assertEqual(manifest['cases'], 0)
+            self.assertEqual(json.loads((folder / 'analysis.json').read_text(encoding='utf-8')), result)
+
     def test_result_hash_matches_exported_file_bytes(self):
         temporary_root = PROJECT_ROOT / '.autodev'
         temporary_root.mkdir(exist_ok=True)

@@ -27,11 +27,13 @@ def export_analysis(result, folder):
                      'core_c': values.get('coreC'), 'input_kwh': values.get('energyInKWh'),
                      'loss_kwh': values.get('lossKWh'), 'relative_energy_residual': values.get('balanceRelative'),
                      'wall_seconds': values.get('wallSeconds'), 'error': case.get('error', '')})
-    if rows:
-        with (folder / 'analysis.csv').open('w', encoding='utf-8-sig', newline='') as stream:
-            writer = csv.DictWriter(stream, fieldnames=list(rows[0]))
-            writer.writeheader()
-            writer.writerows(rows)
+    fields = ['case', 'ok', 'cancelled', 'target_reached', 'physical_seconds',
+              'core_c', 'input_kwh', 'loss_kwh', 'relative_energy_residual',
+              'wall_seconds', 'error']
+    with (folder / 'analysis.csv').open('w', encoding='utf-8-sig', newline='') as stream:
+        writer = csv.DictWriter(stream, fieldnames=fields)
+        writer.writeheader()
+        writer.writerows(rows)
     trace = result.get('traceability', {})
     title = result.get('analysis', 'numerical analysis')
     manifest = {'runId': trace.get('runId', folder.name), 'type': 'analysis', 'analysis': title,

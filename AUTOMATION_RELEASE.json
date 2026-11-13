@@ -1,23 +1,22 @@
 {
-  "version": "3.0.8",
-  "previous_version": "3.0.7",
-  "tag": "auto/v3.0.8",
+  "version": "3.0.9",
+  "previous_version": "3.0.8",
+  "tag": "auto/v3.0.9",
   "project": "Heat_Transfer_Rotary_Melter",
-  "base_commit": "60574ac24b8ebbac5b6ec05c84d01d39e9955c0c",
+  "base_commit": "00d3a00a49a5bf50508c009a24af9351a7123269",
   "change_type": "patch",
-  "created_utc": "2026-11-12T16:48:08.737684+00:00",
+  "created_utc": "2026-11-13T19:05:54.450283+00:00",
   "existing_upgrade": false,
-  "title": "Denklem eki hesap motoruyla eşleştirildi",
-  "summary": "JavaScript referans koşularına artık V11 denklem kataloğu ekleniyor. C++ koşuları kendi kataloğunu ve kaynak kopyasını koruyor. Masaüstü paketine V11 kataloğu eklendi; README güncellendi.",
+  "title": "Boş analizlerde eski CSV satırlarının kalması düzeltildi",
+  "summary": "Analiz CSV’si artık her dışa aktarımda yeniden yazılıyor. Koşusuz analizlerde yalnızca sütun başlıkları kalıyor. Klasörün yeniden kullanımını doğrulayan regresyon testi ve README açıklaması eklendi.",
   "limitations": [
     "Hesap modelleri ve kayıt biçimleri değiştirilmedi.",
-    "Masaüstü EXE paketi yeniden üretilmedi; önceki raporlar güncellenmedi."
+    "Masaüstü EXE paketi yeniden üretilmedi."
   ],
   "changed_files": [
     "README.md",
-    "rotary_melter/Reporting.py",
-    "tests/test_reporting.py",
-    "tools/BuildDesktop.py"
+    "rotary_melter/AnalysisReporting.py",
+    "tests/test_analysis_reporting.py"
   ],
   "status": "verified",
   "checks": [
@@ -29,7 +28,7 @@
         "tools.BuildCpp"
       ],
       "returncode": 0,
-      "seconds": 0.97
+      "seconds": 1.03
     },
     {
       "passed": true,
@@ -39,7 +38,7 @@
         "tools.RunChecks"
       ],
       "returncode": 0,
-      "seconds": 23.69
+      "seconds": 27.73
     },
     {
       "passed": true,
@@ -50,7 +49,7 @@
         "--check"
       ],
       "returncode": 0,
-      "seconds": 0.08
+      "seconds": 0.11
     }
   ]
 }
