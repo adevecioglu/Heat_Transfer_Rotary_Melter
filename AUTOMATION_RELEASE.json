@@ -1,22 +1,22 @@
 {
-  "version": "3.0.9",
-  "previous_version": "3.0.8",
-  "tag": "auto/v3.0.9",
+  "version": "3.0.10",
+  "previous_version": "3.0.9",
+  "tag": "auto/v3.0.10",
   "project": "Heat_Transfer_Rotary_Melter",
-  "base_commit": "00d3a00a49a5bf50508c009a24af9351a7123269",
+  "base_commit": "e350eafd15a8a716a0d9033b690ea7eeca6fedd3",
   "change_type": "patch",
-  "created_utc": "2026-11-13T19:05:54.450283+00:00",
+  "created_utc": "2026-11-17T18:50:37.596645+00:00",
   "existing_upgrade": false,
-  "title": "Boş analizlerde eski CSV satırlarının kalması düzeltildi",
-  "summary": "Analiz CSV’si artık her dışa aktarımda yeniden yazılıyor. Koşusuz analizlerde yalnızca sütun başlıkları kalıyor. Klasörün yeniden kullanımını doğrulayan regresyon testi ve README açıklaması eklendi.",
+  "title": "Yeniden kullanılan klasörde eski zaman serisi temizleniyor",
+  "summary": "Tek hesap dışa aktarımında yeni sonuç zaman serisi içermiyorsa, aynı klasördeki önceki history.csv içeriği temizleniyor. Davranış README’ye ve ardışık dışa aktarımları sınayan regresyon testine eklendi.",
   "limitations": [
-    "Hesap modelleri ve kayıt biçimleri değiştirilmedi.",
-    "Masaüstü EXE paketi yeniden üretilmedi."
+    "Boş zaman serisinde mevcut history.csv dosyası silinmez; içeriği boşaltılır.",
+    "Masaüstü paketi yeniden üretilmedi."
   ],
   "changed_files": [
     "README.md",
-    "rotary_melter/AnalysisReporting.py",
-    "tests/test_analysis_reporting.py"
+    "rotary_melter/Reporting.py",
+    "tests/test_reporting.py"
   ],
   "status": "verified",
   "checks": [
@@ -28,7 +28,7 @@
         "tools.BuildCpp"
       ],
       "returncode": 0,
-      "seconds": 1.03
+      "seconds": 0.97
     },
     {
       "passed": true,
@@ -38,7 +38,7 @@
         "tools.RunChecks"
       ],
       "returncode": 0,
-      "seconds": 27.73
+      "seconds": 23.58
     },
     {
       "passed": true,
@@ -49,7 +49,7 @@
         "--check"
       ],
       "returncode": 0,
-      "seconds": 0.11
+      "seconds": 0.09
     }
   ]
 }

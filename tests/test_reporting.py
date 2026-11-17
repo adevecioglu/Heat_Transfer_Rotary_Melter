@@ -12,6 +12,19 @@ from rotary_melter.Reporting import export_result
 
 
 class ReportingStatusTests(unittest.TestCase):
+    def test_reused_folder_clears_previous_history(self):
+        temporary_root = PROJECT_ROOT / '.autodev'
+        temporary_root.mkdir(exist_ok=True)
+        with tempfile.TemporaryDirectory(dir=temporary_root) as directory:
+            folder = Path(directory)
+            with patch('rotary_melter.Paths.resource_path',
+                       return_value=folder / 'absent_catalogue.md'):
+                export_result({'hist': [{'t': 0, 'coreC': 25}]}, folder)
+                export_result({'hist': []}, folder)
+            self.assertEqual((folder / 'history.csv').read_bytes(), b'')
+            self.assertNotIn('href="history.csv"', (folder / 'report.html').read_text(encoding='utf-8'))
+            self.assertEqual(json.loads((folder / 'result.json').read_text(encoding='utf-8'))['hist'], [])
+
     def test_equation_attachment_matches_engine(self):
         temporary_root = PROJECT_ROOT / '.autodev'
         temporary_root.mkdir(exist_ok=True)

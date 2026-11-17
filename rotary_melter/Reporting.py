@@ -20,6 +20,9 @@ def export_result(result, folder):
             for row in history:
                 writer.writerow({key: json.dumps(value, ensure_ascii=False) if isinstance(value, (list, dict)) else value
                                  for key, value in row.items()})
+    elif (folder / 'history.csv').exists():
+        # A reused output directory must not retain samples from an older run.
+        (folder / 'history.csv').write_text('', encoding='utf-8')
     summary = {key: value for key, value in result.items() if not isinstance(value, (dict, list))}
     cancelled = bool(result.get('cancelled', False))
     status = 'CANCELLED' if cancelled else 'COMPLETED'

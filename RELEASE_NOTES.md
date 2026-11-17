@@ -1,5 +1,16 @@
 # Automatic releases
 
+## 3.0.10 — Yeniden kullanılan klasörde eski zaman serisi temizleniyor
+
+Tek hesap dışa aktarımında yeni sonuç zaman serisi içermiyorsa, aynı klasördeki önceki history.csv içeriği temizleniyor. Davranış README’ye ve ardışık dışa aktarımları sınayan regresyon testine eklendi.
+
+Base commit: `e350eafd15a8a716a0d9033b690ea7eeca6fedd3`. Local tag: `auto/v3.0.10`.
+
+Limitations:
+
+- Boş zaman serisinde mevcut history.csv dosyası silinmez; içeriği boşaltılır.
+- Masaüstü paketi yeniden üretilmedi.
+
 ## 3.0.9 — Boş analizlerde eski CSV satırlarının kalması düzeltildi
 
 Analiz CSV’si artık her dışa aktarımda yeniden yazılıyor. Koşusuz analizlerde yalnızca sütun başlıkları kalıyor. Klasörün yeniden kullanımını doğrulayan regresyon testi ve README açıklaması eklendi.
