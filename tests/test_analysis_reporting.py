@@ -11,6 +11,25 @@ from rotary_melter.Paths import PROJECT_ROOT
 
 
 class AnalysisReportingTests(unittest.TestCase):
+    def test_sizing_report_explains_the_outcome_without_convergence_diagnostics(self):
+        scenarios = [
+            ({'possible': True, 'kw': 12.5}, 'Conditional power: 12.5 kW.'),
+            ({'possible': False, 'limitKW': 1000, 'reason': 'target not reached'},
+             'Search power limit: 1000 kW.\nReason: target not reached.'),
+        ]
+        temporary_root = PROJECT_ROOT / '.autodev'
+        temporary_root.mkdir(exist_ok=True)
+        for outcome, expected in scenarios:
+            with self.subTest(outcome=outcome), tempfile.TemporaryDirectory(dir=temporary_root) as directory:
+                folder = export_analysis({'analysis': 'sizing', **outcome}, directory)
+                report = (folder / 'ANALYSIS_REPORT.md').read_text(encoding='utf-8')
+                self.assertIn('## Conditional power sizing', report)
+                self.assertIn(expected, report)
+                self.assertNotIn('## Measured outputs', report)
+                self.assertNotIn('## Convergence diagnostics', report)
+                digest = hashlib.sha256((folder / 'analysis.json').read_bytes()).hexdigest()
+                self.assertIn(f'Analysis JSON SHA-256: `{digest}`.', report)
+
     def test_empty_analysis_replaces_previous_csv_rows(self):
         temporary_root = PROJECT_ROOT / '.autodev'
         temporary_root.mkdir(exist_ok=True)

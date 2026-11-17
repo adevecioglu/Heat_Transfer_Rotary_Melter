@@ -1,5 +1,15 @@
 # Automatic releases
 
+## 3.0.11 — Güç boyutlandırma raporu arama sonucunu açıklıyor
+
+Markdown raporu, hedefe ulaşılabildiğinde koşullu güç tahminini kW cinsinden gösteriyor. Hedefe ulaşılamadığında aramanın güç üst sınırını ve C++ motorunun bildirdiği gerekçeyi gösteriyor. Boyutlandırma raporundan boş koşu tablosu ve yakınsama bölümü çıkarıldı.
+
+Base commit: `d244b38c5755252c8a42c9ac546028120a560cbb`. Local tag: `auto/v3.0.11`.
+
+Limitations:
+
+- Değişiklik Markdown raporlamasıyla sınırlı. Regresyon testi, C++ motorunun sonuç biçimini temsil eden örnek verilerle çalıştı.
+
 ## 3.0.10 — Yeniden kullanılan klasörde eski zaman serisi temizleniyor
 
 Tek hesap dışa aktarımında yeni sonuç zaman serisi içermiyorsa, aynı klasördeki önceki history.csv içeriği temizleniyor. Davranış README’ye ve ardışık dışa aktarımları sınayan regresyon testine eklendi.

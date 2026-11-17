@@ -1,22 +1,21 @@
 {
-  "version": "3.0.10",
-  "previous_version": "3.0.9",
-  "tag": "auto/v3.0.10",
+  "version": "3.0.11",
+  "previous_version": "3.0.10",
+  "tag": "auto/v3.0.11",
   "project": "Heat_Transfer_Rotary_Melter",
-  "base_commit": "e350eafd15a8a716a0d9033b690ea7eeca6fedd3",
+  "base_commit": "d244b38c5755252c8a42c9ac546028120a560cbb",
   "change_type": "patch",
-  "created_utc": "2026-11-17T18:50:37.596645+00:00",
+  "created_utc": "2026-11-17T22:03:14.153305+00:00",
   "existing_upgrade": false,
-  "title": "Yeniden kullanılan klasörde eski zaman serisi temizleniyor",
-  "summary": "Tek hesap dışa aktarımında yeni sonuç zaman serisi içermiyorsa, aynı klasördeki önceki history.csv içeriği temizleniyor. Davranış README’ye ve ardışık dışa aktarımları sınayan regresyon testine eklendi.",
+  "title": "Güç boyutlandırma raporu arama sonucunu açıklıyor",
+  "summary": "Markdown raporu, hedefe ulaşılabildiğinde koşullu güç tahminini kW cinsinden gösteriyor. Hedefe ulaşılamadığında aramanın güç üst sınırını ve C++ motorunun bildirdiği gerekçeyi gösteriyor. Boyutlandırma raporundan boş koşu tablosu ve yakınsama bölümü çıkarıldı.",
   "limitations": [
-    "Boş zaman serisinde mevcut history.csv dosyası silinmez; içeriği boşaltılır.",
-    "Masaüstü paketi yeniden üretilmedi."
+    "Değişiklik Markdown raporlamasıyla sınırlı. Regresyon testi, C++ motorunun sonuç biçimini temsil eden örnek verilerle çalıştı."
   ],
   "changed_files": [
     "README.md",
-    "rotary_melter/Reporting.py",
-    "tests/test_reporting.py"
+    "rotary_melter/AnalysisReporting.py",
+    "tests/test_analysis_reporting.py"
   ],
   "status": "verified",
   "checks": [
@@ -28,7 +27,7 @@
         "tools.BuildCpp"
       ],
       "returncode": 0,
-      "seconds": 0.97
+      "seconds": 3.22
     },
     {
       "passed": true,
@@ -38,7 +37,7 @@
         "tools.RunChecks"
       ],
       "returncode": 0,
-      "seconds": 23.58
+      "seconds": 23.23
     },
     {
       "passed": true,
@@ -49,7 +48,7 @@
         "--check"
       ],
       "returncode": 0,
-      "seconds": 0.09
+      "seconds": 0.08
     }
   ]
 }

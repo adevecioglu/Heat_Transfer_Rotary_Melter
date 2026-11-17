@@ -47,8 +47,19 @@ def export_analysis(result, folder):
              f"- Input SHA-256: `{trace.get('inputSha256', 'unavailable')}`",
              f"- Native library SHA-256: `{trace.get('nativeLibrarySha256', 'unavailable')}`",
              f"- Independent-case threads: {result.get('threadsUsed', 1)}",
-             f"- Parallel execution: {result.get('parallelism', 'sequential dependent search')}", '',
-             '## Measured outputs', '',
+             f"- Parallel execution: {result.get('parallelism', 'sequential dependent search')}", '']
+    if title == 'sizing':
+        lines += ['## Conditional power sizing', '']
+        if result.get('possible') is True:
+            lines.append(f"Conditional power: {result['kw']:.8g} kW.")
+        elif result.get('possible') is False:
+            lines.append(f"Search power limit: {result['limitKW']:.8g} kW.")
+            lines.append(f"Reason: {_table_text(result['reason'])}.")
+        lines += ['', 'Sizing applies to the scenario and thermal assumptions recorded in `analysis.json`.', '',
+                  f'Analysis JSON SHA-256: `{result_hash}`.', '']
+        (folder / 'ANALYSIS_REPORT.md').write_text('\n'.join(lines), encoding='utf-8')
+        return folder
+    lines += ['## Measured outputs', '',
              '| Case | Status | Target reached | Physical time (s) | Input energy (kWh) | Relative energy residual | Wall time (s) |',
              '| --- | --- | --- | ---: | ---: | ---: | ---: |']
     for row in rows:
@@ -69,8 +80,6 @@ def export_analysis(result, folder):
                   '| Case | Status |', '| --- | --- |']
         for row in cancelled:
             lines.append(f"| {_table_text(row['case'])} | CANCELLED |")
-    if not rows:
-        lines += ['', f"Possible: {result.get('possible')}; conditional power: {result.get('kw', 'unavailable')} kW."]
     lines += ['', '## Convergence diagnostics', '', '```json',
               json.dumps({key: result[key] for key in ('targetGci', 'energyGci', 'timeDifferencePercent', 'radialDifferencePercent', 'commonTimeStepSeconds', 'sensitivities') if key in result}, indent=2),
               '```', '', '## Interpretation', '',
