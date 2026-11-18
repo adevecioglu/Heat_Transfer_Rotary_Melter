@@ -1,5 +1,16 @@
 # Automatic releases
 
+## 3.0.12 — Duyarlılık raporunda elastisite tablosu
+
+Markdown raporu, hedef süresi ve giriş enerjisi için boyutsuz elastisiteleri parametre bazında gösteriyor. Motor bir elastisite hesaplayamadığında rapor ilgili gerekçeyi açıklıyor.
+
+Base commit: `aa9ac89512a6e8579b1b55b9eb7e3bb5d014aa0a`. Local tag: `auto/v3.0.12`.
+
+Limitations:
+
+- Değişiklik Markdown raporuyla sınırlı. Yeni test, C++ motorunun sonuç biçimini temsil eden örnek verilerle çalıştı.
+- PowerShell yürütme politikası AKTIF_ET.ps1 dosyasını engelledi. Kontroller proje sanal ortamının Python yürütücüsü doğrudan çağrılarak tamamlandı.
+
 ## 3.0.11 — Güç boyutlandırma raporu arama sonucunu açıklıyor
 
 Markdown raporu, hedefe ulaşılabildiğinde koşullu güç tahminini kW cinsinden gösteriyor. Hedefe ulaşılamadığında aramanın güç üst sınırını ve C++ motorunun bildirdiği gerekçeyi gösteriyor. Boyutlandırma raporundan boş koşu tablosu ve yakınsama bölümü çıkarıldı.

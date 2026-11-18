@@ -80,13 +80,38 @@ def export_analysis(result, folder):
                   '| Case | Status |', '| --- | --- |']
         for row in cancelled:
             lines.append(f"| {_table_text(row['case'])} | CANCELLED |")
-    lines += ['', '## Convergence diagnostics', '', '```json',
-              json.dumps({key: result[key] for key in ('targetGci', 'energyGci', 'timeDifferencePercent', 'radialDifferencePercent', 'commonTimeStepSeconds', 'sensitivities') if key in result}, indent=2),
-              '```', '', '## Interpretation', '',
-              'Convergence cases use a common stable time step to separate spatial and temporal effects. '
-              'A target-time difference is meaningful only if both runs reach the target. '
-              'A conditional GCI is omitted when differences oscillate, do not contract, or are below time resolution.', '',
-              'Thermodynamics, conductance, integration, library use and stage-by-stage formula purposes are documented in '
+    if title == 'sensitivity':
+        lines += ['', '## Local sensitivity', '']
+        sensitivities = result.get('sensitivities', [])
+        if sensitivities:
+            reasons = {
+                'invalid_case': 'A required case failed.',
+                'zero_parameter_span': 'The baseline parameter or perturbation span is zero.',
+                'target_not_reached': 'A required case did not reach the target.',
+                'zero_response': 'The baseline target time is nonpositive or the baseline input energy is zero.',
+            }
+            lines += ['| Parameter | Target time elasticity | Input energy elasticity | Status |',
+                      '| --- | ---: | ---: | --- |']
+            for item in sensitivities:
+                parameter = _table_text(item['parameter'])
+                if item['available']:
+                    lines.append(f"| {parameter} | {item['timeElasticity']:.8g} | "
+                                 f"{item['energyElasticity']:.8g} | Available |")
+                else:
+                    reason = item.get('reason', 'No detail provided.')
+                    lines.append(f'| {parameter} | — | — | {_table_text(reasons.get(reason, reason))} |')
+            lines += ['', 'Elasticities are dimensionless. An elasticity of −0.8 indicates an estimated '
+                      'local response of −0.8% for a 1% increase in the parameter.']
+        else:
+            lines.append('No local sensitivity diagnostics were returned.')
+    else:
+        lines += ['', '## Convergence diagnostics', '', '```json',
+                  json.dumps({key: result[key] for key in ('targetGci', 'energyGci', 'timeDifferencePercent', 'radialDifferencePercent', 'commonTimeStepSeconds') if key in result}, indent=2),
+                  '```', '', '## Interpretation', '',
+                  'Convergence cases use a common stable time step to separate spatial and temporal effects. '
+                  'A target-time difference is meaningful only if both runs reach the target. '
+                  'A conditional GCI is omitted when differences oscillate, do not contract, or are below time resolution.']
+    lines += ['', 'Thermodynamics, conductance, integration, library use and stage-by-stage formula purposes are documented in '
               '`docs/CPP_CALCULATION_EQUATIONS.md`. The exact scenario and options are embedded in `analysis.json`.', '',
               f'Analysis JSON SHA-256: `{result_hash}`.', '']
     (folder / 'ANALYSIS_REPORT.md').write_text('\n'.join(lines), encoding='utf-8')

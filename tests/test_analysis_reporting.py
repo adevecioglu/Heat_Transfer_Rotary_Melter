@@ -11,6 +11,29 @@ from rotary_melter.Paths import PROJECT_ROOT
 
 
 class AnalysisReportingTests(unittest.TestCase):
+    def test_sensitivity_report_explains_elasticities_and_unavailable_results(self):
+        result = {'analysis': 'sensitivity', 'sensitivities': [
+            {'parameter': 'rpm', 'available': True, 'timeElasticity': -0.8, 'energyElasticity': 0},
+            {'parameter': 'flow', 'available': False, 'reason': 'target_not_reached'},
+            {'parameter': 'href', 'available': False, 'reason': 'invalid_case'},
+            {'parameter': 'exchangePerRev', 'available': False, 'reason': 'zero_parameter_span'},
+            {'parameter': 'other', 'available': False, 'reason': 'zero_response'},
+        ]}
+        temporary_root = PROJECT_ROOT / '.autodev'
+        temporary_root.mkdir(exist_ok=True)
+        with tempfile.TemporaryDirectory(dir=temporary_root) as directory:
+            folder = export_analysis(result, directory)
+            report = (folder / 'ANALYSIS_REPORT.md').read_text(encoding='utf-8')
+            self.assertIn('## Local sensitivity', report)
+            self.assertIn('Elasticities are dimensionless.', report)
+            self.assertIn('| rpm | -0.8 | 0 | Available |', report)
+            self.assertIn('| flow | — | — | A required case did not reach the target. |', report)
+            self.assertIn('| href | — | — | A required case failed. |', report)
+            self.assertIn('| exchangePerRev | — | — | The baseline parameter or perturbation span is zero. |', report)
+            self.assertIn('| other | — | — | The baseline target time is nonpositive or the baseline input energy is zero. |', report)
+            self.assertNotIn('## Convergence diagnostics', report)
+            self.assertEqual(json.loads((folder / 'analysis.json').read_text(encoding='utf-8')), result)
+
     def test_sizing_report_explains_the_outcome_without_convergence_diagnostics(self):
         scenarios = [
             ({'possible': True, 'kw': 12.5}, 'Conditional power: 12.5 kW.'),
@@ -106,6 +129,7 @@ class AnalysisReportingTests(unittest.TestCase):
             self.assertIn('| bad&#124;case | FAILED |', report)
             self.assertIn('| bad&#124;case | invalid &lt;input&gt;<br>flow &#124; value |', report)
             self.assertIn('| missing detail | No error detail provided. |', report)
+            self.assertIn('No local sensitivity diagnostics were returned.', report)
             self.assertEqual(json.loads((folder / 'analysis.json').read_text(encoding='utf-8')), result)
             with (folder / 'analysis.csv').open(encoding='utf-8-sig', newline='') as stream:
                 rows = list(csv.DictReader(stream))
