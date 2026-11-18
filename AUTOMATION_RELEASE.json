@@ -1,17 +1,17 @@
 {
-  "version": "3.0.12",
-  "previous_version": "3.0.11",
-  "tag": "auto/v3.0.12",
+  "version": "3.0.13",
+  "previous_version": "3.0.12",
+  "tag": "auto/v3.0.13",
   "project": "Heat_Transfer_Rotary_Melter",
-  "base_commit": "aa9ac89512a6e8579b1b55b9eb7e3bb5d014aa0a",
+  "base_commit": "00821ae688c6a0cdf1260234bd0e2391d831c2fa",
   "change_type": "patch",
-  "created_utc": "2026-11-18T03:00:09.474370+00:00",
+  "created_utc": "2026-11-18T03:40:11.260511+00:00",
   "existing_upgrade": false,
-  "title": "Duyarlılık raporunda elastisite tablosu",
-  "summary": "Markdown raporu, hedef süresi ve giriş enerjisi için boyutsuz elastisiteleri parametre bazında gösteriyor. Motor bir elastisite hesaplayamadığında rapor ilgili gerekçeyi açıklıyor.",
+  "title": "Analiz raporlarında yakınsama bölümü düzeltildi",
+  "summary": "Markdown raporu, yakınsama tanılarını ve yorumunu yalnızca yakınsama analizinde gösteriyor. Toplu analiz ve devir taraması raporları koşu sonuçlarını göstermeye devam ediyor.",
   "limitations": [
-    "Değişiklik Markdown raporuyla sınırlı. Yeni test, C++ motorunun sonuç biçimini temsil eden örnek verilerle çalıştı.",
-    "PowerShell yürütme politikası AKTIF_ET.ps1 dosyasını engelledi. Kontroller proje sanal ortamının Python yürütücüsü doğrudan çağrılarak tamamlandı."
+    "Değişiklik Markdown raporlamasıyla sınırlı. Yeni regresyon testi örnek analiz sonuçlarıyla çalıştı.",
+    "PowerShell yürütme politikası AKTIF_ET.ps1 betiğini engelledi. Kontroller proje sanal ortamının Python yürütücüsü doğrudan çağrılarak tamamlandı."
   ],
   "changed_files": [
     "rotary_melter/AnalysisReporting.py",
@@ -27,7 +27,7 @@
         "tools.BuildCpp"
       ],
       "returncode": 0,
-      "seconds": 1.06
+      "seconds": 0.97
     },
     {
       "passed": true,
@@ -37,7 +37,7 @@
         "tools.RunChecks"
       ],
       "returncode": 0,
-      "seconds": 23.64
+      "seconds": 24.3
     },
     {
       "passed": true,

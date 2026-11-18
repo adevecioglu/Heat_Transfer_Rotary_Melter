@@ -1,5 +1,16 @@
 # Automatic releases
 
+## 3.0.13 — Analiz raporlarında yakınsama bölümü düzeltildi
+
+Markdown raporu, yakınsama tanılarını ve yorumunu yalnızca yakınsama analizinde gösteriyor. Toplu analiz ve devir taraması raporları koşu sonuçlarını göstermeye devam ediyor.
+
+Base commit: `00821ae688c6a0cdf1260234bd0e2391d831c2fa`. Local tag: `auto/v3.0.13`.
+
+Limitations:
+
+- Değişiklik Markdown raporlamasıyla sınırlı. Yeni regresyon testi örnek analiz sonuçlarıyla çalıştı.
+- PowerShell yürütme politikası AKTIF_ET.ps1 betiğini engelledi. Kontroller proje sanal ortamının Python yürütücüsü doğrudan çağrılarak tamamlandı.
+
 ## 3.0.12 — Duyarlılık raporunda elastisite tablosu
 
 Markdown raporu, hedef süresi ve giriş enerjisi için boyutsuz elastisiteleri parametre bazında gösteriyor. Motor bir elastisite hesaplayamadığında rapor ilgili gerekçeyi açıklıyor.

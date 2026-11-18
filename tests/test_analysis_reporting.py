@@ -11,6 +11,28 @@ from rotary_melter.Paths import PROJECT_ROOT
 
 
 class AnalysisReportingTests(unittest.TestCase):
+    def test_convergence_diagnostics_appear_only_for_convergence_analysis(self):
+        temporary_root = PROJECT_ROOT / '.autodev'
+        temporary_root.mkdir(exist_ok=True)
+        for mode in ('batch', 'rpm', 'convergence'):
+            with self.subTest(mode=mode), tempfile.TemporaryDirectory(dir=temporary_root) as directory:
+                result = {'analysis': mode, 'cases': [
+                    {'name': 'base', 'ok': True, 'summary': {'seconds': 12}},
+                ]}
+                if mode == 'convergence':
+                    result['commonTimeStepSeconds'] = 0.25
+                folder = export_analysis(result, directory)
+                report = (folder / 'ANALYSIS_REPORT.md').read_text(encoding='utf-8')
+                self.assertIn('| base | OK | None | 12 |', report)
+                if mode == 'convergence':
+                    self.assertIn('## Convergence diagnostics', report)
+                    self.assertIn('"commonTimeStepSeconds": 0.25', report)
+                    self.assertIn('## Interpretation', report)
+                else:
+                    self.assertNotIn('## Convergence diagnostics', report)
+                    self.assertNotIn('## Interpretation', report)
+                self.assertEqual(json.loads((folder / 'analysis.json').read_text(encoding='utf-8')), result)
+
     def test_sensitivity_report_explains_elasticities_and_unavailable_results(self):
         result = {'analysis': 'sensitivity', 'sensitivities': [
             {'parameter': 'rpm', 'available': True, 'timeElasticity': -0.8, 'energyElasticity': 0},

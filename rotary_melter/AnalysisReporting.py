@@ -104,7 +104,7 @@ def export_analysis(result, folder):
                       'local response of −0.8% for a 1% increase in the parameter.']
         else:
             lines.append('No local sensitivity diagnostics were returned.')
-    else:
+    elif title == 'convergence':
         lines += ['', '## Convergence diagnostics', '', '```json',
                   json.dumps({key: result[key] for key in ('targetGci', 'energyGci', 'timeDifferencePercent', 'radialDifferencePercent', 'commonTimeStepSeconds') if key in result}, indent=2),
                   '```', '', '## Interpretation', '',
