@@ -11,6 +11,22 @@ from rotary_melter.Paths import PROJECT_ROOT
 
 
 class AnalysisReportingTests(unittest.TestCase):
+    def test_cancelled_sizing_report_withholds_unfinished_outcome(self):
+        temporary_root = PROJECT_ROOT / '.autodev'
+        temporary_root.mkdir(exist_ok=True)
+        for outcome in ({'possible': True, 'kw': 12.5},
+                        {'possible': False, 'limitKW': 1000, 'reason': 'target not reached'}):
+            with self.subTest(outcome=outcome), tempfile.TemporaryDirectory(dir=temporary_root) as directory:
+                result = {'analysis': 'sizing', 'cancelled': True, **outcome}
+                folder = export_analysis(result, directory)
+                report = (folder / 'ANALYSIS_REPORT.md').read_text(encoding='utf-8')
+                manifest = json.loads((folder / 'run_manifest.json').read_text(encoding='utf-8'))
+                self.assertIn('CANCELLED', report)
+                self.assertNotIn('Conditional power: ', report)
+                self.assertNotIn('Search power limit: ', report)
+                self.assertTrue(manifest['cancelled'])
+                self.assertEqual(json.loads((folder / 'analysis.json').read_text(encoding='utf-8')), result)
+
     def test_convergence_diagnostics_appear_only_for_convergence_analysis(self):
         temporary_root = PROJECT_ROOT / '.autodev'
         temporary_root.mkdir(exist_ok=True)

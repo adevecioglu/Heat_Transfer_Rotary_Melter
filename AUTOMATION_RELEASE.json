@@ -1,21 +1,24 @@
 {
-  "version": "3.0.13",
-  "previous_version": "3.0.12",
-  "tag": "auto/v3.0.13",
+  "version": "3.0.14",
+  "previous_version": "3.0.13",
+  "tag": "auto/v3.0.14",
   "project": "Heat_Transfer_Rotary_Melter",
-  "base_commit": "00821ae688c6a0cdf1260234bd0e2391d831c2fa",
+  "base_commit": "2908e2867e0f90a90608c27137dc6f6c7d079322",
   "change_type": "patch",
-  "created_utc": "2026-11-18T03:40:11.260511+00:00",
+  "created_utc": "2026-11-18T08:46:21.310857+00:00",
   "existing_upgrade": false,
-  "title": "Analiz raporlarında yakınsama bölümü düzeltildi",
-  "summary": "Markdown raporu, yakınsama tanılarını ve yorumunu yalnızca yakınsama analizinde gösteriyor. Toplu analiz ve devir taraması raporları koşu sonuçlarını göstermeye devam ediyor.",
+  "title": "Güç boyutlandırmasında iptal durumu doğru raporlanıyor",
+  "summary": "Motor analizi iptal edilmiş olarak döndürdüğünde komut satırı raporları kaydedip çıkış kodu 1 veriyor. Markdown raporu ve manifest iptali belirtiyor. Tamamlanmamış güç aramasının ham sonucu analysis.json dosyasında saklanıyor.",
   "limitations": [
-    "Değişiklik Markdown raporlamasıyla sınırlı. Yeni regresyon testi örnek analiz sonuçlarıyla çalıştı.",
-    "PowerShell yürütme politikası AKTIF_ET.ps1 betiğini engelledi. Kontroller proje sanal ortamının Python yürütücüsü doğrudan çağrılarak tamamlandı."
+    "Düzeltme, motorun sonuç döndürdüğü iptal durumlarını kapsıyor. Komut satırı ve rapor regresyonlarında motor yanıtı taklit edildi, gerçek motorun iptal yanıtı ayrıca doğrulandı.",
+    "PowerShell yürütme politikası AKTIF_ET.ps1 betiğini engelledi. Kontroller proje sanal ortamındaki Python doğrudan çağrılarak tamamlandı."
   ],
   "changed_files": [
+    "README.md",
     "rotary_melter/AnalysisReporting.py",
-    "tests/test_analysis_reporting.py"
+    "rotary_melter/CommandLine.py",
+    "tests/test_analysis_reporting.py",
+    "tests/test_command_line.py"
   ],
   "status": "verified",
   "checks": [
@@ -27,7 +30,7 @@
         "tools.BuildCpp"
       ],
       "returncode": 0,
-      "seconds": 0.97
+      "seconds": 1.05
     },
     {
       "passed": true,
@@ -37,7 +40,7 @@
         "tools.RunChecks"
       ],
       "returncode": 0,
-      "seconds": 24.3
+      "seconds": 23.11
     },
     {
       "passed": true,
@@ -48,7 +51,7 @@
         "--check"
       ],
       "returncode": 0,
-      "seconds": 0.08
+      "seconds": 0.09
     }
   ]
 }

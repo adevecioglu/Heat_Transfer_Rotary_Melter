@@ -55,6 +55,21 @@ class CalculationExitStatusTests(unittest.TestCase):
 
 
 class AnalysisExitStatusTests(unittest.TestCase):
+    def test_cancelled_sizing_exports_before_returning_failure(self):
+        result = {'analysis': 'sizing', 'cancelled': True, 'possible': False,
+                  'limitKW': 1000, 'reason': 'target not reached'}
+        temporary_root = PROJECT_ROOT / '.autodev'
+        temporary_root.mkdir(exist_ok=True)
+        with tempfile.TemporaryDirectory(dir=temporary_root) as directory:
+            stderr = io.StringIO()
+            with patch('rotary_melter.NativeEngine.execute', return_value=result), \
+                    redirect_stdout(io.StringIO()), redirect_stderr(stderr):
+                status = main(['--analyse', 'sizing', '--output', directory])
+            folder = Path(directory)
+            self.assertEqual(json.loads((folder / 'analysis.json').read_text(encoding='utf-8')), result)
+            self.assertEqual(status, 1)
+            self.assertIn('Analysis cancelled.', stderr.getvalue())
+
     def test_analysis_status_preserves_diagnostic_exports(self):
         scenarios = [
             ([{'name': 'failed', 'ok': False, 'error': 'invalid flow'},

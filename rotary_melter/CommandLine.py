@@ -53,6 +53,9 @@ def main(argv=None):
             if failed:
                 print(f'Failed or cancelled analysis cases: {failed}', file=sys.stderr)
                 exit_code = 1
+            if result.get('cancelled'):
+                print('Analysis cancelled.', file=sys.stderr)
+                exit_code = 1
         else:
             if args.engine == 'cpp':
                 from .NativeEngine import simulate

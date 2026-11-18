@@ -36,9 +36,10 @@ def export_analysis(result, folder):
         writer.writerows(rows)
     trace = result.get('traceability', {})
     title = result.get('analysis', 'numerical analysis')
+    analysis_cancelled = bool(result.get('cancelled', False))
     manifest = {'runId': trace.get('runId', folder.name), 'type': 'analysis', 'analysis': title,
                 'createdUtc': trace.get('createdUtc'), 'inputSha256': trace.get('inputSha256'),
-                'cases': len(rows), 'resultSha256': result_hash}
+                'cases': len(rows), 'resultSha256': result_hash, 'cancelled': analysis_cancelled}
     (folder/'run_manifest.json').write_text(json.dumps(manifest, ensure_ascii=False, indent=2), encoding='utf-8')
     lines = [f'# Rotary Melter — {title}', '',
              'Results are model predictions and numerical checks; they are not experimental validation.', '',
@@ -48,9 +49,13 @@ def export_analysis(result, folder):
              f"- Native library SHA-256: `{trace.get('nativeLibrarySha256', 'unavailable')}`",
              f"- Independent-case threads: {result.get('threadsUsed', 1)}",
              f"- Parallel execution: {result.get('parallelism', 'sequential dependent search')}", '']
+    if analysis_cancelled:
+        lines += ['**Status: CANCELLED**', '']
     if title == 'sizing':
         lines += ['## Conditional power sizing', '']
-        if result.get('possible') is True:
+        if analysis_cancelled:
+            lines.append('The power search was interrupted before a final result was available.')
+        elif result.get('possible') is True:
             lines.append(f"Conditional power: {result['kw']:.8g} kW.")
         elif result.get('possible') is False:
             lines.append(f"Search power limit: {result['limitKW']:.8g} kW.")

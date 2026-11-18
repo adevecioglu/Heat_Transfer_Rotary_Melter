@@ -1,5 +1,16 @@
 # Automatic releases
 
+## 3.0.14 — Güç boyutlandırmasında iptal durumu doğru raporlanıyor
+
+Motor analizi iptal edilmiş olarak döndürdüğünde komut satırı raporları kaydedip çıkış kodu 1 veriyor. Markdown raporu ve manifest iptali belirtiyor. Tamamlanmamış güç aramasının ham sonucu analysis.json dosyasında saklanıyor.
+
+Base commit: `2908e2867e0f90a90608c27137dc6f6c7d079322`. Local tag: `auto/v3.0.14`.
+
+Limitations:
+
+- Düzeltme, motorun sonuç döndürdüğü iptal durumlarını kapsıyor. Komut satırı ve rapor regresyonlarında motor yanıtı taklit edildi, gerçek motorun iptal yanıtı ayrıca doğrulandı.
+- PowerShell yürütme politikası AKTIF_ET.ps1 betiğini engelledi. Kontroller proje sanal ortamındaki Python doğrudan çağrılarak tamamlandı.
+
 ## 3.0.13 — Analiz raporlarında yakınsama bölümü düzeltildi
 
 Markdown raporu, yakınsama tanılarını ve yorumunu yalnızca yakınsama analizinde gösteriyor. Toplu analiz ve devir taraması raporları koşu sonuçlarını göstermeye devam ediyor.
