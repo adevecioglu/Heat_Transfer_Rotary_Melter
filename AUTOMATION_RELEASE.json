@@ -1,16 +1,16 @@
 {
-  "version": "3.0.15",
-  "previous_version": "3.0.14",
-  "tag": "auto/v3.0.15",
+  "version": "3.0.16",
+  "previous_version": "3.0.15",
+  "tag": "auto/v3.0.16",
   "project": "Heat_Transfer_Rotary_Melter",
-  "base_commit": "cbe2ac06b493547ec491f24aeda6c116f29a8b05",
+  "base_commit": "f5cfd81240e0bdb3fcbdcfb2bcbaec24d28a3f0e",
   "change_type": "patch",
-  "created_utc": "2026-11-18T13:27:23.262711+00:00",
+  "created_utc": "2026-11-18T13:40:39.139471+00:00",
   "existing_upgrade": false,
-  "title": "Çakışan komut satırı işlemleri reddediliyor",
-  "summary": "Altı ana komut satırı seçeneği aynı ayrıştırma kuralına bağlandı. Bir komutta birden fazla ana işlem seçildiğinde uygulama herhangi bir işleme başlamadan çakışan seçenekleri bildiriyor ve çıkış kodu 2 döndürüyor. README yeni davranışı açıklıyor.",
+  "title": "JavaScript koşularında C++ seçenekleri reddediliyor",
+  "summary": "JavaScript referans koşusunda `--integrator`, `--threads` veya `--water-model` açıkça verilirse komut, senaryoyu okumadan ilgili seçeneği bildiriyor ve çıkış kodu 2 döndürüyor. JavaScript motoruyla analiz isteği de senaryo okunmadan reddediliyor. README yeni davranışı açıklıyor.",
   "limitations": [
-    "Çalışma komut satırı ayrıştırmasıyla sınırlıydı. Masaüstü entegrasyon testi çalıştırılmadı.",
+    "Değişiklik komut satırı doğrulamasıyla sınırlıydı. Masaüstü entegrasyon testi çalıştırılmadı.",
     "PowerShell yürütme politikası `AKTIF_ET.ps1` betiğini engelledi. Kontroller proje sanal ortamındaki Python doğrudan çağrılarak yürütüldü."
   ],
   "changed_files": [
@@ -28,7 +28,7 @@
         "tools.BuildCpp"
       ],
       "returncode": 0,
-      "seconds": 1.0
+      "seconds": 0.98
     },
     {
       "passed": true,
@@ -38,7 +38,7 @@
         "tools.RunChecks"
       ],
       "returncode": 0,
-      "seconds": 23.98
+      "seconds": 23.72
     },
     {
       "passed": true,

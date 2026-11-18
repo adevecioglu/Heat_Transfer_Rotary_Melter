@@ -17,13 +17,21 @@ def main(argv=None):
     action.add_argument('--self-test', type=Path, help='Run the desktop integration test with isolated scenario storage')
     action.add_argument('--gpu-info', type=Path, help='Write NVIDIA availability diagnostics as JSON and exit')
     parser.add_argument('--engine', choices=['cpp', 'javascript'], default='cpp', help='C++ production engine or retained V11 reference')
-    parser.add_argument('--integrator', choices=['midpoint', 'rk4', 'dopri5'], default='midpoint')
-    parser.add_argument('--threads', type=int, default=4)
-    parser.add_argument('--water-model', choices=['constant', 'if97_reference'], default='constant')
+    parser.add_argument('--integrator', choices=['midpoint', 'rk4', 'dopri5'], help='C++ integrator (default: midpoint)')
+    parser.add_argument('--threads', type=int, help='C++ thread count (default: 4)')
+    parser.add_argument('--water-model', choices=['constant', 'if97_reference'], help='C++ water model (default: constant)')
     parser.add_argument('--config', type=Path, help='Scenario JSON; default: config/default_inputs.json')
     parser.add_argument('--output', type=Path, help='Headless output directory')
     parser.add_argument('--require-gpu', action='store_true', help='Require a successful NVIDIA field audit in the desktop self-test')
     args = parser.parse_args(argv)
+    if args.engine == 'javascript':
+        if args.analyse:
+            parser.error('--analyse requires --engine cpp')
+        if args.run:
+            for option, value in (('--integrator', args.integrator), ('--threads', args.threads),
+                                  ('--water-model', args.water_model)):
+                if value is not None:
+                    parser.error(f'{option} requires --engine cpp')
     if args.gpu_info:
         import json
         from .GpuAnalysis import info
@@ -39,13 +47,14 @@ def main(argv=None):
         configuration = load_inputs(args.config) if args.config else load_inputs()
         output = args.output or OUTPUTS_DIR / datetime.now().strftime('run_%Y%m%d_%H%M%S_%f')
         exit_code = 0
+        options = {'integrator': args.integrator or 'midpoint',
+                   'threads': 4 if args.threads is None else args.threads,
+                   'waterModel': args.water_model or 'constant'}
         if args.analyse:
-            if args.engine != 'cpp':
-                parser.error('--analyse requires --engine cpp')
             from .NativeEngine import execute
             from .AnalysisReporting import export_analysis
             result = execute({'action': 'analyse', 'analysis': args.analyse, 'configuration': configuration,
-                              'options': {'integrator': args.integrator, 'threads': args.threads, 'waterModel': args.water_model}})
+                              'options': options})
             folder = export_analysis(result, output)
             print(f'Analysis: {args.analyse} | Cases: {len(result.get("cases", []))}')
             failed = sum(not case.get('ok', False) or bool(case.get('summary', {}).get('cancelled'))
@@ -59,8 +68,7 @@ def main(argv=None):
         else:
             if args.engine == 'cpp':
                 from .NativeEngine import simulate
-                result = simulate(configuration, options={'integrator': args.integrator, 'threads': args.threads,
-                                  'parallelKernel': True, 'waterModel': args.water_model})
+                result = simulate(configuration, options={**options, 'parallelKernel': True})
             else:
                 from .JavaScriptEngine import simulate
                 result = simulate(configuration)

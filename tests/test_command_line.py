@@ -57,6 +57,42 @@ class CalculationActionTests(unittest.TestCase):
                         operation.assert_not_called()
 
 
+class EngineOptionTests(unittest.TestCase):
+    def test_javascript_rejects_cpp_options_before_loading_inputs(self):
+        destination = PROJECT_ROOT / '.autodev' / 'javascript_options_report'
+        for option, value in (('--integrator', 'midpoint'), ('--threads', '2'),
+                              ('--water-model', 'if97_reference')):
+            with self.subTest(option=option):
+                stderr = io.StringIO()
+                with patch('rotary_melter.CommandLine.load_inputs') as load, \
+                        patch('rotary_melter.JavaScriptEngine.simulate') as simulate, \
+                        patch('rotary_melter.Reporting.export_result', return_value=destination) as export, \
+                        redirect_stderr(stderr), redirect_stdout(io.StringIO()):
+                    with self.assertRaises(SystemExit) as raised:
+                        main(['--run', '--engine', 'javascript', option, value])
+                self.assertEqual(raised.exception.code, 2)
+                self.assertIn(f'{option} requires --engine cpp', stderr.getvalue())
+                load.assert_not_called()
+                simulate.assert_not_called()
+                export.assert_not_called()
+
+    def test_cpp_run_keeps_default_and_explicit_options(self):
+        destination = PROJECT_ROOT / '.autodev' / 'cpp_options_report'
+        for arguments, expected in (
+            ([], {'integrator': 'midpoint', 'threads': 4, 'waterModel': 'constant'}),
+            (['--integrator', 'rk4', '--threads', '2', '--water-model', 'if97_reference'],
+             {'integrator': 'rk4', 'threads': 2, 'waterModel': 'if97_reference'}),
+        ):
+            with self.subTest(arguments=arguments):
+                configuration = {}
+                with patch('rotary_melter.CommandLine.load_inputs', return_value=configuration), \
+                        patch('rotary_melter.NativeEngine.simulate', return_value={}) as simulate, \
+                        patch('rotary_melter.Reporting.export_result', return_value=destination), \
+                        redirect_stdout(io.StringIO()):
+                    self.assertEqual(main(['--run', *arguments]), 0)
+                simulate.assert_called_once_with(configuration, options={**expected, 'parallelKernel': True})
+
+
 class CalculationExitStatusTests(unittest.TestCase):
     def test_cancelled_run_exports_before_returning_failure(self):
         for engine in ('cpp', 'javascript'):

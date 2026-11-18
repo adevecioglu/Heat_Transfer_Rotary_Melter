@@ -1,5 +1,16 @@
 # Automatic releases
 
+## 3.0.16 — JavaScript koşularında C++ seçenekleri reddediliyor
+
+JavaScript referans koşusunda `--integrator`, `--threads` veya `--water-model` açıkça verilirse komut, senaryoyu okumadan ilgili seçeneği bildiriyor ve çıkış kodu 2 döndürüyor. JavaScript motoruyla analiz isteği de senaryo okunmadan reddediliyor. README yeni davranışı açıklıyor.
+
+Base commit: `f5cfd81240e0bdb3fcbdcfb2bcbaec24d28a3f0e`. Local tag: `auto/v3.0.16`.
+
+Limitations:
+
+- Değişiklik komut satırı doğrulamasıyla sınırlıydı. Masaüstü entegrasyon testi çalıştırılmadı.
+- PowerShell yürütme politikası `AKTIF_ET.ps1` betiğini engelledi. Kontroller proje sanal ortamındaki Python doğrudan çağrılarak yürütüldü.
+
 ## 3.0.15 — Çakışan komut satırı işlemleri reddediliyor
 
 Altı ana komut satırı seçeneği aynı ayrıştırma kuralına bağlandı. Bir komutta birden fazla ana işlem seçildiğinde uygulama herhangi bir işleme başlamadan çakışan seçenekleri bildiriyor ve çıkış kodu 2 döndürüyor. README yeni davranışı açıklıyor.
