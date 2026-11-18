@@ -1,6 +1,8 @@
 """Headless commands must reject conflicting actions and report analysis failures."""
+from argparse import ArgumentParser
 from contextlib import redirect_stderr, redirect_stdout
 import io
+from itertools import combinations
 import json
 from pathlib import Path
 import tempfile
@@ -12,6 +14,29 @@ from rotary_melter.Paths import PROJECT_ROOT
 
 
 class CalculationActionTests(unittest.TestCase):
+    def test_other_action_pairs_fail_before_dispatch(self):
+        parse_args = ArgumentParser.parse_args
+
+        def parse_then_stop(parser, arguments):
+            parse_args(parser, arguments)
+            self.fail('Argument parser accepted two primary actions')
+
+        actions = (
+            ['--build'], ['--run'], ['--analyse', 'rpm'], ['--write-default', 'unused.json'],
+            ['--self-test', 'unused.json'], ['--gpu-info', 'unused.json'],
+        )
+        for first, second in combinations(actions, 2):
+            if (first[0], second[0]) == ('--run', '--analyse'):
+                continue  # Covered for every analysis mode below.
+            with self.subTest(first=first[0], second=second[0]):
+                stderr = io.StringIO()
+                with patch.object(ArgumentParser, 'parse_args', parse_then_stop), \
+                        redirect_stderr(stderr), self.assertRaises(SystemExit) as raised:
+                    main(first + second)
+                self.assertEqual(raised.exception.code, 2)
+                self.assertIn(first[0], stderr.getvalue())
+                self.assertIn(second[0], stderr.getvalue())
+
     def test_run_and_analysis_conflict_before_loading_or_exporting(self):
         for analysis in ('convergence', 'sensitivity', 'rpm', 'sizing'):
             for arguments in (['--run', '--analyse', analysis],

@@ -1,4 +1,4 @@
-# Rotary Melter — C++ Engineering Workstation 3.0.14
+# Rotary Melter — C++ Engineering Workstation 3.0.15
 
 V11 / Desktop 2.2 temel alınarak geliştirilen döner eritici analiz programı. Ana ısıl hesap, parametre analizleri ve granül temas çözümleri **C++20** ile çalışır. Python masaüstü pencereyi, dosyaları ve C++ bağlantısını; JavaScript kullanıcı arayüzünü ve görselleştirmeyi yönetir.
 
@@ -95,7 +95,7 @@ HTML raporundaki zaman serisi CSV bağlantısı yalnızca örnekler varsa göste
 
 Tek hesap çıktısı için aynı klasör yeniden kullanıldığında, yeni sonuçta zaman serisi yoksa önceki `history.csv` içeriği temizlenir.
 
-`--run` ve `--analyse` aynı komutta kullanılamaz. Birlikte verilirse hesap başlatılmadan ve rapor yazılmadan kullanım hatası (çıkış kodu 2) döner.
+Her komutta `--run`, `--analyse`, `--build`, `--write-default`, `--self-test` ve `--gpu-info` seçeneklerinden en fazla biri kullanılabilir. Birden fazla ana işlem verilirse herhangi bir işlem başlatılmadan kullanım hatası (çıkış kodu 2) döner. Ana işlem belirtilmezse masaüstü uygulaması açılır.
 
 Python gerektirmeyen C++ komut satırı motoru da üretilir:
 

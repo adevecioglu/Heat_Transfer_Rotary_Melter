@@ -9,20 +9,20 @@ from .Paths import OUTPUTS_DIR
 
 def main(argv=None):
     parser = argparse.ArgumentParser(description='Rotary Melter C++ engineering workstation')
-    parser.add_argument('--build', action='store_true', help='Rebuild the self-contained interface and exit')
-    calculation_action = parser.add_mutually_exclusive_group()
-    calculation_action.add_argument('--run', action='store_true', help='Calculate and export JSON/CSV/HTML/Markdown')
+    action = parser.add_mutually_exclusive_group()
+    action.add_argument('--build', action='store_true', help='Rebuild the self-contained interface and exit')
+    action.add_argument('--run', action='store_true', help='Calculate and export JSON/CSV/HTML/Markdown')
+    action.add_argument('--analyse', choices=['convergence', 'sensitivity', 'rpm', 'sizing'], help='Run a C++ numerical analysis and export its report')
+    action.add_argument('--write-default', type=Path, help='Save the default scenario and exit')
+    action.add_argument('--self-test', type=Path, help='Run the desktop integration test with isolated scenario storage')
+    action.add_argument('--gpu-info', type=Path, help='Write NVIDIA availability diagnostics as JSON and exit')
     parser.add_argument('--engine', choices=['cpp', 'javascript'], default='cpp', help='C++ production engine or retained V11 reference')
     parser.add_argument('--integrator', choices=['midpoint', 'rk4', 'dopri5'], default='midpoint')
     parser.add_argument('--threads', type=int, default=4)
     parser.add_argument('--water-model', choices=['constant', 'if97_reference'], default='constant')
-    calculation_action.add_argument('--analyse', choices=['convergence', 'sensitivity', 'rpm', 'sizing'], help='Run a C++ numerical analysis and export its report')
     parser.add_argument('--config', type=Path, help='Scenario JSON; default: config/default_inputs.json')
     parser.add_argument('--output', type=Path, help='Headless output directory')
-    parser.add_argument('--write-default', type=Path, help='Save the default scenario and exit')
-    parser.add_argument('--self-test', type=Path, help='Run the desktop integration test with isolated scenario storage')
     parser.add_argument('--require-gpu', action='store_true', help='Require a successful NVIDIA field audit in the desktop self-test')
-    parser.add_argument('--gpu-info', type=Path, help='Write NVIDIA availability diagnostics as JSON and exit')
     args = parser.parse_args(argv)
     if args.gpu_info:
         import json

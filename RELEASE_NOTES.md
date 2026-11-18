@@ -1,5 +1,16 @@
 # Automatic releases
 
+## 3.0.15 — Çakışan komut satırı işlemleri reddediliyor
+
+Altı ana komut satırı seçeneği aynı ayrıştırma kuralına bağlandı. Bir komutta birden fazla ana işlem seçildiğinde uygulama herhangi bir işleme başlamadan çakışan seçenekleri bildiriyor ve çıkış kodu 2 döndürüyor. README yeni davranışı açıklıyor.
+
+Base commit: `cbe2ac06b493547ec491f24aeda6c116f29a8b05`. Local tag: `auto/v3.0.15`.
+
+Limitations:
+
+- Çalışma komut satırı ayrıştırmasıyla sınırlıydı. Masaüstü entegrasyon testi çalıştırılmadı.
+- PowerShell yürütme politikası `AKTIF_ET.ps1` betiğini engelledi. Kontroller proje sanal ortamındaki Python doğrudan çağrılarak yürütüldü.
+
 ## 3.0.14 — Güç boyutlandırmasında iptal durumu doğru raporlanıyor
 
 Motor analizi iptal edilmiş olarak döndürdüğünde komut satırı raporları kaydedip çıkış kodu 1 veriyor. Markdown raporu ve manifest iptali belirtiyor. Tamamlanmamış güç aramasının ham sonucu analysis.json dosyasında saklanıyor.
