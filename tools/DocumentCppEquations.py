@@ -314,6 +314,8 @@ and unreached targets receive an explicit unavailable reason instead of an elast
 Boiler sizing refines a bracket sequentially because each new bound depends on
 the previous solve. A 1000 kW upper search bound and 16 refinements are explicit
 algorithm limits, not evidence that the physical equipment can deliver that power.
+A cancelled solve or an interruption between refinements stops the search and
+returns a cancellation status without a sizing outcome.
 '''),
 ('17 · Granule initialization and wall geometry', 'ContactDynamics.cpp', 'void initialize_lattice(', r'''
 **Stage / purpose:** initialize actual-size spherical particles without imposing

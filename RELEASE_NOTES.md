@@ -1,5 +1,16 @@
 # Automatic releases
 
+## 3.0.17 — Güç boyutlandırmasında iptal doğru raporlanıyor
+
+C++ motoru, üst güç sınırındaki çözüm iptal edildiğinde veya arama ara adımlarda durdurulduğunda `cancelled: true` döndürüyor. İptal edilen arama için güç tahmini ya da hedefe ulaşılamadı sonucu üretilmiyor. Denklem kataloğu yeni davranışı açıklıyor.
+
+Base commit: `e43ced4988847d4e49dcbe974b3d3579018814a8`. Local tag: `auto/v3.0.17`.
+
+Limitations:
+
+- Kontroller başsız yürütüldü. Masaüstü WebView2 testi çalıştırılmadı.
+- PowerShell yürütme politikası `AKTIF_ET.ps1` betiğini engelledi. Kontrollerde proje sanal ortamındaki çalıştırılabilir dosyalar doğrudan çağrıldı.
+
 ## 3.0.16 — JavaScript koşularında C++ seçenekleri reddediliyor
 
 JavaScript referans koşusunda `--integrator`, `--threads` veya `--water-model` açıkça verilirse komut, senaryoyu okumadan ilgili seçeneği bildiriyor ve çıkış kodu 2 döndürüyor. JavaScript motoruyla analiz isteği de senaryo okunmadan reddediliyor. README yeni davranışı açıklıyor.

@@ -1,13 +1,15 @@
 """Physical regression, deterministic parallelism and native-interface checks."""
+import json
 import math
 import tempfile
 import time
 import unittest
 from pathlib import Path
 
+from rotary_melter.AnalysisReporting import export_analysis
 from rotary_melter.Configuration import load_inputs
 from rotary_melter.NativeEngine import execute, info, simulate, NativeJobs
-from rotary_melter.Paths import OUTPUTS_DIR
+from rotary_melter.Paths import OUTPUTS_DIR, PROJECT_ROOT
 
 
 class NativeCalculationTests(unittest.TestCase):
@@ -99,6 +101,44 @@ class NativeCalculationTests(unittest.TestCase):
         self.assertEqual(result['targetGci']['reason'], 'target_not_reached')
         self.assertIsNone(result['timeDifferencePercent'])
         self.assertIsNone(result['radialDifferencePercent'])
+
+    def test_sizing_keeps_cancellation_from_the_upper_bound_solve(self):
+        request = {'action': 'analyse', 'analysis': 'sizing',
+                   'configuration': self.scenario(goalHours=.002)}
+        signals = iter([True])
+        result = execute(request, cancelled=lambda: next(signals, False))
+        self.assertTrue(result['cancelled'])
+        self.assertNotIn('possible', result)
+
+        completed = execute(request)
+        self.assertFalse(completed['cancelled'])
+        self.assertFalse(completed['possible'])
+        self.assertEqual(completed['limitKW'], 1000)
+
+    def test_sizing_returns_cancelled_when_interrupted_between_refinements(self):
+        request = {'action': 'analyse', 'analysis': 'sizing',
+                   'configuration': self.scenario(goalHours=.1, target=25.001,
+                                                  metalInitial=100, waterInitial=100)}
+        iterations = []
+
+        result = execute(request, progress=lambda event: iterations.append(event['iteration']),
+                         cancelled=lambda: bool(iterations))
+
+        self.assertEqual(iterations, [1])
+        self.assertTrue(result['cancelled'])
+        self.assertNotIn('possible', result)
+        self.assertNotIn('kw', result)
+
+        temporary_root = PROJECT_ROOT / '.autodev'
+        temporary_root.mkdir(exist_ok=True)
+        with tempfile.TemporaryDirectory(dir=temporary_root) as directory:
+            folder = export_analysis(result, directory)
+            manifest = json.loads((folder / 'run_manifest.json').read_text(encoding='utf-8'))
+            report = (folder / 'ANALYSIS_REPORT.md').read_text(encoding='utf-8')
+            self.assertTrue(manifest['cancelled'])
+            self.assertIn('**Status: CANCELLED**', report)
+            self.assertNotIn('Conditional power:', report)
+            self.assertNotIn('Search power limit:', report)
 
     def test_sensitivity_keeps_valid_cases_when_one_perturbation_is_invalid(self):
         result = execute({'action': 'analyse', 'analysis': 'sensitivity',

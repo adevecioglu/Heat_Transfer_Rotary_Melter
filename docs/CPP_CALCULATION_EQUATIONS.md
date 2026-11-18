@@ -6,7 +6,7 @@ This catalogue describes the native production model. Units are SI internally; e
 
 | File | SHA-256 |
 | --- | --- |
-| [Analysis.cpp](../native/src/Analysis.cpp) | `b28dbac7895f84e2c6fa96e1f04f0a6e83a5f1a3aac93383eed505e31e2c9ad2` |
+| [Analysis.cpp](../native/src/Analysis.cpp) | `483bed66d5a2c26cf4c6c2dbca14e9cb2eaf6caff99c00e6af0ba1901ea68823` |
 | [Calculation.cpp](../native/src/Calculation.cpp) | `91970e9875fe1b6d736ce9b356fd0cab05c12c32c8f42685e1c6e08d9542b111` |
 | [ContactDynamics.cpp](../native/src/ContactDynamics.cpp) | `c58240bc61ce7bf77e4364fc630fa20a2e3e1cb4a74be1e96e29bd2a8dbde7f7` |
 | [Geometry.cpp](../native/src/Geometry.cpp) | `d06eac05903e4b731ca6394bd5642b6e7f6fda5f73fadc27f5ec03d721b00bc4` |
@@ -365,6 +365,8 @@ and unreached targets receive an explicit unavailable reason instead of an elast
 Boiler sizing refines a bracket sequentially because each new bound depends on
 the previous solve. A 1000 kW upper search bound and 16 refinements are explicit
 algorithm limits, not evidence that the physical equipment can deliver that power.
+A cancelled solve or an interruption between refinements stops the search and
+returns a cancellation status without a sizing outcome.
 
 ## 17 · Granule initialization and wall geometry
 

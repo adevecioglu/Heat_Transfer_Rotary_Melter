@@ -120,7 +120,7 @@ Json analyse(const Json &request, Progress progress, Cancel cancelled) {
         result["engine"] = backend_info();
         result["wallSeconds"] =
             std::chrono::duration<double>(std::chrono::steady_clock::now() - started).count();
-        result["cancelled"] = bool(cancelled && cancelled());
+        result["cancelled"] = result.value("cancelled", false) || (cancelled && cancelled());
         return result;
     };
     Configuration base = Configuration::from_json(request.at("configuration"));
@@ -178,6 +178,8 @@ Json analyse(const Json &request, Progress progress, Cancel cancelled) {
         double lo = .01, hi = 1000;
         base.boiler = hi;
         auto top = simulate(base, inner, {}, cancelled);
+        if (top["cancelled"].get<bool>())
+            return finished({{"cancelled", true}});
         if (!top["targetReached"].get<bool>())
             return finished({{"analysis", mode},
                              {"possible", false},
@@ -186,10 +188,12 @@ Json analyse(const Json &request, Progress progress, Cancel cancelled) {
         auto result = top;
         for (int i = 0; i < 16; ++i) {
             if (cancelled && cancelled())
-                throw std::runtime_error("analysis cancelled");
+                return finished({{"cancelled", true}});
             const double mid = (lo + hi) / 2;
             base.boiler = mid;
             auto next = simulate(base, inner, {}, cancelled);
+            if (next["cancelled"].get<bool>())
+                return finished({{"cancelled", true}});
             if (next["targetReached"].get<bool>()) {
                 hi = mid;
                 result = std::move(next);
