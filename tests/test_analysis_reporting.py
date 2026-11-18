@@ -147,6 +147,9 @@ class AnalysisReportingTests(unittest.TestCase):
             self.assertIn('## Cancelled cases', report)
             self.assertIn('their outputs are partial results', report)
             self.assertIn('| interrupted&#124;case | CANCELLED |', report)
+            self.assertIn('**Status: CANCELLED**', report)
+            manifest = json.loads((folder / 'run_manifest.json').read_text(encoding='utf-8'))
+            self.assertTrue(manifest['cancelled'])
             with (folder / 'analysis.csv').open(encoding='utf-8-sig', newline='') as stream:
                 rows = list(csv.DictReader(stream))
             self.assertEqual([row['cancelled'] for row in rows], ['True', 'False', 'True'])
@@ -180,3 +183,6 @@ class AnalysisReportingTests(unittest.TestCase):
             folder = export_analysis({'cases': [{'name': 'valid', 'ok': True}]}, directory)
             report = (folder / 'ANALYSIS_REPORT.md').read_text(encoding='utf-8')
             self.assertNotIn('## Failed cases', report)
+            self.assertNotIn('**Status: CANCELLED**', report)
+            manifest = json.loads((folder / 'run_manifest.json').read_text(encoding='utf-8'))
+            self.assertFalse(manifest['cancelled'])

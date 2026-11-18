@@ -36,7 +36,8 @@ def export_analysis(result, folder):
         writer.writerows(rows)
     trace = result.get('traceability', {})
     title = result.get('analysis', 'numerical analysis')
-    analysis_cancelled = bool(result.get('cancelled', False))
+    cancelled_rows = [row for row in rows if row['cancelled']]
+    analysis_cancelled = bool(result.get('cancelled', False) or cancelled_rows)
     manifest = {'runId': trace.get('runId', folder.name), 'type': 'analysis', 'analysis': title,
                 'createdUtc': trace.get('createdUtc'), 'inputSha256': trace.get('inputSha256'),
                 'cases': len(rows), 'resultSha256': result_hash, 'cancelled': analysis_cancelled}
@@ -78,12 +79,11 @@ def export_analysis(result, folder):
         lines += ['', '## Failed cases', '', '| Case | Error |', '| --- | --- |']
         for row in failures:
             lines.append(f"| {_table_text(row['case'])} | {_table_text(row['error'] or 'No error detail provided.')} |")
-    cancelled = [row for row in rows if row['cancelled']]
-    if cancelled:
+    if cancelled_rows:
         lines += ['', '## Cancelled cases', '',
                   'These cases were interrupted; their outputs are partial results.', '',
                   '| Case | Status |', '| --- | --- |']
-        for row in cancelled:
+        for row in cancelled_rows:
             lines.append(f"| {_table_text(row['case'])} | CANCELLED |")
     if title == 'sensitivity':
         lines += ['', '## Local sensitivity', '']

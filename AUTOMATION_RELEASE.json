@@ -1,23 +1,22 @@
 {
-  "version": "3.0.17",
-  "previous_version": "3.0.16",
-  "tag": "auto/v3.0.17",
+  "version": "3.0.18",
+  "previous_version": "3.0.17",
+  "tag": "auto/v3.0.18",
   "project": "Heat_Transfer_Rotary_Melter",
-  "base_commit": "e43ced4988847d4e49dcbe974b3d3579018814a8",
+  "base_commit": "9320e61765db3e3f42e9fe37f149b6b92745d848",
   "change_type": "patch",
-  "created_utc": "2026-11-18T18:41:50.993713+00:00",
+  "created_utc": "2026-11-18T23:42:12.155278+00:00",
   "existing_upgrade": false,
-  "title": "Güç boyutlandırmasında iptal doğru raporlanıyor",
-  "summary": "C++ motoru, üst güç sınırındaki çözüm iptal edildiğinde veya arama ara adımlarda durdurulduğunda `cancelled: true` döndürüyor. İptal edilen arama için güç tahmini ya da hedefe ulaşılamadı sonucu üretilmiyor. Denklem kataloğu yeni davranışı açıklıyor.",
+  "title": "Koşu iptali analiz manifestine yansıtılıyor",
+  "summary": "Motor analizin tamamı veya herhangi bir koşu için iptal bildirdiğinde Markdown raporu genel durumu `CANCELLED` olarak gösteriyor ve manifestte `cancelled: true` yazılıyor. Hem hata hem iptal bildiren koşular tabloda `FAILED` olarak gösterilmeye devam ediyor.",
   "limitations": [
-    "Kontroller başsız yürütüldü. Masaüstü WebView2 testi çalıştırılmadı.",
-    "PowerShell yürütme politikası `AKTIF_ET.ps1` betiğini engelledi. Kontrollerde proje sanal ortamındaki çalıştırılabilir dosyalar doğrudan çağrıldı."
+    "Kontroller başsız yürütüldü. WebView2 masaüstü testi çalıştırılmadı.",
+    "PowerShell yürütme politikası `AKTIF_ET.ps1` betiğini engelledi. Kontrollerde proje sanal ortamının Python çalıştırılabilir dosyası doğrudan kullanıldı."
   ],
   "changed_files": [
-    "docs/CPP_CALCULATION_EQUATIONS.md",
-    "native/src/Analysis.cpp",
-    "tests/test_cpp_engine.py",
-    "tools/DocumentCppEquations.py"
+    "README.md",
+    "rotary_melter/AnalysisReporting.py",
+    "tests/test_analysis_reporting.py"
   ],
   "status": "verified",
   "checks": [
@@ -29,7 +28,7 @@
         "tools.BuildCpp"
       ],
       "returncode": 0,
-      "seconds": 1.06
+      "seconds": 0.92
     },
     {
       "passed": true,
@@ -39,7 +38,7 @@
         "tools.RunChecks"
       ],
       "returncode": 0,
-      "seconds": 23.5
+      "seconds": 23.02
     },
     {
       "passed": true,
@@ -50,7 +49,7 @@
         "--check"
       ],
       "returncode": 0,
-      "seconds": 0.09
+      "seconds": 0.08
     }
   ]
 }

@@ -1,5 +1,16 @@
 # Automatic releases
 
+## 3.0.18 — Koşu iptali analiz manifestine yansıtılıyor
+
+Motor analizin tamamı veya herhangi bir koşu için iptal bildirdiğinde Markdown raporu genel durumu `CANCELLED` olarak gösteriyor ve manifestte `cancelled: true` yazılıyor. Hem hata hem iptal bildiren koşular tabloda `FAILED` olarak gösterilmeye devam ediyor.
+
+Base commit: `9320e61765db3e3f42e9fe37f149b6b92745d848`. Local tag: `auto/v3.0.18`.
+
+Limitations:
+
+- Kontroller başsız yürütüldü. WebView2 masaüstü testi çalıştırılmadı.
+- PowerShell yürütme politikası `AKTIF_ET.ps1` betiğini engelledi. Kontrollerde proje sanal ortamının Python çalıştırılabilir dosyası doğrudan kullanıldı.
+
 ## 3.0.17 — Güç boyutlandırmasında iptal doğru raporlanıyor
 
 C++ motoru, üst güç sınırındaki çözüm iptal edildiğinde veya arama ara adımlarda durdurulduğunda `cancelled: true` döndürüyor. İptal edilen arama için güç tahmini ya da hedefe ulaşılamadı sonucu üretilmiyor. Denklem kataloğu yeni davranışı açıklıyor.

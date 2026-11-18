@@ -1,4 +1,4 @@
-# Rotary Melter — C++ Engineering Workstation 3.0.17
+# Rotary Melter — C++ Engineering Workstation 3.0.18
 
 V11 / Desktop 2.2 temel alınarak geliştirilen döner eritici analiz programı. Ana ısıl hesap, parametre analizleri ve granül temas çözümleri **C++20** ile çalışır. Python masaüstü pencereyi, dosyaları ve C++ bağlantısını; JavaScript kullanıcı arayüzünü ve görselleştirmeyi yönetir.
 
@@ -78,6 +78,8 @@ Python başlatıcısında `--analyse`, başarısız veya iptal edilmiş analiz k
 Motor analiz sonucunu iptal edilmiş olarak döndürürse `--analyse`, bağımsız koşu içermeyen güç boyutlandırmasında da raporu kaydeder ve çıkış kodu 1 döndürür. İptal durumu Markdown raporunda ve manifestin `cancelled` alanında belirtilir. İptal edilen güç aramasının ham sonucu `analysis.json` dosyasında saklanır.
 
 Analiz Markdown raporunda iptal edilen koşular `CANCELLED` olarak işaretlenir ve kısmi sonuç oldukları belirtilir; CSV çıktısındaki `cancelled` sütunu aynı durumu taşır. Hata da içeren koşularda ana durum `FAILED` olarak korunur.
+
+Motor analiz genelinde veya herhangi bir koşuda iptal bildirdiğinde Markdown raporunun genel durumu `CANCELLED`, manifestin `cancelled` alanı `true` olur.
 
 Analiz manifesti ve Markdown raporundaki sonuç SHA-256 değeri, diske yazılan `analysis.json` dosyasının baytlarından hesaplanır; Windows satır sonları da doğrulamaya dahildir.
 
