@@ -66,14 +66,19 @@ def export_analysis(result, folder):
         (folder / 'ANALYSIS_REPORT.md').write_text('\n'.join(lines), encoding='utf-8')
         return folder
     lines += ['## Measured outputs', '',
-             '| Case | Status | Target reached | Physical time (s) | Input energy (kWh) | Relative energy residual | Wall time (s) |',
-             '| --- | --- | --- | ---: | ---: | ---: | ---: |']
+             '| Case | Status | Target reached | Physical time (s) | Input energy (kWh) | '
+             'Final core temperature (°C) | Heat loss (kWh) | Relative energy residual | Wall time (s) |',
+             '| --- | --- | --- | ---: | ---: | ---: | ---: | ---: | ---: |']
     for row in rows:
         def fmt(key):
             value = row.get(key)
+            if value is None:
+                return '—'
             return f'{value:.8g}' if isinstance(value, (int, float)) else str(value)
         status = 'FAILED' if not row['ok'] else ('CANCELLED' if row['cancelled'] else 'OK')
-        lines.append(f"| {_table_text(row['case'])} | {status} | {row['target_reached']} | {fmt('physical_seconds')} | {fmt('input_kwh')} | {fmt('relative_energy_residual')} | {fmt('wall_seconds')} |")
+        lines.append(f"| {_table_text(row['case'])} | {status} | {row['target_reached']} | "
+                     f"{fmt('physical_seconds')} | {fmt('input_kwh')} | {fmt('core_c')} | {fmt('loss_kwh')} | "
+                     f"{fmt('relative_energy_residual')} | {fmt('wall_seconds')} |")
     failures = [row for row in rows if not row['ok']]
     if failures:
         lines += ['', '## Failed cases', '', '| Case | Error |', '| --- | --- |']

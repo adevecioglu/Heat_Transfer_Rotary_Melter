@@ -1,22 +1,20 @@
 {
-  "version": "3.0.19",
-  "previous_version": "3.0.18",
-  "tag": "auto/v3.0.19",
+  "version": "3.0.20",
+  "previous_version": "3.0.19",
+  "tag": "auto/v3.0.20",
   "project": "Heat_Transfer_Rotary_Melter",
-  "base_commit": "a9c9a14e1ba43d863dc737be539fade48785e40f",
+  "base_commit": "1bcd3af0e57e3ba62f03a74cfb19dab878c11f1a",
   "change_type": "patch",
-  "created_utc": "2026-11-19T04:37:57.831777+00:00",
+  "created_utc": "2026-11-19T09:40:24.976043+00:00",
   "existing_upgrade": false,
-  "title": "`--require-gpu` için `--self-test` zorunlu",
-  "summary": "Başlatıcı, `--require-gpu` seçeneği tek başına veya başka bir işlemle verildiğinde işlem başlamadan açıklayıcı bir hata ve çıkış kodu 2 döndürüyor. `--self-test` ile birlikte kullanıldığında seçenek masaüstü öz sınamasına iletiliyor. Kullanım kuralı README’ye eklendi.",
+  "title": "Analiz raporuna son çekirdek sıcaklığı ve ısı kaybı eklendi",
+  "summary": "Markdown analiz tablosu, CSV’de zaten bulunan son çekirdek sıcaklığını °C ve ısı kaybını kWh cinsinden gösteriyor. Eksik sayısal değerler uzun çizgiyle, sıfır değerleri 0 olarak gösteriliyor.",
   "limitations": [
-    "Masaüstü çağrısı testte taklit edildi. WebView2 öz sınaması ve NVIDIA alan denetimi çalıştırılmadı.",
-    "PowerShell yürütme politikası `AKTIF_ET.ps1` betiğini engelledi. Kontroller proje sanal ortamındaki Python çalıştırılabilir dosyasıyla doğrudan yürütüldü."
+    "Rapor değerleri kontrollü test verileriyle doğrulandı. Masaüstü öz sınaması çalıştırılmadı."
   ],
   "changed_files": [
-    "README.md",
-    "rotary_melter/CommandLine.py",
-    "tests/test_command_line.py"
+    "rotary_melter/AnalysisReporting.py",
+    "tests/test_analysis_reporting.py"
   ],
   "status": "verified",
   "checks": [
@@ -28,7 +26,7 @@
         "tools.BuildCpp"
       ],
       "returncode": 0,
-      "seconds": 0.89
+      "seconds": 0.91
     },
     {
       "passed": true,
@@ -38,7 +36,7 @@
         "tools.RunChecks"
       ],
       "returncode": 0,
-      "seconds": 22.64
+      "seconds": 22.92
     },
     {
       "passed": true,
@@ -49,7 +47,7 @@
         "--check"
       ],
       "returncode": 0,
-      "seconds": 0.06
+      "seconds": 0.08
     }
   ]
 }

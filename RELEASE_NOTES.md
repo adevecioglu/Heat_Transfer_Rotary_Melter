@@ -1,5 +1,15 @@
 # Automatic releases
 
+## 3.0.20 — Analiz raporuna son çekirdek sıcaklığı ve ısı kaybı eklendi
+
+Markdown analiz tablosu, CSV’de zaten bulunan son çekirdek sıcaklığını °C ve ısı kaybını kWh cinsinden gösteriyor. Eksik sayısal değerler uzun çizgiyle, sıfır değerleri 0 olarak gösteriliyor.
+
+Base commit: `1bcd3af0e57e3ba62f03a74cfb19dab878c11f1a`. Local tag: `auto/v3.0.20`.
+
+Limitations:
+
+- Rapor değerleri kontrollü test verileriyle doğrulandı. Masaüstü öz sınaması çalıştırılmadı.
+
 ## 3.0.19 — `--require-gpu` için `--self-test` zorunlu
 
 Başlatıcı, `--require-gpu` seçeneği tek başına veya başka bir işlemle verildiğinde işlem başlamadan açıklayıcı bir hata ve çıkış kodu 2 döndürüyor. `--self-test` ile birlikte kullanıldığında seçenek masaüstü öz sınamasına iletiliyor. Kullanım kuralı README’ye eklendi.

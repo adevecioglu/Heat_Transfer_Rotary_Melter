@@ -11,6 +11,31 @@ from rotary_melter.Paths import PROJECT_ROOT
 
 
 class AnalysisReportingTests(unittest.TestCase):
+    def test_markdown_shows_final_core_temperature_and_heat_loss(self):
+        result = {'analysis': 'rpm', 'cases': [
+            {'name': 'finished', 'ok': True, 'summary': {
+                'targetReached': False, 'seconds': 12, 'energyInKWh': 1.5,
+                'coreC': 42.25, 'lossKWh': 0.125,
+            }},
+            {'name': 'partial', 'ok': True, 'summary': {
+                'cancelled': True, 'coreC': 0, 'lossKWh': 0,
+            }},
+            {'name': 'failed', 'ok': False},
+        ]}
+        temporary_root = PROJECT_ROOT / '.autodev'
+        temporary_root.mkdir(exist_ok=True)
+        with tempfile.TemporaryDirectory(dir=temporary_root) as directory:
+            folder = export_analysis(result, directory)
+            report = (folder / 'ANALYSIS_REPORT.md').read_text(encoding='utf-8')
+            self.assertIn('| Final core temperature (°C) | Heat loss (kWh) |', report)
+            self.assertIn('| finished | OK | False | 12 | 1.5 | 42.25 | 0.125 |', report)
+            self.assertIn('| partial | CANCELLED | None | — | — | 0 | 0 |', report)
+            self.assertIn('| failed | FAILED | None | — | — | — | — |', report)
+            with (folder / 'analysis.csv').open(encoding='utf-8-sig', newline='') as stream:
+                rows = list(csv.DictReader(stream))
+            self.assertEqual([(row['core_c'], row['loss_kwh']) for row in rows],
+                             [('42.25', '0.125'), ('0', '0'), ('', '')])
+
     def test_cancelled_sizing_report_withholds_unfinished_outcome(self):
         temporary_root = PROJECT_ROOT / '.autodev'
         temporary_root.mkdir(exist_ok=True)
