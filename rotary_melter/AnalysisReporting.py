@@ -36,6 +36,7 @@ def export_analysis(result, folder):
         writer.writerows(rows)
     trace = result.get('traceability', {})
     title = result.get('analysis', 'numerical analysis')
+    failures = [row for row in rows if not row['ok']]
     cancelled_rows = [row for row in rows if row['cancelled']]
     analysis_cancelled = bool(result.get('cancelled', False) or cancelled_rows)
     manifest = {'runId': trace.get('runId', folder.name), 'type': 'analysis', 'analysis': title,
@@ -52,6 +53,8 @@ def export_analysis(result, folder):
              f"- Parallel execution: {result.get('parallelism', 'sequential dependent search')}", '']
     if analysis_cancelled:
         lines += ['**Status: CANCELLED**', '']
+    elif failures:
+        lines += ['**Status: FAILED**', '']
     if title == 'sizing':
         lines += ['## Conditional power sizing', '']
         if analysis_cancelled:
@@ -79,7 +82,6 @@ def export_analysis(result, folder):
         lines.append(f"| {_table_text(row['case'])} | {status} | {row['target_reached']} | "
                      f"{fmt('physical_seconds')} | {fmt('input_kwh')} | {fmt('core_c')} | {fmt('loss_kwh')} | "
                      f"{fmt('relative_energy_residual')} | {fmt('wall_seconds')} |")
-    failures = [row for row in rows if not row['ok']]
     if failures:
         lines += ['', '## Failed cases', '', '| Case | Error |', '| --- | --- |']
         for row in failures:

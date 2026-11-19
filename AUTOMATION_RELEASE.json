@@ -1,16 +1,16 @@
 {
-  "version": "3.0.20",
-  "previous_version": "3.0.19",
-  "tag": "auto/v3.0.20",
+  "version": "3.0.21",
+  "previous_version": "3.0.20",
+  "tag": "auto/v3.0.21",
   "project": "Heat_Transfer_Rotary_Melter",
-  "base_commit": "1bcd3af0e57e3ba62f03a74cfb19dab878c11f1a",
+  "base_commit": "e6b4046f497a64afe6c6816a247018ccb478c8d8",
   "change_type": "patch",
-  "created_utc": "2026-11-19T09:40:24.976043+00:00",
+  "created_utc": "2026-11-19T14:40:24.500532+00:00",
   "existing_upgrade": false,
-  "title": "Analiz raporuna son çekirdek sıcaklığı ve ısı kaybı eklendi",
-  "summary": "Markdown analiz tablosu, CSV’de zaten bulunan son çekirdek sıcaklığını °C ve ısı kaybını kWh cinsinden gösteriyor. Eksik sayısal değerler uzun çizgiyle, sıfır değerleri 0 olarak gösteriliyor.",
+  "title": "Analiz raporuna genel hata durumu eklendi",
+  "summary": "Markdown raporu, başarısız koşu içeren analizlerde sonuç tablosunun üstünde `FAILED` gösteriyor. İptal bildirildiğinde genel durum `CANCELLED` olarak kalıyor ve başarısız koşular tabloda ayrıca işaretleniyor.",
   "limitations": [
-    "Rapor değerleri kontrollü test verileriyle doğrulandı. Masaüstü öz sınaması çalıştırılmadı."
+    "Genel hata durumu kontrollü rapor verileriyle doğrulandı. Masaüstü öz sınaması çalıştırılmadı."
   ],
   "changed_files": [
     "rotary_melter/AnalysisReporting.py",
@@ -26,7 +26,7 @@
         "tools.BuildCpp"
       ],
       "returncode": 0,
-      "seconds": 0.91
+      "seconds": 0.92
     },
     {
       "passed": true,
@@ -36,7 +36,7 @@
         "tools.RunChecks"
       ],
       "returncode": 0,
-      "seconds": 22.92
+      "seconds": 22.77
     },
     {
       "passed": true,
@@ -47,7 +47,7 @@
         "--check"
       ],
       "returncode": 0,
-      "seconds": 0.08
+      "seconds": 0.06
     }
   ]
 }

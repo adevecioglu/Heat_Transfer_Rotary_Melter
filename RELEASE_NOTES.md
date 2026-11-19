@@ -1,5 +1,15 @@
 # Automatic releases
 
+## 3.0.21 — Analiz raporuna genel hata durumu eklendi
+
+Markdown raporu, başarısız koşu içeren analizlerde sonuç tablosunun üstünde `FAILED` gösteriyor. İptal bildirildiğinde genel durum `CANCELLED` olarak kalıyor ve başarısız koşular tabloda ayrıca işaretleniyor.
+
+Base commit: `e6b4046f497a64afe6c6816a247018ccb478c8d8`. Local tag: `auto/v3.0.21`.
+
+Limitations:
+
+- Genel hata durumu kontrollü rapor verileriyle doğrulandı. Masaüstü öz sınaması çalıştırılmadı.
+
 ## 3.0.20 — Analiz raporuna son çekirdek sıcaklığı ve ısı kaybı eklendi
 
 Markdown analiz tablosu, CSV’de zaten bulunan son çekirdek sıcaklığını °C ve ısı kaybını kWh cinsinden gösteriyor. Eksik sayısal değerler uzun çizgiyle, sıfır değerleri 0 olarak gösteriliyor.
