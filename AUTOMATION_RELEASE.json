@@ -1,53 +1,92 @@
 {
-  "version": "3.0.21",
-  "previous_version": "3.0.20",
-  "tag": "auto/v3.0.21",
+  "version": "3.0.22",
+  "previous_version": "3.0.21",
+  "tag": "auto/v3.0.22",
   "project": "Heat_Transfer_Rotary_Melter",
-  "base_commit": "e6b4046f497a64afe6c6816a247018ccb478c8d8",
+  "base_commit": "37c9d718d1823f52bf6e9ccf34e9bd1d6328e64a",
   "change_type": "patch",
-  "created_utc": "2026-11-19T14:40:24.500532+00:00",
+  "created_utc": "2026-11-19T17:21:31.465087+00:00",
   "existing_upgrade": false,
-  "title": "Analiz raporuna genel hata durumu eklendi",
-  "summary": "Markdown raporu, başarısız koşu içeren analizlerde sonuç tablosunun üstünde `FAILED` gösteriyor. İptal bildirildiğinde genel durum `CANCELLED` olarak kalıyor ve başarısız koşular tabloda ayrıca işaretleniyor.",
-  "limitations": [
-    "Genel hata durumu kontrollü rapor verileriyle doğrulandı. Masaüstü öz sınaması çalıştırılmadı."
-  ],
+  "title": "Modernize rotary melter panels and responsive navigation",
+  "summary": "Light panels, clearer input states, responsive navigation and consistent browser version title; native and desktop workflow checks pass.",
+  "limitations": [],
   "changed_files": [
-    "rotary_melter/AnalysisReporting.py",
-    "tests/test_analysis_reporting.py"
+    "README.md",
+    "rotary_melter/web/interface/Light.css",
+    "tools/BuildInterface.py"
   ],
   "status": "verified",
   "checks": [
     {
       "passed": true,
       "command": [
-        "C:\\Projects\\Heat_Transfer_Rotary_Melter\\.autodev\\work\\Heat_Transfer_Rotary_Melter\\.venv\\Scripts\\python.exe",
+        "C:\\Projects\\Heat_Transfer_Rotary_Melter\\.venv\\Scripts\\python.exe",
         "-m",
         "tools.BuildCpp"
       ],
       "returncode": 0,
-      "seconds": 0.92
+      "seconds": 0.83
     },
     {
       "passed": true,
       "command": [
-        "C:\\Projects\\Heat_Transfer_Rotary_Melter\\.autodev\\work\\Heat_Transfer_Rotary_Melter\\.venv\\Scripts\\python.exe",
+        "C:\\Projects\\Heat_Transfer_Rotary_Melter\\.venv\\Scripts\\python.exe",
         "-m",
-        "tools.RunChecks"
+        "tools.RunChecks",
+        "--desktop"
       ],
       "returncode": 0,
-      "seconds": 22.77
+      "seconds": 84.19
     },
     {
       "passed": true,
       "command": [
-        "C:\\Projects\\Heat_Transfer_Rotary_Melter\\.autodev\\work\\Heat_Transfer_Rotary_Melter\\.venv\\Scripts\\python.exe",
+        "C:\\Projects\\Heat_Transfer_Rotary_Melter\\.venv\\Scripts\\python.exe",
         "-m",
         "tools.DocumentCppEquations",
         "--check"
       ],
       "returncode": 0,
       "seconds": 0.06
+    },
+    {
+      "passed": true,
+      "command": [
+        "C:/Projects/Heat_Transfer_Rotary_Melter/.tools/node/node.exe",
+        "C:\\Projects\\Project_Automation\\outputs\\visual_upgrade\\qa_node\\preview.cjs"
+      ],
+      "returncode": 0,
+      "seconds": 10.66
+    },
+    {
+      "passed": true,
+      "command": [
+        "C:/Projects/Heat_Transfer_Rotary_Melter/.tools/node/node.exe",
+        "C:\\Projects\\Project_Automation\\outputs\\visual_upgrade\\qa_node\\interactions.cjs"
+      ],
+      "returncode": 0,
+      "seconds": 3.88
+    },
+    {
+      "passed": true,
+      "command": [
+        "C:\\Projects\\Project_Automation\\.venv\\Scripts\\python.exe",
+        "C:\\Projects\\Project_Automation\\audit_project.py",
+        "C:\\Projects\\Heat_Transfer_Rotary_Melter"
+      ],
+      "returncode": 0,
+      "seconds": 0.81
+    },
+    {
+      "passed": true,
+      "command": [
+        "git",
+        "diff",
+        "--cached",
+        "--check"
+      ],
+      "returncode": 0,
+      "seconds": 0.03
     }
   ]
 }

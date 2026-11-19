@@ -1,4 +1,4 @@
-# Rotary Melter — C++ Engineering Workstation 3.0.21
+# Rotary Melter — C++ Engineering Workstation 3.0.22
 
 V11 / Desktop 2.2 temel alınarak geliştirilen döner eritici analiz programı. Ana ısıl hesap, parametre analizleri ve granül temas çözümleri **C++20** ile çalışır. Python masaüstü pencereyi, dosyaları ve C++ bağlantısını; JavaScript kullanıcı arayüzünü ve görselleştirmeyi yönetir.
 
@@ -112,3 +112,6 @@ outputs\native\bin\rotary_melter_cpp.exe --input config\default_inputs.json --ou
 EXE derlemek için `.venv\Scripts\python.exe -m pip install -r requirements-build.txt` ardından `.venv\Scripts\python.exe -m tools.BuildDesktop` kullanın. Orijinal sürümler `releases/original/` altında korunur. `.venv`, `.tools`, önbellekler, hesap çıktıları ve EXE arşivleri Git'e eklenmez.
 
 Enerji korunumu ve eski kodla sayısal uyum, gerçek ekipmanın erime süresini doğrulamaz. Malzeme özellikleri ile temas/devir katsayıları ölçümle kalibre edilmelidir; 3B görünüm bir CFD çözümü değildir.
+## Açık çalışma alanı
+
+Arayüz; beyaz paneller, mavi vurgu rengi, belirgin odak çerçeveleri ve dar ekranlarda kaydırılabilen gezinme kullanır. `BASLAT.cmd` ile açılır. Tasarım kaynakları `rotary_melter/web/interface/Light.css` içindedir; `python -m tools.BuildInterface` çevrimdışı HTML çıktısını üretir.

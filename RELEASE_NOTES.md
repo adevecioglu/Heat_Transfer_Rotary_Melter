@@ -1,5 +1,11 @@
 # Automatic releases
 
+## 3.0.22 — Modernize rotary melter panels and responsive navigation
+
+Light panels, clearer input states, responsive navigation and consistent browser version title; native and desktop workflow checks pass.
+
+Base commit: `37c9d718d1823f52bf6e9ccf34e9bd1d6328e64a`. Local tag: `auto/v3.0.22`.
+
 ## 3.0.21 — Analiz raporuna genel hata durumu eklendi
 
 Markdown raporu, başarısız koşu içeren analizlerde sonuç tablosunun üstünde `FAILED` gösteriyor. İptal bildirildiğinde genel durum `CANCELLED` olarak kalıyor ve başarısız koşular tabloda ayrıca işaretleniyor.
