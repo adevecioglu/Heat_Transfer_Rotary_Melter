@@ -24,6 +24,8 @@ def main(argv=None):
     parser.add_argument('--output', type=Path, help='Headless output directory')
     parser.add_argument('--require-gpu', action='store_true', help='Require a successful NVIDIA field audit in the desktop self-test')
     args = parser.parse_args(argv)
+    if args.require_gpu and args.self_test is None:
+        parser.error('--require-gpu requires --self-test')
     if args.engine == 'javascript':
         if args.analyse:
             parser.error('--analyse requires --engine cpp')

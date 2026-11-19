@@ -6,8 +6,9 @@ from itertools import combinations
 import json
 from pathlib import Path
 import tempfile
+from types import SimpleNamespace
 import unittest
-from unittest.mock import patch
+from unittest.mock import Mock, patch
 
 from rotary_melter.CommandLine import main
 from rotary_melter.Paths import PROJECT_ROOT
@@ -55,6 +56,29 @@ class CalculationActionTests(unittest.TestCase):
                     self.assertIn('--analyse', stderr.getvalue())
                     for operation in (load, execute, export, export_analysis):
                         operation.assert_not_called()
+
+
+class DesktopOptionTests(unittest.TestCase):
+    def test_require_gpu_without_self_test_fails_before_dispatch(self):
+        for action in ([], ['--build'], ['--run'], ['--analyse', 'rpm'],
+                       ['--write-default', 'unused.json'], ['--gpu-info', 'unused.json']):
+            with self.subTest(action=action):
+                stderr = io.StringIO()
+                unexpected = AssertionError('Command dispatched before validating --require-gpu')
+                with patch('tools.BuildInterface.build_interface', side_effect=unexpected), \
+                        patch('rotary_melter.CommandLine.load_inputs', side_effect=unexpected), \
+                        patch('rotary_melter.GpuAnalysis.info', side_effect=unexpected), \
+                        redirect_stderr(stderr), self.assertRaises(SystemExit) as raised:
+                    main([*action, '--require-gpu'])
+                self.assertEqual(raised.exception.code, 2)
+                self.assertIn('--require-gpu requires --self-test', stderr.getvalue())
+
+    def test_require_gpu_is_forwarded_to_desktop_self_test(self):
+        desktop = Mock(return_value=0)
+        with patch('tools.BuildInterface.build_interface'), \
+                patch.dict('sys.modules', {'rotary_melter.Interface': SimpleNamespace(main=desktop)}):
+            self.assertEqual(main(['--self-test', 'unused.json', '--require-gpu']), 0)
+        desktop.assert_called_once_with(['--self-test', 'unused.json', '--require-gpu'])
 
 
 class EngineOptionTests(unittest.TestCase):

@@ -1,5 +1,16 @@
 # Automatic releases
 
+## 3.0.19 — `--require-gpu` için `--self-test` zorunlu
+
+Başlatıcı, `--require-gpu` seçeneği tek başına veya başka bir işlemle verildiğinde işlem başlamadan açıklayıcı bir hata ve çıkış kodu 2 döndürüyor. `--self-test` ile birlikte kullanıldığında seçenek masaüstü öz sınamasına iletiliyor. Kullanım kuralı README’ye eklendi.
+
+Base commit: `a9c9a14e1ba43d863dc737be539fade48785e40f`. Local tag: `auto/v3.0.19`.
+
+Limitations:
+
+- Masaüstü çağrısı testte taklit edildi. WebView2 öz sınaması ve NVIDIA alan denetimi çalıştırılmadı.
+- PowerShell yürütme politikası `AKTIF_ET.ps1` betiğini engelledi. Kontroller proje sanal ortamındaki Python çalıştırılabilir dosyasıyla doğrudan yürütüldü.
+
 ## 3.0.18 — Koşu iptali analiz manifestine yansıtılıyor
 
 Motor analizin tamamı veya herhangi bir koşu için iptal bildirdiğinde Markdown raporu genel durumu `CANCELLED` olarak gösteriyor ve manifestte `cancelled: true` yazılıyor. Hem hata hem iptal bildiren koşular tabloda `FAILED` olarak gösterilmeye devam ediyor.
