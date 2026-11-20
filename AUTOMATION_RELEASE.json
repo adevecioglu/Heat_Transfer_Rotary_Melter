@@ -1,20 +1,21 @@
 {
-  "version": "3.0.24",
-  "previous_version": "3.0.23",
-  "tag": "auto/v3.0.24",
+  "version": "3.0.25",
+  "previous_version": "3.0.24",
+  "tag": "auto/v3.0.25",
   "project": "Heat_Transfer_Rotary_Melter",
-  "base_commit": "a0231abeddf02e85522a1bb49c204e3f4b6cf07c",
+  "base_commit": "29384e78db31ceec7df9bdc7eea6b02b7cfe0bc7",
   "change_type": "patch",
-  "created_utc": "2026-11-20T05:44:53.668376+00:00",
+  "created_utc": "2026-11-20T15:45:37.303622+00:00",
   "existing_upgrade": false,
-  "title": "C++ koşu raporundaki V11 denklem bağlantısını onar",
-  "summary": "C++ koşu dışa aktarımı, ana denklem kataloğunun bağlantı verdiği V11 kataloğunu ve kataloğun başvurduğu sekiz kaynak dosyasını rapor klasörüne ekliyor. C++ ve JavaScript dışa aktarımları aynı V11 ekleme kodunu kullanıyor.",
+  "title": "Koşu raporlarındaki denklem dosyalarını belgele",
+  "summary": "README artık C++ raporlarında EQUATIONS.md üzerinden V11 kataloğuna nasıl ulaşıldığını, JavaScript raporlarında V11 kataloğunun hangi adla kaydedildiğini ve kaynak kopyalarının nerede bulunduğunu açıklıyor.",
   "limitations": [
-    "Paketli kaynak erişimi benzetildi. Yeni bir masaüstü EXE üretilip çalıştırılmadı.",
-    "Test dosyasına yazma erişimi reddedildiği için yeni bağlantı kontrolü tek seferlik bir doğrulama olarak çalıştırıldı."
+    "Test dosyasına yazma erişimi reddedildiği için bağlantı doğrulaması tek seferlik çalıştırıldı.",
+    "PowerShell etkinleştirme betiğini engelledi. Kontroller proje içindeki Python çalıştırıcısıyla doğrudan yürütüldü.",
+    "Paketli masaüstü EXE bu döngüde çalıştırılmadı."
   ],
   "changed_files": [
-    "rotary_melter/Reporting.py"
+    "README.md"
   ],
   "status": "verified",
   "checks": [
@@ -26,7 +27,7 @@
         "tools.BuildCpp"
       ],
       "returncode": 0,
-      "seconds": 0.97
+      "seconds": 0.89
     },
     {
       "passed": true,
@@ -36,7 +37,7 @@
         "tools.RunChecks"
       ],
       "returncode": 0,
-      "seconds": 23.48
+      "seconds": 23.97
     },
     {
       "passed": true,
@@ -47,7 +48,7 @@
         "--check"
       ],
       "returncode": 0,
-      "seconds": 0.08
+      "seconds": 0.06
     }
   ]
 }

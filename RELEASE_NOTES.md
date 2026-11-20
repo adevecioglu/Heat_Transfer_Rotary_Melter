@@ -1,5 +1,17 @@
 # Automatic releases
 
+## 3.0.25 — Koşu raporlarındaki denklem dosyalarını belgele
+
+README artık C++ raporlarında EQUATIONS.md üzerinden V11 kataloğuna nasıl ulaşıldığını, JavaScript raporlarında V11 kataloğunun hangi adla kaydedildiğini ve kaynak kopyalarının nerede bulunduğunu açıklıyor.
+
+Base commit: `29384e78db31ceec7df9bdc7eea6b02b7cfe0bc7`. Local tag: `auto/v3.0.25`.
+
+Limitations:
+
+- Test dosyasına yazma erişimi reddedildiği için bağlantı doğrulaması tek seferlik çalıştırıldı.
+- PowerShell etkinleştirme betiğini engelledi. Kontroller proje içindeki Python çalıştırıcısıyla doğrudan yürütüldü.
+- Paketli masaüstü EXE bu döngüde çalıştırılmadı.
+
 ## 3.0.24 — C++ koşu raporundaki V11 denklem bağlantısını onar
 
 C++ koşu dışa aktarımı, ana denklem kataloğunun bağlantı verdiği V11 kataloğunu ve kataloğun başvurduğu sekiz kaynak dosyasını rapor klasörüne ekliyor. C++ ve JavaScript dışa aktarımları aynı V11 ekleme kodunu kullanıyor.
