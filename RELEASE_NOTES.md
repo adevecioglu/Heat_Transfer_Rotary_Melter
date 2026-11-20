@@ -1,5 +1,16 @@
 # Automatic releases
 
+## 3.0.26 — Paketli C++ raporunun denklem ekleri için regresyon testi
+
+Yeni test, paket kaynak düzenini proje içinde taklit ederek C++ koşu raporundan ana denklem kataloğuna, V11 kataloğuna ve iki katalogdaki kaynak dosyalarına giden bağlantıları doğruluyor. Dışa aktarılan kaynak kopyalarını asıllarıyla bayt düzeyinde karşılaştırıyor.
+
+Base commit: `6cf4b7e15921bfee68d230a86a0f75b821ea5060`. Local tag: `auto/v3.0.26`.
+
+Limitations:
+
+- Mevcut test dosyasına yazma erişimi reddedildiği için regresyon ayrı bir test modülüne eklendi.
+- Test PyInstaller kaynak düzenini geçici dosyalarla taklit ediyor. Paketli EXE bu döngüde derlenip çalıştırılmadı.
+
 ## 3.0.25 — Koşu raporlarındaki denklem dosyalarını belgele
 
 README artık C++ raporlarında EQUATIONS.md üzerinden V11 kataloğuna nasıl ulaşıldığını, JavaScript raporlarında V11 kataloğunun hangi adla kaydedildiğini ve kaynak kopyalarının nerede bulunduğunu açıklıyor.

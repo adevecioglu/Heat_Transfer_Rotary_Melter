@@ -1,21 +1,20 @@
 {
-  "version": "3.0.25",
-  "previous_version": "3.0.24",
-  "tag": "auto/v3.0.25",
+  "version": "3.0.26",
+  "previous_version": "3.0.25",
+  "tag": "auto/v3.0.26",
   "project": "Heat_Transfer_Rotary_Melter",
-  "base_commit": "29384e78db31ceec7df9bdc7eea6b02b7cfe0bc7",
+  "base_commit": "6cf4b7e15921bfee68d230a86a0f75b821ea5060",
   "change_type": "patch",
-  "created_utc": "2026-11-20T15:45:37.303622+00:00",
+  "created_utc": "2026-11-20T20:47:44.935435+00:00",
   "existing_upgrade": false,
-  "title": "Koşu raporlarındaki denklem dosyalarını belgele",
-  "summary": "README artık C++ raporlarında EQUATIONS.md üzerinden V11 kataloğuna nasıl ulaşıldığını, JavaScript raporlarında V11 kataloğunun hangi adla kaydedildiğini ve kaynak kopyalarının nerede bulunduğunu açıklıyor.",
+  "title": "Paketli C++ raporunun denklem ekleri için regresyon testi",
+  "summary": "Yeni test, paket kaynak düzenini proje içinde taklit ederek C++ koşu raporundan ana denklem kataloğuna, V11 kataloğuna ve iki katalogdaki kaynak dosyalarına giden bağlantıları doğruluyor. Dışa aktarılan kaynak kopyalarını asıllarıyla bayt düzeyinde karşılaştırıyor.",
   "limitations": [
-    "Test dosyasına yazma erişimi reddedildiği için bağlantı doğrulaması tek seferlik çalıştırıldı.",
-    "PowerShell etkinleştirme betiğini engelledi. Kontroller proje içindeki Python çalıştırıcısıyla doğrudan yürütüldü.",
-    "Paketli masaüstü EXE bu döngüde çalıştırılmadı."
+    "Mevcut test dosyasına yazma erişimi reddedildiği için regresyon ayrı bir test modülüne eklendi.",
+    "Test PyInstaller kaynak düzenini geçici dosyalarla taklit ediyor. Paketli EXE bu döngüde derlenip çalıştırılmadı."
   ],
   "changed_files": [
-    "README.md"
+    "tests/test_packaged_reporting.py"
   ],
   "status": "verified",
   "checks": [
@@ -27,7 +26,7 @@
         "tools.BuildCpp"
       ],
       "returncode": 0,
-      "seconds": 0.89
+      "seconds": 0.95
     },
     {
       "passed": true,
@@ -37,7 +36,7 @@
         "tools.RunChecks"
       ],
       "returncode": 0,
-      "seconds": 23.97
+      "seconds": 23.34
     },
     {
       "passed": true,
@@ -48,7 +47,7 @@
         "--check"
       ],
       "returncode": 0,
-      "seconds": 0.06
+      "seconds": 0.08
     }
   ]
 }
