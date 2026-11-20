@@ -7,7 +7,22 @@ import shutil
 from pathlib import Path
 
 
+REFERENCE_EQUATION_FILES = (
+    'rotary_melter/Calculation.py',
+    'rotary_melter/web/calculations/Calculation.js',
+    'rotary_melter/web/calculations/Convergence.js',
+    'rotary_melter/web/calculations/ParticleHeatTransfer.js',
+    'docs/history/Motion_Research_v18.md',
+    'docs/history/Research_Notes_v17.md',
+    'docs/history/Startup_Audit_v22.md',
+    'docs/history/Verification_Motion_v18.md',
+)
+
+
 def export_result(result, folder):
+    import sys
+    from .Paths import resource_path, PROJECT_ROOT
+
     folder = Path(folder)
     folder.mkdir(parents=True, exist_ok=True)
     (folder / 'result.json').write_text(json.dumps(result, ensure_ascii=False, indent=2, allow_nan=False), encoding='utf-8')
@@ -40,6 +55,9 @@ def export_result(result, folder):
     (folder / 'report.html').write_text(document, encoding='utf-8')
     trace = result.get('traceability', {})
     engine = result.get('engine', {})
+    native = engine.get('name') == 'Rotary Melter C++'
+    catalogue = resource_path('docs/CPP_CALCULATION_EQUATIONS.md' if native
+                              else 'docs/CALCULATION_EQUATIONS.md')
     manifest = {
         'runId': trace.get('runId', folder.name), 'createdUtc': trace.get('createdUtc'),
         'inputSha256': trace.get('inputSha256'), 'nativeLibrarySha256': trace.get('nativeLibrarySha256'),
@@ -78,10 +96,8 @@ def export_result(result, folder):
          if engine.get('name') == 'Rotary Melter C++' else
          '6. Advance the state with the V11 JavaScript reference time-stepping implementation.'),
         '7. Check energy closure and target status; export fields, time series and provenance.', '',
-        ('The exact C++ formulas, library roles, assumptions, source-line links and literature are in '
-         '`docs/CPP_CALCULATION_EQUATIONS.md`.'
-         if engine.get('name') == 'Rotary Melter C++' else
-         'The V11 reference equations are documented in `docs/CALCULATION_EQUATIONS.md`.'), '',
+        ('See the [equation catalogue](EQUATIONS.md) for formulas and source references.'
+         if catalogue.is_file() else 'The equation catalogue is unavailable.'), '',
         '## Traceability', '',
         f"- Engine: `{manifest['engine']}`",
         f"- Run ID: `{manifest['runId']}`",
@@ -95,14 +111,22 @@ def export_result(result, folder):
         'Run artifacts are calculations, not experimental equipment validation.', '',
     ]
     (folder/'RUN_REPORT.md').write_text('\n'.join(markdown), encoding='utf-8')
-    from .Paths import resource_path, PROJECT_ROOT
-    native = engine.get('name') == 'Rotary Melter C++'
-    catalogue=resource_path('docs/CPP_CALCULATION_EQUATIONS.md' if native
-                            else 'docs/CALCULATION_EQUATIONS.md')
     if catalogue.is_file():
-        import sys
-        sources=resource_path('native_sources') if getattr(sys,'frozen',False) else PROJECT_ROOT/'native'
-        if native and sources.is_dir():
-            shutil.copytree(sources,folder/'source/native',dirs_exist_ok=True)
-        (folder/'EQUATIONS.md').write_text(catalogue.read_text(encoding='utf-8').replace('(../native/','(source/native/'),encoding='utf-8')
+        frozen = getattr(sys, 'frozen', False)
+        equations = catalogue.read_text(encoding='utf-8')
+        if native:
+            sources = resource_path('native_sources') if frozen else PROJECT_ROOT / 'native'
+            if sources.is_dir():
+                shutil.copytree(sources, folder / 'source/native', dirs_exist_ok=True)
+            equations = equations.replace('(../native/', '(source/native/')
+        else:
+            for relative in REFERENCE_EQUATION_FILES:
+                source = resource_path('reference_sources/' + relative if frozen else relative)
+                if source.is_file():
+                    destination = folder / 'source' / relative
+                    destination.parent.mkdir(parents=True, exist_ok=True)
+                    shutil.copyfile(source, destination)
+            equations = equations.replace('(../rotary_melter/', '(source/rotary_melter/')
+            equations = equations.replace('(history/', '(source/docs/history/')
+        (folder/'EQUATIONS.md').write_text(equations, encoding='utf-8')
     return folder

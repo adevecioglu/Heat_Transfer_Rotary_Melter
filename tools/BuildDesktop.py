@@ -7,6 +7,7 @@ from pathlib import Path
 import sys
 from .BuildInterface import build_interface
 from rotary_melter.Paths import PROJECT_ROOT, REFERENCE_DIR, OUTPUTS_DIR
+from rotary_melter.Reporting import REFERENCE_EQUATION_FILES
 
 
 def main(with_gpu=False):
@@ -29,6 +30,9 @@ def main(with_gpu=False):
                '--add-data', str(PROJECT_ROOT / 'docs' / 'CPP_CALCULATION_EQUATIONS.md')+';docs',
                '--add-data', str(PROJECT_ROOT / 'docs' / 'CALCULATION_EQUATIONS.md')+';docs',
                '--add-data', str(PROJECT_ROOT / 'native' / 'third_party_licenses')+';licenses']
+    for relative in REFERENCE_EQUATION_FILES:
+        destination = Path('reference_sources') / Path(relative).parent
+        command += ['--add-data', f'{PROJECT_ROOT / relative};{destination.as_posix()}']
     manifest=json.loads((native.parent/'build_manifest.json').read_text(encoding='utf-8'))
     for name in manifest['runtimeFiles']:
         if name.lower().endswith('.dll'):

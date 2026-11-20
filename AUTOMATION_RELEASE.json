@@ -1,92 +1,54 @@
 {
-  "version": "3.0.22",
-  "previous_version": "3.0.21",
-  "tag": "auto/v3.0.22",
+  "version": "3.0.23",
+  "previous_version": "3.0.22",
+  "tag": "auto/v3.0.23",
   "project": "Heat_Transfer_Rotary_Melter",
-  "base_commit": "37c9d718d1823f52bf6e9ccf34e9bd1d6328e64a",
+  "base_commit": "b146135f6a2a22d614c87a8d45a6f74dd23e9a38",
   "change_type": "patch",
-  "created_utc": "2026-11-19T17:21:31.465087+00:00",
+  "created_utc": "2026-11-20T00:47:11.270236+00:00",
   "existing_upgrade": false,
-  "title": "Modernize rotary melter panels and responsive navigation",
-  "summary": "Light panels, clearer input states, responsive navigation and consistent browser version title; native and desktop workflow checks pass.",
-  "limitations": [],
+  "title": "V11 denklem raporunun kaynak bağlantılarını çevrimdışı çalışır hale getir",
+  "summary": "V11 dışa aktarımı, denklem kataloğunun başvurduğu Python ve JavaScript kaynaklarını ve araştırma notlarını rapor klasörüne kopyalıyor. Markdown koşu raporu, ekteki denklem kataloğuna doğrudan bağlantı veriyor.",
+  "limitations": [
+    "Paketli kaynak erişimi testte benzetildi. Yeni bir masaüstü EXE paketi üretilip çalıştırılmadı."
+  ],
   "changed_files": [
-    "README.md",
-    "rotary_melter/web/interface/Light.css",
-    "tools/BuildInterface.py"
+    "rotary_melter/Reporting.py",
+    "tests/test_reporting.py",
+    "tools/BuildDesktop.py"
   ],
   "status": "verified",
   "checks": [
     {
       "passed": true,
       "command": [
-        "C:\\Projects\\Heat_Transfer_Rotary_Melter\\.venv\\Scripts\\python.exe",
+        "C:\\Projects\\Heat_Transfer_Rotary_Melter\\.autodev\\work\\Heat_Transfer_Rotary_Melter\\.venv\\Scripts\\python.exe",
         "-m",
         "tools.BuildCpp"
       ],
       "returncode": 0,
-      "seconds": 0.83
+      "seconds": 0.95
     },
     {
       "passed": true,
       "command": [
-        "C:\\Projects\\Heat_Transfer_Rotary_Melter\\.venv\\Scripts\\python.exe",
+        "C:\\Projects\\Heat_Transfer_Rotary_Melter\\.autodev\\work\\Heat_Transfer_Rotary_Melter\\.venv\\Scripts\\python.exe",
         "-m",
-        "tools.RunChecks",
-        "--desktop"
+        "tools.RunChecks"
       ],
       "returncode": 0,
-      "seconds": 84.19
+      "seconds": 22.91
     },
     {
       "passed": true,
       "command": [
-        "C:\\Projects\\Heat_Transfer_Rotary_Melter\\.venv\\Scripts\\python.exe",
+        "C:\\Projects\\Heat_Transfer_Rotary_Melter\\.autodev\\work\\Heat_Transfer_Rotary_Melter\\.venv\\Scripts\\python.exe",
         "-m",
         "tools.DocumentCppEquations",
         "--check"
       ],
       "returncode": 0,
-      "seconds": 0.06
-    },
-    {
-      "passed": true,
-      "command": [
-        "C:/Projects/Heat_Transfer_Rotary_Melter/.tools/node/node.exe",
-        "C:\\Projects\\Project_Automation\\outputs\\visual_upgrade\\qa_node\\preview.cjs"
-      ],
-      "returncode": 0,
-      "seconds": 10.66
-    },
-    {
-      "passed": true,
-      "command": [
-        "C:/Projects/Heat_Transfer_Rotary_Melter/.tools/node/node.exe",
-        "C:\\Projects\\Project_Automation\\outputs\\visual_upgrade\\qa_node\\interactions.cjs"
-      ],
-      "returncode": 0,
-      "seconds": 3.88
-    },
-    {
-      "passed": true,
-      "command": [
-        "C:\\Projects\\Project_Automation\\.venv\\Scripts\\python.exe",
-        "C:\\Projects\\Project_Automation\\audit_project.py",
-        "C:\\Projects\\Heat_Transfer_Rotary_Melter"
-      ],
-      "returncode": 0,
-      "seconds": 0.81
-    },
-    {
-      "passed": true,
-      "command": [
-        "git",
-        "diff",
-        "--cached",
-        "--check"
-      ],
-      "returncode": 0,
-      "seconds": 0.03
+      "seconds": 0.08
     }
   ]
 }

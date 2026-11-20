@@ -2,6 +2,7 @@
 import hashlib
 import csv
 import json
+import re
 from pathlib import Path
 import tempfile
 import unittest
@@ -12,6 +13,38 @@ from rotary_melter.Reporting import export_result
 
 
 class ReportingStatusTests(unittest.TestCase):
+    def test_reference_catalogue_links_resolve_in_export(self):
+        temporary_root = PROJECT_ROOT / '.autodev'
+        temporary_root.mkdir(exist_ok=True)
+        catalogue = PROJECT_ROOT / 'docs/CALCULATION_EQUATIONS.md'
+        local_links = re.compile(r'\]\(((?:\.\./rotary_melter/|history/)[^)]+)\)')
+        references = local_links.findall(catalogue.read_text(encoding='utf-8'))
+        self.assertTrue(references)
+        expected = {
+            'source/' + (link[3:] if link.startswith('../') else 'docs/' + link)
+            for link in references
+        }
+        for frozen in (False, True):
+            with self.subTest(frozen=frozen), tempfile.TemporaryDirectory(dir=temporary_root) as directory:
+                def resources(name):
+                    if frozen and name != 'docs/CALCULATION_EQUATIONS.md':
+                        self.assertTrue(name.startswith('reference_sources/'))
+                        name = name.removeprefix('reference_sources/')
+                    return PROJECT_ROOT / name
+
+                with patch('sys.frozen', frozen, create=True), \
+                        patch('rotary_melter.Paths.resource_path', side_effect=resources):
+                    folder = export_result({}, directory)
+                report = (folder / 'RUN_REPORT.md').read_text(encoding='utf-8')
+                self.assertIn('](EQUATIONS.md)', report)
+                equations = (folder / 'EQUATIONS.md').read_text(encoding='utf-8')
+                self.assertFalse(local_links.search(equations))
+                self.assertEqual(set(re.findall(r'\]\((source/[^)]+)\)', equations)), expected)
+                for link in expected:
+                    path = link.split('#', 1)[0]
+                    self.assertEqual((folder / path).read_bytes(),
+                                     (PROJECT_ROOT / path.removeprefix('source/')).read_bytes())
+
     def test_reused_folder_clears_previous_history(self):
         temporary_root = PROJECT_ROOT / '.autodev'
         temporary_root.mkdir(exist_ok=True)

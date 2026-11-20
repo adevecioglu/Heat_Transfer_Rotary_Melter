@@ -1,5 +1,15 @@
 # Automatic releases
 
+## 3.0.23 — V11 denklem raporunun kaynak bağlantılarını çevrimdışı çalışır hale getir
+
+V11 dışa aktarımı, denklem kataloğunun başvurduğu Python ve JavaScript kaynaklarını ve araştırma notlarını rapor klasörüne kopyalıyor. Markdown koşu raporu, ekteki denklem kataloğuna doğrudan bağlantı veriyor.
+
+Base commit: `b146135f6a2a22d614c87a8d45a6f74dd23e9a38`. Local tag: `auto/v3.0.23`.
+
+Limitations:
+
+- Paketli kaynak erişimi testte benzetildi. Yeni bir masaüstü EXE paketi üretilip çalıştırılmadı.
+
 ## 3.0.22 — Modernize rotary melter panels and responsive navigation
 
 Light panels, clearer input states, responsive navigation and consistent browser version title; native and desktop workflow checks pass.
