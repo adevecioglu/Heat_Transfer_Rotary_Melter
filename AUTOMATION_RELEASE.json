@@ -1,21 +1,20 @@
 {
-  "version": "3.0.23",
-  "previous_version": "3.0.22",
-  "tag": "auto/v3.0.23",
+  "version": "3.0.24",
+  "previous_version": "3.0.23",
+  "tag": "auto/v3.0.24",
   "project": "Heat_Transfer_Rotary_Melter",
-  "base_commit": "b146135f6a2a22d614c87a8d45a6f74dd23e9a38",
+  "base_commit": "a0231abeddf02e85522a1bb49c204e3f4b6cf07c",
   "change_type": "patch",
-  "created_utc": "2026-11-20T00:47:11.270236+00:00",
+  "created_utc": "2026-11-20T05:44:53.668376+00:00",
   "existing_upgrade": false,
-  "title": "V11 denklem raporunun kaynak bağlantılarını çevrimdışı çalışır hale getir",
-  "summary": "V11 dışa aktarımı, denklem kataloğunun başvurduğu Python ve JavaScript kaynaklarını ve araştırma notlarını rapor klasörüne kopyalıyor. Markdown koşu raporu, ekteki denklem kataloğuna doğrudan bağlantı veriyor.",
+  "title": "C++ koşu raporundaki V11 denklem bağlantısını onar",
+  "summary": "C++ koşu dışa aktarımı, ana denklem kataloğunun bağlantı verdiği V11 kataloğunu ve kataloğun başvurduğu sekiz kaynak dosyasını rapor klasörüne ekliyor. C++ ve JavaScript dışa aktarımları aynı V11 ekleme kodunu kullanıyor.",
   "limitations": [
-    "Paketli kaynak erişimi testte benzetildi. Yeni bir masaüstü EXE paketi üretilip çalıştırılmadı."
+    "Paketli kaynak erişimi benzetildi. Yeni bir masaüstü EXE üretilip çalıştırılmadı.",
+    "Test dosyasına yazma erişimi reddedildiği için yeni bağlantı kontrolü tek seferlik bir doğrulama olarak çalıştırıldı."
   ],
   "changed_files": [
-    "rotary_melter/Reporting.py",
-    "tests/test_reporting.py",
-    "tools/BuildDesktop.py"
+    "rotary_melter/Reporting.py"
   ],
   "status": "verified",
   "checks": [
@@ -27,7 +26,7 @@
         "tools.BuildCpp"
       ],
       "returncode": 0,
-      "seconds": 0.95
+      "seconds": 0.97
     },
     {
       "passed": true,
@@ -37,7 +36,7 @@
         "tools.RunChecks"
       ],
       "returncode": 0,
-      "seconds": 22.91
+      "seconds": 23.48
     },
     {
       "passed": true,

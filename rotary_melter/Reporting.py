@@ -119,14 +119,23 @@ def export_result(result, folder):
             if sources.is_dir():
                 shutil.copytree(sources, folder / 'source/native', dirs_exist_ok=True)
             equations = equations.replace('(../native/', '(source/native/')
+            reference = resource_path('docs/CALCULATION_EQUATIONS.md')
+            if reference.is_file():
+                _export_reference_catalogue(reference.read_text(encoding='utf-8'),
+                                           folder / reference.name, resource_path, frozen)
+            (folder / 'EQUATIONS.md').write_text(equations, encoding='utf-8')
         else:
-            for relative in REFERENCE_EQUATION_FILES:
-                source = resource_path('reference_sources/' + relative if frozen else relative)
-                if source.is_file():
-                    destination = folder / 'source' / relative
-                    destination.parent.mkdir(parents=True, exist_ok=True)
-                    shutil.copyfile(source, destination)
-            equations = equations.replace('(../rotary_melter/', '(source/rotary_melter/')
-            equations = equations.replace('(history/', '(source/docs/history/')
-        (folder/'EQUATIONS.md').write_text(equations, encoding='utf-8')
+            _export_reference_catalogue(equations, folder / 'EQUATIONS.md', resource_path, frozen)
     return folder
+
+
+def _export_reference_catalogue(equations, destination, resource_path, frozen):
+    for relative in REFERENCE_EQUATION_FILES:
+        source = resource_path('reference_sources/' + relative if frozen else relative)
+        if source.is_file():
+            attachment = destination.parent / 'source' / relative
+            attachment.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copyfile(source, attachment)
+    equations = equations.replace('(../rotary_melter/', '(source/rotary_melter/')
+    equations = equations.replace('(history/', '(source/docs/history/')
+    destination.write_text(equations, encoding='utf-8')

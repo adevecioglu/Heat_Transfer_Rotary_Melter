@@ -1,5 +1,16 @@
 # Automatic releases
 
+## 3.0.24 — C++ koşu raporundaki V11 denklem bağlantısını onar
+
+C++ koşu dışa aktarımı, ana denklem kataloğunun bağlantı verdiği V11 kataloğunu ve kataloğun başvurduğu sekiz kaynak dosyasını rapor klasörüne ekliyor. C++ ve JavaScript dışa aktarımları aynı V11 ekleme kodunu kullanıyor.
+
+Base commit: `a0231abeddf02e85522a1bb49c204e3f4b6cf07c`. Local tag: `auto/v3.0.24`.
+
+Limitations:
+
+- Paketli kaynak erişimi benzetildi. Yeni bir masaüstü EXE üretilip çalıştırılmadı.
+- Test dosyasına yazma erişimi reddedildiği için yeni bağlantı kontrolü tek seferlik bir doğrulama olarak çalıştırıldı.
+
 ## 3.0.23 — V11 denklem raporunun kaynak bağlantılarını çevrimdışı çalışır hale getir
 
 V11 dışa aktarımı, denklem kataloğunun başvurduğu Python ve JavaScript kaynaklarını ve araştırma notlarını rapor klasörüne kopyalıyor. Markdown koşu raporu, ekteki denklem kataloğuna doğrudan bağlantı veriyor.
