@@ -1,4 +1,4 @@
-# Rotary Melter — C++ Engineering Workstation 3.0.27
+# Rotary Melter — C++ Engineering Workstation 3.0.28
 
 V11 / Desktop 2.2 temel alınarak geliştirilen döner eritici analiz programı. Ana ısıl hesap, parametre analizleri ve granül temas çözümleri **C++20** ile çalışır. Python masaüstü pencereyi, dosyaları ve C++ bağlantısını; JavaScript kullanıcı arayüzünü ve görselleştirmeyi yönetir.
 
@@ -112,6 +112,12 @@ outputs\native\bin\rotary_melter_cpp.exe --input config\default_inputs.json --ou
 EXE derlemek için `.venv\Scripts\python.exe -m pip install -r requirements-build.txt` ardından `.venv\Scripts\python.exe -m tools.BuildDesktop` kullanın. Orijinal sürümler `releases/original/` altında korunur. `.venv`, `.tools`, önbellekler, hesap çıktıları ve EXE arşivleri Git'e eklenmez.
 
 Doğrulama için `.venv\Scripts\python.exe -m tools.BuildDesktop --dist-dir .autodev/package-check/dist` komutuyla EXE'yi ayrı bir klasöre derleyebilirsiniz. Varsayılan EXE hedefi `releases/current` dizinidir.
+
+```powershell
+.venv\Scripts\python.exe -m tools.VerifyDesktopPackage .autodev/package-check/dist/Rotary_Melter_Cpp.exe
+```
+
+Bu isteğe bağlı denetim, paketli EXE ile başsız bir C++ hesabı yapar. Markdown raporunun denklem kataloğuna bağlantısını, iki katalogdaki yerel bağlantıları ve kaynak eklerini mevcut çalışma ağacıyla karşılaştırır. Manifestte ve raporda yazan SHA-256 değerlerini sonuç dosyasının baytlarından doğrular. Her denetimin çıktısı ayrı bir `.autodev/verify-desktop-*` klasöründe saklanır. Uyuşmazlıkta komut sıfırdan farklı çıkış kodu döndürür.
 
 Enerji korunumu ve eski kodla sayısal uyum, gerçek ekipmanın erime süresini doğrulamaz. Malzeme özellikleri ile temas/devir katsayıları ölçümle kalibre edilmelidir; 3B görünüm bir CFD çözümü değildir.
 ## Açık çalışma alanı

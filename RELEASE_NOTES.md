@@ -1,5 +1,15 @@
 # Automatic releases
 
+## 3.0.28 — Paketli EXE için başsız rapor doğrulaması
+
+Önceki döngüde elle yapılan paket denetimi, README’de belgelenen isteğe bağlı `tools.VerifyDesktopPackage` komutuna dönüştürüldü. Komut, EXE ile başsız bir C++ hesabı çalıştırıyor ve her denetimin çıktılarını ayrı bir `.autodev` klasöründe saklıyor.
+
+Base commit: `927be8a5999515a0bd19ea629b5296f082302f0a`. Local tag: `auto/v3.0.28`.
+
+Limitations:
+
+- EXE doğrulaması CPU paketinin başsız C++ rapor aktarımını kapsadı. GPU paketi ve masaüstü arayüzü bu döngüde sınanmadı.
+
 ## 3.0.27 — Masaüstü EXE’si için ayrı doğrulama hedefi
 
 tools.BuildDesktop komutuna --dist-dir seçeneği eklendi ve kullanımı README’de belgelendi. Doğrulama EXE’si bu seçenekle .autodev altında üretildi.

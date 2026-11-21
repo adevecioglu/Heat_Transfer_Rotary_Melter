@@ -1,21 +1,20 @@
 {
-  "version": "3.0.27",
-  "previous_version": "3.0.26",
-  "tag": "auto/v3.0.27",
+  "version": "3.0.28",
+  "previous_version": "3.0.27",
+  "tag": "auto/v3.0.28",
   "project": "Heat_Transfer_Rotary_Melter",
-  "base_commit": "39e73bf9477bf9052f34e081d12ec707c90a5408",
+  "base_commit": "927be8a5999515a0bd19ea629b5296f082302f0a",
   "change_type": "patch",
-  "created_utc": "2026-11-21T06:46:12.350294+00:00",
+  "created_utc": "2026-11-21T11:46:34.861443+00:00",
   "existing_upgrade": false,
-  "title": "Masaüstü EXE’si için ayrı doğrulama hedefi",
-  "summary": "tools.BuildDesktop komutuna --dist-dir seçeneği eklendi ve kullanımı README’de belgelendi. Doğrulama EXE’si bu seçenekle .autodev altında üretildi.",
+  "title": "Paketli EXE için başsız rapor doğrulaması",
+  "summary": "Önceki döngüde elle yapılan paket denetimi, README’de belgelenen isteğe bağlı `tools.VerifyDesktopPackage` komutuna dönüştürüldü. Komut, EXE ile başsız bir C++ hesabı çalıştırıyor ve her denetimin çıktılarını ayrı bir `.autodev` klasöründe saklıyor.",
   "limitations": [
-    "Gerçek EXE doğrulaması CPU paketinin başsız rapor dışa aktarımını kapsadı. GPU paketi ve masaüstü arayüzü bu döngüde sınanmadı.",
-    "İlk derleme çağrısı PowerShell günlük yönlendirmesiyle çıkış kodu 1 bildirdi. Üretilen EXE başarıyla çalıştı ve derleme komutu Python üzerinden tekrarlandığında çıkış kodu 0 döndü."
+    "EXE doğrulaması CPU paketinin başsız C++ rapor aktarımını kapsadı. GPU paketi ve masaüstü arayüzü bu döngüde sınanmadı."
   ],
   "changed_files": [
     "README.md",
-    "tools/BuildDesktop.py"
+    "tools/VerifyDesktopPackage.py"
   ],
   "status": "verified",
   "checks": [
@@ -27,7 +26,7 @@
         "tools.BuildCpp"
       ],
       "returncode": 0,
-      "seconds": 1.05
+      "seconds": 0.97
     },
     {
       "passed": true,
@@ -37,7 +36,7 @@
         "tools.RunChecks"
       ],
       "returncode": 0,
-      "seconds": 23.64
+      "seconds": 23.86
     },
     {
       "passed": true,
