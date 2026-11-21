@@ -10,7 +10,7 @@ from rotary_melter.Paths import PROJECT_ROOT, REFERENCE_DIR, OUTPUTS_DIR
 from rotary_melter.Reporting import REFERENCE_EQUATION_FILES
 
 
-def main(with_gpu=False):
+def main(with_gpu=False, *, dist_dir=None):
     from .BuildCpp import build
     native=build()
     interface = build_interface()
@@ -19,8 +19,9 @@ def main(with_gpu=False):
     name='Rotary_Melter_Cpp_GPU' if with_gpu else 'Rotary_Melter_Cpp'
     recording=OUTPUTS_DIR/'reference'/'motion_cpp_record.npz'
     if not recording.exists():recording=REFERENCE_DIR/'motion_v18_record.npz'
+    dist_path = dist_dir.resolve() if dist_dir is not None else PROJECT_ROOT / 'releases' / 'current'
     command = [sys.executable, '-m', 'PyInstaller', '--noconfirm', '--onefile', '--windowed',
-               '--name', name, '--distpath', str(PROJECT_ROOT / 'releases' / 'current'),
+               '--name', name, '--distpath', str(dist_path),
                '--workpath', str(work / 'work'), '--specpath', str(work),
                '--add-data', str(interface)+';.',
                '--add-data', str(recording)+';assets',
@@ -51,4 +52,6 @@ def main(with_gpu=False):
 if __name__ == '__main__':
     parser=argparse.ArgumentParser()
     parser.add_argument('--with-gpu',action='store_true')
-    raise SystemExit(main(parser.parse_args().with_gpu))
+    parser.add_argument('--dist-dir', type=Path, help='EXE output directory (default: releases/current)')
+    args = parser.parse_args()
+    raise SystemExit(main(args.with_gpu, dist_dir=args.dist_dir))

@@ -1,5 +1,16 @@
 # Automatic releases
 
+## 3.0.27 — Masaüstü EXE’si için ayrı doğrulama hedefi
+
+tools.BuildDesktop komutuna --dist-dir seçeneği eklendi ve kullanımı README’de belgelendi. Doğrulama EXE’si bu seçenekle .autodev altında üretildi.
+
+Base commit: `39e73bf9477bf9052f34e081d12ec707c90a5408`. Local tag: `auto/v3.0.27`.
+
+Limitations:
+
+- Gerçek EXE doğrulaması CPU paketinin başsız rapor dışa aktarımını kapsadı. GPU paketi ve masaüstü arayüzü bu döngüde sınanmadı.
+- İlk derleme çağrısı PowerShell günlük yönlendirmesiyle çıkış kodu 1 bildirdi. Üretilen EXE başarıyla çalıştı ve derleme komutu Python üzerinden tekrarlandığında çıkış kodu 0 döndü.
+
 ## 3.0.26 — Paketli C++ raporunun denklem ekleri için regresyon testi
 
 Yeni test, paket kaynak düzenini proje içinde taklit ederek C++ koşu raporundan ana denklem kataloğuna, V11 kataloğuna ve iki katalogdaki kaynak dosyalarına giden bağlantıları doğruluyor. Dışa aktarılan kaynak kopyalarını asıllarıyla bayt düzeyinde karşılaştırıyor.
