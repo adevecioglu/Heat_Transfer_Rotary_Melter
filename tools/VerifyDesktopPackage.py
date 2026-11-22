@@ -1,12 +1,14 @@
 """Run a packaged EXE headlessly and verify the exported report bundle."""
 
 import argparse
+import csv
 import hashlib
 import json
 import re
 import subprocess
 import tempfile
 from collections import Counter
+from itertools import zip_longest
 from pathlib import Path, PurePosixPath
 
 from rotary_melter.Paths import PROJECT_ROOT
@@ -47,6 +49,32 @@ def verify_catalogue(folder, exported_name, original_name):
     return sum(expected_links.values()), len(attachments)
 
 
+def verify_history(folder, samples):
+    path = folder / "history.csv"
+    if not samples:
+        if path.exists() and path.stat().st_size:
+            raise ValueError("history.csv contains data for a run without samples")
+        return
+
+    columns = list(dict.fromkeys(key for sample in samples for key in sample))
+    with path.open(encoding="utf-8-sig", newline="") as stream:
+        rows = csv.reader(stream, strict=True)
+        if next(rows, None) != columns:
+            raise ValueError("history.csv headers differ from result.json")
+        for index, (row, sample) in enumerate(zip_longest(rows, samples), start=1):
+            if row is None or sample is None:
+                raise ValueError("history.csv sample count differs from result.json")
+            expected = []
+            for column in columns:
+                value = sample.get(column, "")
+                if isinstance(value, (list, dict)):
+                    value = json.dumps(value, ensure_ascii=False)
+                expected.append("" if value is None else str(value))
+            if row != expected:
+                raise ValueError(f"history.csv sample {index} differs from result.json")
+    print(f"history.csv: {len(samples)} matching samples, {len(columns)} columns")
+
+
 def verify_report(folder):
     report = folder / "RUN_REPORT.md"
     if "EQUATIONS.md" not in local_links(report):
@@ -56,11 +84,14 @@ def verify_report(folder):
     if (not isinstance(manifest, dict) or manifest.get("engine") != "Rotary Melter C++"
             or manifest.get("cancelled") is not False):
         raise ValueError("Manifest does not describe a completed C++ run")
-    digest = hashlib.sha256((folder / "result.json").read_bytes()).hexdigest()
+    payload = (folder / "result.json").read_bytes()
+    digest = hashlib.sha256(payload).hexdigest()
     if manifest.get("resultSha256") != digest:
         raise ValueError("Manifest SHA-256 differs from result.json")
     if f"- Result JSON SHA-256: `{digest}`" not in report.read_text(encoding="utf-8").splitlines():
         raise ValueError("RUN_REPORT.md SHA-256 differs from result.json")
+
+    verify_history(folder, json.loads(payload).get("hist", []))
 
     for exported, original in (("EQUATIONS.md", "CPP_CALCULATION_EQUATIONS.md"),
                                (REFERENCE, REFERENCE)):
@@ -86,7 +117,7 @@ def main(argv=None):
                        check=True, timeout=120,
                        creationflags=getattr(subprocess, "CREATE_NO_WINDOW", 0))
         verify_report(folder)
-    except (OSError, ValueError, subprocess.SubprocessError) as error:
+    except (OSError, ValueError, csv.Error, subprocess.SubprocessError) as error:
         parser.exit(1, f"Package verification failed: {error}\n")
     return 0
 

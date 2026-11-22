@@ -1,5 +1,15 @@
 # Automatic releases
 
+## 3.0.29 — Paketli EXE çıktısında zaman serisi doğrulaması
+
+`tools.VerifyDesktopPackage` artık `history.csv` dosyasının sütun başlıklarını, örnek sayısını, satır sırasını ve hücre değerlerini `result.json` içindeki zaman serisiyle karşılaştırıyor. Denetim README’de belgelendi.
+
+Base commit: `6244f6857dd2ec12f46161966267850180a1fd10`. Local tag: `auto/v3.0.29`.
+
+Limitations:
+
+- Paket doğrulaması mevcut CPU EXE’sinin başsız çalıştırmasını kapsadı. GPU paketi ve masaüstü arayüzü sınanmadı.
+
 ## 3.0.28 — Paketli EXE için başsız rapor doğrulaması
 
 Önceki döngüde elle yapılan paket denetimi, README’de belgelenen isteğe bağlı `tools.VerifyDesktopPackage` komutuna dönüştürüldü. Komut, EXE ile başsız bir C++ hesabı çalıştırıyor ve her denetimin çıktılarını ayrı bir `.autodev` klasöründe saklıyor.

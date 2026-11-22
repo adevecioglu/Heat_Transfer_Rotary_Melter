@@ -1,19 +1,20 @@
 {
-  "version": "3.0.28",
-  "previous_version": "3.0.27",
-  "tag": "auto/v3.0.28",
+  "version": "3.0.29",
+  "previous_version": "3.0.28",
+  "tag": "auto/v3.0.29",
   "project": "Heat_Transfer_Rotary_Melter",
-  "base_commit": "927be8a5999515a0bd19ea629b5296f082302f0a",
+  "base_commit": "6244f6857dd2ec12f46161966267850180a1fd10",
   "change_type": "patch",
-  "created_utc": "2026-11-21T11:46:34.861443+00:00",
+  "created_utc": "2026-11-22T02:46:05.940854+00:00",
   "existing_upgrade": false,
-  "title": "Paketli EXE için başsız rapor doğrulaması",
-  "summary": "Önceki döngüde elle yapılan paket denetimi, README’de belgelenen isteğe bağlı `tools.VerifyDesktopPackage` komutuna dönüştürüldü. Komut, EXE ile başsız bir C++ hesabı çalıştırıyor ve her denetimin çıktılarını ayrı bir `.autodev` klasöründe saklıyor.",
+  "title": "Paketli EXE çıktısında zaman serisi doğrulaması",
+  "summary": "`tools.VerifyDesktopPackage` artık `history.csv` dosyasının sütun başlıklarını, örnek sayısını, satır sırasını ve hücre değerlerini `result.json` içindeki zaman serisiyle karşılaştırıyor. Denetim README’de belgelendi.",
   "limitations": [
-    "EXE doğrulaması CPU paketinin başsız C++ rapor aktarımını kapsadı. GPU paketi ve masaüstü arayüzü bu döngüde sınanmadı."
+    "Paket doğrulaması mevcut CPU EXE’sinin başsız çalıştırmasını kapsadı. GPU paketi ve masaüstü arayüzü sınanmadı."
   ],
   "changed_files": [
     "README.md",
+    "tests/test_packaged_reporting.py",
     "tools/VerifyDesktopPackage.py"
   ],
   "status": "verified",
@@ -26,7 +27,7 @@
         "tools.BuildCpp"
       ],
       "returncode": 0,
-      "seconds": 0.97
+      "seconds": 0.95
     },
     {
       "passed": true,
@@ -36,7 +37,7 @@
         "tools.RunChecks"
       ],
       "returncode": 0,
-      "seconds": 23.86
+      "seconds": 23.36
     },
     {
       "passed": true,

@@ -10,6 +10,7 @@ from unittest.mock import patch
 
 from rotary_melter.Paths import PROJECT_ROOT
 from rotary_melter.Reporting import export_result
+from tools.VerifyDesktopPackage import verify_report
 
 
 class PackagedReportingTests(unittest.TestCase):
@@ -45,7 +46,11 @@ class PackagedReportingTests(unittest.TestCase):
 
             with patch.object(sys, 'frozen', True, create=True), \
                     patch.object(sys, '_MEIPASS', str(resources), create=True):
-                folder = export_result({'engine': {'name': 'Rotary Melter C++'}}, root / 'run')
+                folder = export_result({
+                    'engine': {'name': 'Rotary Melter C++'},
+                    'hist': [{'t': 0, 'coreC': 25, 'radialC': [25, 25]},
+                             {'t': 1, 'coreC': 26, 'label': 'ölçüm, 2'}],
+                }, root / 'run')
 
             report = (folder / 'RUN_REPORT.md').read_text(encoding='utf-8')
             self.assertIn('](EQUATIONS.md)', report)
@@ -60,3 +65,15 @@ class PackagedReportingTests(unittest.TestCase):
                         path = link.split('#', 1)[0]
                         self.assertEqual((folder / path).read_bytes(),
                                          (PROJECT_ROOT / path.removeprefix('source/')).read_bytes(), path)
+
+            verify_report(folder)
+            history = folder / 'history.csv'
+            original = history.read_bytes()
+            header, first, second, end = original.split(b'\r\n')
+            for rows in ((header, first, end), (header, second, first, end),
+                         (header, first, second.replace(b'1,26,', b'1,27,'), end),
+                         (header.replace(b'coreC', b'wrong'), first, second, end)):
+                with self.subTest(rows=rows):
+                    history.write_bytes(b'\r\n'.join(rows))
+                    with self.assertRaisesRegex(ValueError, 'history.csv'):
+                        verify_report(folder)
