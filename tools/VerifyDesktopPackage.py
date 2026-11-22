@@ -26,6 +26,7 @@ def local_links(document):
 def verify_catalogue(folder, exported_name, original_name):
     original = PROJECT_ROOT / "docs" / original_name
     expected_links = Counter()
+    relocated_targets = {}
     attachments = set()
     for target in local_links(original):
         path, separator, anchor = target.partition("#")
@@ -35,7 +36,9 @@ def verify_catalogue(folder, exported_name, original_name):
         source = (original.parent / path).resolve()
         relative = source.relative_to(PROJECT_ROOT)
         attachment = PurePosixPath("source", relative.as_posix())
-        expected_links[attachment.as_posix() + separator + anchor] += 1
+        relocated = attachment.as_posix() + separator + anchor
+        relocated_targets[target] = relocated
+        expected_links[relocated] += 1
         attachments.add(relative)
 
     actual_links = Counter(local_links(folder / exported_name))
@@ -43,6 +46,12 @@ def verify_catalogue(folder, exported_name, original_name):
         raise ValueError(f"{exported_name} link mismatch. Missing: "
                          f"{dict(expected_links - actual_links)}. Unexpected: "
                          f"{dict(actual_links - expected_links)}")
+    expected_text = LINK.sub(
+        lambda match: f"]({relocated_targets.get(match[1], match[1])})",
+        original.read_text(encoding="utf-8"),
+    )
+    if (folder / exported_name).read_text(encoding="utf-8") != expected_text:
+        raise ValueError(f"{exported_name} catalogue content differs from checkout")
     for relative in sorted(attachments):
         if (folder / "source" / relative).read_bytes() != (PROJECT_ROOT / relative).read_bytes():
             raise ValueError(f"Source attachment differs from checkout: {relative}")

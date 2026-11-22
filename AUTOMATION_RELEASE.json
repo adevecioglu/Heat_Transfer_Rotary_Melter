@@ -1,14 +1,14 @@
 {
-  "version": "3.0.29",
-  "previous_version": "3.0.28",
-  "tag": "auto/v3.0.29",
+  "version": "3.0.30",
+  "previous_version": "3.0.29",
+  "tag": "auto/v3.0.30",
   "project": "Heat_Transfer_Rotary_Melter",
-  "base_commit": "6244f6857dd2ec12f46161966267850180a1fd10",
+  "base_commit": "7966a2cd6a181ea861403777dc4108dedbb47a6c",
   "change_type": "patch",
-  "created_utc": "2026-11-22T02:46:05.940854+00:00",
+  "created_utc": "2026-11-22T07:43:59.247047+00:00",
   "existing_upgrade": false,
-  "title": "Paketli EXE çıktısında zaman serisi doğrulaması",
-  "summary": "`tools.VerifyDesktopPackage` artık `history.csv` dosyasının sütun başlıklarını, örnek sayısını, satır sırasını ve hücre değerlerini `result.json` içindeki zaman serisiyle karşılaştırıyor. Denetim README’de belgelendi.",
+  "title": "Paketli EXE raporlarında denklem kataloğu metin denetimi",
+  "summary": "`tools.VerifyDesktopPackage`, dışa aktarılan iki denklem kataloğunun tam metnini çalışma ağacındaki karşılıklarıyla karşılaştırıyor. Karşılaştırma yerel kaynak bağlantılarını rapor klasörüne göre uyarlıyor ve satır sonlarını eşitliyor. Denetim README’de belgelendi.",
   "limitations": [
     "Paket doğrulaması mevcut CPU EXE’sinin başsız çalıştırmasını kapsadı. GPU paketi ve masaüstü arayüzü sınanmadı."
   ],
@@ -27,7 +27,7 @@
         "tools.BuildCpp"
       ],
       "returncode": 0,
-      "seconds": 0.95
+      "seconds": 0.92
     },
     {
       "passed": true,
@@ -37,7 +37,7 @@
         "tools.RunChecks"
       ],
       "returncode": 0,
-      "seconds": 23.36
+      "seconds": 23.59
     },
     {
       "passed": true,
@@ -48,7 +48,7 @@
         "--check"
       ],
       "returncode": 0,
-      "seconds": 0.09
+      "seconds": 0.06
     }
   ]
 }

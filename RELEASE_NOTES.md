@@ -1,5 +1,15 @@
 # Automatic releases
 
+## 3.0.30 — Paketli EXE raporlarında denklem kataloğu metin denetimi
+
+`tools.VerifyDesktopPackage`, dışa aktarılan iki denklem kataloğunun tam metnini çalışma ağacındaki karşılıklarıyla karşılaştırıyor. Karşılaştırma yerel kaynak bağlantılarını rapor klasörüne göre uyarlıyor ve satır sonlarını eşitliyor. Denetim README’de belgelendi.
+
+Base commit: `7966a2cd6a181ea861403777dc4108dedbb47a6c`. Local tag: `auto/v3.0.30`.
+
+Limitations:
+
+- Paket doğrulaması mevcut CPU EXE’sinin başsız çalıştırmasını kapsadı. GPU paketi ve masaüstü arayüzü sınanmadı.
+
 ## 3.0.29 — Paketli EXE çıktısında zaman serisi doğrulaması
 
 `tools.VerifyDesktopPackage` artık `history.csv` dosyasının sütun başlıklarını, örnek sayısını, satır sırasını ve hücre değerlerini `result.json` içindeki zaman serisiyle karşılaştırıyor. Denetim README’de belgelendi.

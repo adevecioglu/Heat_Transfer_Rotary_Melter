@@ -67,6 +67,16 @@ class PackagedReportingTests(unittest.TestCase):
                                          (PROJECT_ROOT / path.removeprefix('source/')).read_bytes(), path)
 
             verify_report(folder)
+            for output_name in catalogues:
+                with self.subTest(altered_catalogue=output_name):
+                    path = folder / output_name
+                    original_bytes = path.read_bytes()
+                    path.write_bytes(original_bytes + b'\nUnexpected equation text.\n')
+                    try:
+                        with self.assertRaisesRegex(ValueError, 'catalogue content'):
+                            verify_report(folder)
+                    finally:
+                        path.write_bytes(original_bytes)
             history = folder / 'history.csv'
             original = history.read_bytes()
             header, first, second, end = original.split(b'\r\n')
