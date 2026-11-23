@@ -1,17 +1,16 @@
 {
-  "version": "3.0.31",
-  "previous_version": "3.0.30",
-  "tag": "auto/v3.0.31",
+  "version": "3.0.32",
+  "previous_version": "3.0.31",
+  "tag": "auto/v3.0.32",
   "project": "Heat_Transfer_Rotary_Melter",
-  "base_commit": "4a19e33418eca59eee12e1431ed59edb1b0f4579",
+  "base_commit": "af04647189f2816931b00c57a7cd1e1d9b13dc7e",
   "change_type": "patch",
-  "created_utc": "2026-11-23T20:18:05.375814+00:00",
+  "created_utc": "2026-11-23T23:39:41.583573+00:00",
   "existing_upgrade": false,
-  "title": "Başlatılamayan proje denetimleri raporlanıyor",
-  "summary": "`tools.RunChecks`, bir alt süreç başlatılamadığında hatayı ilgili denetim günlüğüne yazıyor, kalan denetimlere devam ediyor ve sonuç raporunu kaydederek 1 çıkış kodu döndürüyor.",
+  "title": "Node.js yolu bulunamadığında denetim raporu kaydediliyor",
+  "summary": "`tools.RunChecks`, Node.js yürütülebilir dosyasının yolunu belirleyemediğinde her JavaScript denetimini gerekçesiyle başarısız olarak kaydediyor. Python ve C++ denetimlerine devam ediyor, `results.json` dosyasını yazıyor ve 1 çıkış kodu döndürüyor.",
   "limitations": [
-    "Düzeltme, alt süreç başlatılırken oluşan işletim sistemi hatalarını kapsıyor. Node.js yolu belirlenirken oluşan hata bu kapsamın dışında.",
-    "`tools/VerifyDesktopPackage.py` dosyasına yazma erişimi yine reddedildi. Paket özeti doğrulaması bekliyor ve paketli EXE bu döngüde çalıştırılmadı."
+    "Boş `summary.json` dosyasının mevcut paket doğrulayıcı tarafından kabul edildiği yeniden üretildi. `tools/VerifyDesktopPackage.py` dosyasına yazma girişimi reddedildi. Paket özeti doğrulaması bekliyor ve paketli EXE bu döngüde çalıştırılmadı."
   ],
   "changed_files": [
     "tools/RunChecks.py"
@@ -26,7 +25,7 @@
         "tools.BuildCpp"
       ],
       "returncode": 0,
-      "seconds": 0.92
+      "seconds": 0.94
     },
     {
       "passed": true,
@@ -36,7 +35,7 @@
         "tools.RunChecks"
       ],
       "returncode": 0,
-      "seconds": 23.23
+      "seconds": 23.11
     },
     {
       "passed": true,

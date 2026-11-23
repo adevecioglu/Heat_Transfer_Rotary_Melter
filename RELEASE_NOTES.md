@@ -1,5 +1,15 @@
 # Automatic releases
 
+## 3.0.32 — Node.js yolu bulunamadığında denetim raporu kaydediliyor
+
+`tools.RunChecks`, Node.js yürütülebilir dosyasının yolunu belirleyemediğinde her JavaScript denetimini gerekçesiyle başarısız olarak kaydediyor. Python ve C++ denetimlerine devam ediyor, `results.json` dosyasını yazıyor ve 1 çıkış kodu döndürüyor.
+
+Base commit: `af04647189f2816931b00c57a7cd1e1d9b13dc7e`. Local tag: `auto/v3.0.32`.
+
+Limitations:
+
+- Boş `summary.json` dosyasının mevcut paket doğrulayıcı tarafından kabul edildiği yeniden üretildi. `tools/VerifyDesktopPackage.py` dosyasına yazma girişimi reddedildi. Paket özeti doğrulaması bekliyor ve paketli EXE bu döngüde çalıştırılmadı.
+
 ## 3.0.31 — Başlatılamayan proje denetimleri raporlanıyor
 
 `tools.RunChecks`, bir alt süreç başlatılamadığında hatayı ilgili denetim günlüğüne yazıyor, kalan denetimlere devam ediyor ve sonuç raporunu kaydederek 1 çıkış kodu döndürüyor.

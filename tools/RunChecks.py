@@ -18,7 +18,16 @@ def main():
     env = dict(os.environ, PYTHONUTF8='1', PYTHONIOENCODING='utf-8',
                TEMP=str(output), TMP=str(output), PYTHONPATH=str(PROJECT_ROOT))
     tasks = [('python_workflow', [sys.executable, '-m', 'unittest', 'discover', '-s', str(PROJECT_ROOT/'tests'), '-v'])]
-    tasks += [(test.stem, [node_executable(), str(test)]) for test in sorted((PROJECT_ROOT/'tests'/'javascript').glob('test_*.js'))]
+    javascript_tests = sorted((PROJECT_ROOT/'tests'/'javascript').glob('test_*.js'))
+    node = None
+    node_error = None
+    if javascript_tests:
+        try:
+            node = node_executable()
+        except (OSError, RuntimeError) as error:
+            node_error = str(error)
+    tasks += [(test.stem, [node, str(test)] if node is not None else None)
+              for test in javascript_tests]
     if not args.skip_native:
         tasks += [('native_contacts', [sys.executable, '-m', 'tests.native_motion_checks'])]
     if args.desktop:
@@ -26,6 +35,8 @@ def main():
     results = []
     for name, command in tasks:
         try:
+            if command is None:
+                raise FileNotFoundError(f'Could not resolve Node.js: {node_error}')
             result = subprocess.run(command, cwd=output, env=env, capture_output=True, text=True,
                                     encoding='utf-8', timeout=420)
             text = result.stdout+'\n'+result.stderr
