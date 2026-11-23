@@ -1,21 +1,20 @@
 {
-  "version": "3.0.30",
-  "previous_version": "3.0.29",
-  "tag": "auto/v3.0.30",
+  "version": "3.0.31",
+  "previous_version": "3.0.30",
+  "tag": "auto/v3.0.31",
   "project": "Heat_Transfer_Rotary_Melter",
-  "base_commit": "7966a2cd6a181ea861403777dc4108dedbb47a6c",
+  "base_commit": "4a19e33418eca59eee12e1431ed59edb1b0f4579",
   "change_type": "patch",
-  "created_utc": "2026-11-22T07:43:59.247047+00:00",
+  "created_utc": "2026-11-23T20:18:05.375814+00:00",
   "existing_upgrade": false,
-  "title": "Paketli EXE raporlarında denklem kataloğu metin denetimi",
-  "summary": "`tools.VerifyDesktopPackage`, dışa aktarılan iki denklem kataloğunun tam metnini çalışma ağacındaki karşılıklarıyla karşılaştırıyor. Karşılaştırma yerel kaynak bağlantılarını rapor klasörüne göre uyarlıyor ve satır sonlarını eşitliyor. Denetim README’de belgelendi.",
+  "title": "Başlatılamayan proje denetimleri raporlanıyor",
+  "summary": "`tools.RunChecks`, bir alt süreç başlatılamadığında hatayı ilgili denetim günlüğüne yazıyor, kalan denetimlere devam ediyor ve sonuç raporunu kaydederek 1 çıkış kodu döndürüyor.",
   "limitations": [
-    "Paket doğrulaması mevcut CPU EXE’sinin başsız çalıştırmasını kapsadı. GPU paketi ve masaüstü arayüzü sınanmadı."
+    "Düzeltme, alt süreç başlatılırken oluşan işletim sistemi hatalarını kapsıyor. Node.js yolu belirlenirken oluşan hata bu kapsamın dışında.",
+    "`tools/VerifyDesktopPackage.py` dosyasına yazma erişimi yine reddedildi. Paket özeti doğrulaması bekliyor ve paketli EXE bu döngüde çalıştırılmadı."
   ],
   "changed_files": [
-    "README.md",
-    "tests/test_packaged_reporting.py",
-    "tools/VerifyDesktopPackage.py"
+    "tools/RunChecks.py"
   ],
   "status": "verified",
   "checks": [
@@ -37,7 +36,7 @@
         "tools.RunChecks"
       ],
       "returncode": 0,
-      "seconds": 23.59
+      "seconds": 23.23
     },
     {
       "passed": true,
@@ -48,7 +47,7 @@
         "--check"
       ],
       "returncode": 0,
-      "seconds": 0.06
+      "seconds": 0.08
     }
   ]
 }

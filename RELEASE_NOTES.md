@@ -1,5 +1,16 @@
 # Automatic releases
 
+## 3.0.31 — Başlatılamayan proje denetimleri raporlanıyor
+
+`tools.RunChecks`, bir alt süreç başlatılamadığında hatayı ilgili denetim günlüğüne yazıyor, kalan denetimlere devam ediyor ve sonuç raporunu kaydederek 1 çıkış kodu döndürüyor.
+
+Base commit: `4a19e33418eca59eee12e1431ed59edb1b0f4579`. Local tag: `auto/v3.0.31`.
+
+Limitations:
+
+- Düzeltme, alt süreç başlatılırken oluşan işletim sistemi hatalarını kapsıyor. Node.js yolu belirlenirken oluşan hata bu kapsamın dışında.
+- `tools/VerifyDesktopPackage.py` dosyasına yazma erişimi yine reddedildi. Paket özeti doğrulaması bekliyor ve paketli EXE bu döngüde çalıştırılmadı.
+
 ## 3.0.30 — Paketli EXE raporlarında denklem kataloğu metin denetimi
 
 `tools.VerifyDesktopPackage`, dışa aktarılan iki denklem kataloğunun tam metnini çalışma ağacındaki karşılıklarıyla karşılaştırıyor. Karşılaştırma yerel kaynak bağlantılarını rapor klasörüne göre uyarlıyor ve satır sonlarını eşitliyor. Denetim README’de belgelendi.

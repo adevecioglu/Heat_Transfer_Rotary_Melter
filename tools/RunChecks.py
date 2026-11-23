@@ -33,6 +33,9 @@ def main():
         except subprocess.TimeoutExpired:
             text = 'Timed out after 420 seconds.'
             passed = False
+        except OSError as error:
+            text = f'Could not start check: {error}'
+            passed = False
         (output / (name+'.log')).write_text(text, encoding='utf-8')
         results.append({'name': name, 'passed': passed, 'log': name+'.log'})
         print(name+': '+('PASS' if passed else 'FAIL'), flush=True)
